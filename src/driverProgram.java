@@ -4,11 +4,6 @@ import java.time.LocalDateTime;
 public class driverProgram {
     public static void main(String[] args) {
 
-        //apa jaychou diu lei lou mou
-
-        //apa jaychou chibai kia 
-        //sohai kia 
-
         FoodType noodle = new FoodType("Noodle");
         Food[] food = new Food[100];
         food[0] = new Food("Spaghetti", noodle, 3.90);
