@@ -25,7 +25,7 @@ public class driverProgram_EngLip {
           then get index number of food, then pass to order*/ 
         //pass food, order date, order time 
         int i=0,j=0;
-        FoodOrder order=new FoodOrder(foodType[i].getFood(j), 1, 2020, 11, 11, 13, 15);
+        FoodOrder order=new FoodOrder(foodType[i].getFood(j), 2, 2020, 11, 11, 13, 15);
         System.out.println(order.toString());
 
     }

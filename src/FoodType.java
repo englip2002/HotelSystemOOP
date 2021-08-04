@@ -4,8 +4,9 @@ public class FoodType {
     private Food[] foods = new Food[LIMIT];
     private static int amountOfFood = 0;
 
-    public FoodType(String typeName, Food[] food) {
+    public FoodType(String typeName, Food[] foods) {
         this.typeName = typeName;
+        this.foods=foods;
         amountOfFood++;
     }
 

@@ -10,12 +10,14 @@ public class Food {
     public Food() {
     };
 
+
+    public double getPrice(){
+        return price;
+    }
+
     public String toString() {
         return String.format("%s %s", foodName,price);
         //String.format("Food Name: %-10s\nFood Type: %-10s\nPrice: %-.2lf\n", foodName, foodType, price);
     }
 
-    public double getPrice(){
-        return price;
-    }
 }
