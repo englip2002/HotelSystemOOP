@@ -1,9 +1,10 @@
-
 public class FoodType {
+    final int LIMIT = 100;
     private String typeName;
+    private Food[] foods = new Food[LIMIT];
     private static int amountOfFood = 0;
 
-    public FoodType(String typeName) {
+    public FoodType(String typeName, Food[] food) {
         this.typeName = typeName;
         amountOfFood++;
     }
@@ -11,6 +12,10 @@ public class FoodType {
     public FoodType() {
         amountOfFood++;
     };
+
+    public Food getFood(int i){
+        return foods[i];
+    }
 
     public String getTypeName() {
         return typeName;
@@ -20,8 +25,8 @@ public class FoodType {
         return amountOfFood;
     }
 
-    public String toString(){
-        return String.format("%s %d", typeName,amountOfFood);
+    public String toString() {
+        return String.format("%s %d", typeName, amountOfFood);
     }
 
 }
