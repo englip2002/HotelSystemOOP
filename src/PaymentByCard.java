@@ -1,6 +1,7 @@
 public class PaymentByCard {
     private static String paymentType = "Card";
     private String cardNumber;
+    private static double chargePercentage = 0.01;
     private Bank bank;
     private int cvv;
     private String cardType;
@@ -21,7 +22,15 @@ public class PaymentByCard {
             cardType = "MasterCard";
     }
 
-    public String toString(){
+    public double calculateCharge(){
+        //return subtotal*chargePercentage;   
+    }
+
+    public void addCharge(){
+
+    }
+
+    public String generateReciepe(){
         return String.format("%s %s %s %d %s", paymentType,cardNumber,bank,cvv,cardType);
     }
 }
