@@ -1,6 +1,6 @@
 public class Bank {
     private String bankName;
-    private String pacNumber;
+    private String otpNumber;
 
     //----------------Constructors-------------------
     public Bank(String bankName){
@@ -12,8 +12,8 @@ public class Bank {
         return bankName;
     }
 
-    public String getPacNumber() {
-        return pacNumber;
+    public String getOtpNumber() {
+        return otpNumber;
     }
 
     //-------------------Setters----------------------
@@ -21,17 +21,17 @@ public class Bank {
         this.bankName = bankName;
     }
 
-    public void setPacNumber(String pacNumber) {
-        this.pacNumber = pacNumber;
+    public void setOTPNumber(String pacNumber) {
+        this.otpNumber = pacNumber;
     }
 
     //--------------------Methods----------------------
-    public void generatePACNumber() {
+    public void generateOTPNumber() {
         int random = (int)(Math.random() * 999999);
-        this.pacNumber = String.format("%06d", random);
+        this.otpNumber = String.format("%06d", random);
     }
 
-    public boolean validatePACNumber(String pacNumber) {
-        return this.pacNumber.equals(pacNumber);
+    public boolean validateOTPNumber(String otpNumber) {
+        return this.otpNumber.equals(otpNumber);
     }
 }

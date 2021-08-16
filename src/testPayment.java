@@ -51,27 +51,26 @@ public class testPayment {
 
         System.out.println("\nProcessing Payment...bla bla bla...\n");
 
-        selectedBank.generatePACNumber();
+        selectedBank.generateOTPNumber();
         System.out.println("+-----------------+");
-        System.out.printf ("| PAC No : %s |\n", selectedBank.getPacNumber());
+        System.out.printf ("| OTP No : %s |\n", selectedBank.getOtpNumber());
         System.out.println("+-----------------+");
-        System.out.print  ("Enter PAC No : ");
+        System.out.print  ("Enter OTP No : ");
 
-        while (!selectedBank.validatePACNumber(scanner.next())) {
+        while (!selectedBank.validateOTPNumber(scanner.next())) {
             System.out.println("Invalid PAC No!!");
-            System.out.println("Press enter to request PAC No again.");
+            System.out.println("Press enter to request OTP No again.");
             scanner.nextLine();
             scanner.nextLine();
-            selectedBank.generatePACNumber();
+            selectedBank.generateOTPNumber();
             System.out.println("+-----------------+");
-            System.out.printf ("| PAC No : %s |\n", selectedBank.getPacNumber());
+            System.out.printf ("| OTP No : %s |\n", selectedBank.getOtpNumber());
             System.out.println("+-----------------+");
-            System.out.print  ("Enter PAC No : ");
+            System.out.print  ("Enter OTP No : ");
         }
 
-        System.out.println("Valid PAC No..");
+        System.out.println("Valid OTP No..");
         System.out.println("Payment Completed...");
-        scanner.close();
     }
 
     public static void main(String[] args){
