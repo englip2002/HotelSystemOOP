@@ -31,6 +31,8 @@ public class driverProgram_EngLip {
         //payment by card
         Bank bank=new Bank("CIMB");
         PaymentByCard card=new PaymentByCard(123,"1234 5678 1234 5678", bank, 123);
+        card.calculateTaxAmount();
+        card.calculateTotalAmount();
         System.out.println(card.generateReceipt());
 
     }
