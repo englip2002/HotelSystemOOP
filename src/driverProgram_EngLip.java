@@ -27,5 +27,11 @@ public class driverProgram_EngLip {
         FoodOrder order=new FoodOrder(foodType[i].getFood(j), 2, 2020, 11, 11, 13, 15);
         System.out.println(order.toString());
 
+
+        //payment by card
+        Bank bank=new Bank("CIMB");
+        PaymentByCard card=new PaymentByCard(123,"1234 5678 1234 5678", bank, 123);
+        System.out.println(card.generateReceipt());
+
     }
 }

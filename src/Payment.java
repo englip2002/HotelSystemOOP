@@ -21,6 +21,7 @@ public abstract class Payment {
         this.subtotal = subtotal;
     }
 
+    public Payment(){};
 
     //---------------------Getters-----------------------
     public String getPaymentId() {
