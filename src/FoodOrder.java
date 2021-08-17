@@ -1,9 +1,10 @@
 import java.time.LocalDate;
 import java.time.LocalDateTime;
+import java.time.format.DateTimeFormatter;
 
 public class FoodOrder {
-    private Food[] food; //need to do order more food? food[] and quantity[]
-    private int[] quantity;
+    private Food[] food=new Food[100]; //need to do order more food? food[] and quantity[]
+    private int[] quantity=new int[100];
     private double subtotal=0;
     private LocalDate serveDate;
     private LocalDateTime serveTime;
@@ -13,7 +14,7 @@ public class FoodOrder {
     };
 
     public FoodOrder(Food food, int quantity, int serveYear, int serveMonth, int serveDay, int hour, int minutes) {
-        this.food[foodCount] = food;
+        this.food[foodCount] = new Food(food);
         this.quantity[foodCount] = quantity;
         calculateSubtotal();
         this.serveDate = LocalDate.of(serveYear, serveMonth, serveDay);
@@ -24,13 +25,12 @@ public class FoodOrder {
     public void addFood(Food food, int quantity){
         this.food[foodCount] = food;
         this.quantity[foodCount] = quantity;
+        calculateSubtotal();
         foodCount++;
     }
 
     public void calculateSubtotal(){
-        for(int i=0;i<foodCount;i++){
-            subtotal+=food[0].getPrice()*quantity[0];
-        }
+        subtotal+=food[foodCount].getPrice()*quantity[foodCount];
     }
 
     public boolean validateServeDate(){
@@ -48,14 +48,31 @@ public class FoodOrder {
         new FoodOrder();
     }
 
+    private String loopFood(){
+        String foodString=new String();
+        for(int i=0;i<foodCount;i++){
+            foodString=foodString.concat(String.format("%s %14d %24.2f\n",food[i].toString(),quantity[i],food[i].getPrice()*quantity[i]));
+            //foodString=foodString.concat(food[i].toString()+quantity[i]+"\n");
+        }
+        return foodString;
+    }
+
     public String generateOrderReceipt() {
-        // convert date to string
-        //loop foods and quantity
-        //calculate subtotal
-        //calculate tax
-        //calculate total
-        return food.toString() + " " + quantity + " " + subtotal + " " + serveDate.toString() + " "
-                + serveTime.getHour() + ":" + serveTime.getMinute();
+        DateTimeFormatter Timeformatter= DateTimeFormatter.ofPattern("HH:mm");
+        return  
+        "\n------------------------------------------------------\n" +
+        "                      ORDER SUMMARY                 \n" +
+        "------------------------------------------------------\n" +
+        
+        String.format("\n%-20s %-20s %-20s %-20s\n", "Food Ordered","Unit Price","Quantity","Subtotal(RM)")+
+        "----------------------------------------------------------------------------------\n"+
+        String.format("%s", loopFood())+
+        String.format("\n%-65s %.2f\n","Total(RM)",subtotal)+
+        String.format("\nServe Date    %s \n",serveDate.toString())+
+        String.format("Serve Time    %s\n",serveTime.format(Timeformatter));
+        
+        
+        //return food.toString() + " " + quantity + " " + subtotal + " " + serveDate.toString() + " " + serveTime.getHour() + ":" + serveTime.getMinute();
     }
 
 }

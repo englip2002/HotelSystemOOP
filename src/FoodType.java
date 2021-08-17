@@ -25,9 +25,4 @@ public class FoodType {
     public int getAmountOfFood() {
         return amountOfFood;
     }
-
-    public String toString() {
-        return String.format("%s %d", typeName, amountOfFood);
-    }
-
 }
