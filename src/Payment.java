@@ -7,12 +7,14 @@ public abstract class Payment {
     private static double taxRate = 0.06;
     private double taxAmount;
     private double subtotal;
-    private double totalAmount;
+    private double totalAmount = 0;
     private String paymentStatus;
 
 
 
     //------------------Constructors--------------------
+    public Payment(){}
+
     public Payment(double subtotal){
         paymentDate = Calendar.getInstance();
         paymentStatus = "Completed";
@@ -21,7 +23,6 @@ public abstract class Payment {
         this.subtotal = subtotal;
     }
 
-    public Payment(){};
 
     //---------------------Getters-----------------------
     public String getPaymentId() {
@@ -90,11 +91,11 @@ public abstract class Payment {
         taxAmount = subtotal * taxRate;
     }
 
-    public abstract String generateReceipt();
-
     public void calculateTotalAmount(){
-        totalAmount = subtotal + taxAmount;
+        totalAmount += (subtotal + taxAmount);
     }
+
+    public abstract String generateReceipt();
 
     public double refund() {
         paymentStatus = "Refunded";
