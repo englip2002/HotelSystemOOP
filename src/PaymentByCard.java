@@ -78,22 +78,22 @@ public class PaymentByCard extends Payment {
             return false;
     }
 
-    @Override
-    public String generateReceipt() {
-        return "\n------------------------------------------------------\n"
-                + "                    PAYMENT RECEIPT                  \n"
-                + "------------------------------------------------------\n"
-                + String.format("%s                   %s\n\n", getPaymentId(), getPaymentDate().getTime())
-                + String.format("Payment Method                                %-8s\n", paymentType)
-                + String.format("Card Number                                   %-8s\n", cardNumber)
-                + String.format("Card Type                                     %-12s\n", cardType)
-                + String.format("Bank                                          %-8s\n\n", bank.getBankName())
-                + String.format("Subtotal                                      %-8.2f\n", getSubtotal())
-                + String.format("Tax Amount (%d%%)                             %-8.2f\n", (int) (getTaxRate() * 100),
-                        getTaxAmount())
-                + String.format("Total Amount                                  %-8.2f\n\n", getTotalAmount())
-                + "------------------------------------------------------";
-    }
+   @Override
+   public String generateReceipt() {
+       return "\n------------------------------------------------------\n"
+               + "                    PAYMENT RECEIPT                  \n"
+               + "------------------------------------------------------\n"
+               + String.format("%s                   %s\n\n", getPaymentId(), getPaymentDate().getTime())
+               + String.format("Payment Method                         %15s\n", paymentType)
+               + String.format("Card Number                            %15s\n", cardNumber)
+               + String.format("Card Type                              %15s\n", cardType)
+               + String.format("Bank                                   %15s\n\n", bank.getBankName())
+               + String.format("Subtotal                               %15.2f\n", getSubtotal())
+               + String.format("Tax Amount (%d%%)                        %15.2f\n", (int) (getTaxRate() * 100),
+               getTaxAmount())
+               + String.format("Total Amount                           %15.2f\n", getTotalAmount())
+               + "------------------------------------------------------";
+   }
 
     
 
