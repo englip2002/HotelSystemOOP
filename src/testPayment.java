@@ -24,6 +24,7 @@ public class testPayment {
 
         System.out.printf("\n Total received : %.2f\n", paymentByCash.getTotalReceived());
         System.out.printf(" Change         : %.2f\n", paymentByCash.getChange());
+        System.out.println("\nPayment Completed...");
 
         System.out.print("\nPress enter to view receipt");
         scanner.nextLine();
@@ -32,8 +33,9 @@ public class testPayment {
         System.out.println(paymentByCash.generateReceipt());
     }
 
-    public static void paymentByCard(){
+    public static void paymentByCard(double subtotal){
         Scanner scanner = new Scanner(System.in);
+        PaymentByCard paymentByCard = new PaymentByCard();
         Bank[] bank = new Bank[5];
         bank[0] = new Bank("Maybank");
         bank[1] = new Bank("Public Bank");
@@ -49,17 +51,36 @@ public class testPayment {
         System.out.print("\nSelect a bank > ");
         Bank selectedBank = new Bank(bank[scanner.nextInt()-1].getBankName());
 
-        System.out.println("\nProcessing Payment...bla bla bla...\n");
+        System.out.print("Card Number: ");
+        String cardNum = scanner.next();
+
+        System.out.print("CVV        : ");
+        int cvv = scanner.nextInt();
+
+        paymentByCard = new PaymentByCard(subtotal, cardNum, selectedBank, cvv);
+
+        while (!paymentByCard.validCard()){
+            System.out.println("Invalid card!!\n");
+            System.out.print("Card Number: ");
+            paymentByCard.setCardNumber(scanner.next());
+
+            System.out.print("CVV        : ");
+            paymentByCard.setCVV(scanner.nextInt());
+        }
+
+        System.out.print("Press enter to request the OTP number");
+        scanner.nextLine();
+        scanner.nextLine();
 
         selectedBank.generateOTPNumber();
-        System.out.println("+-----------------+");
+        System.out.println("\n+-----------------+");
         System.out.printf ("| OTP No : %s |\n", selectedBank.getOtpNumber());
         System.out.println("+-----------------+");
         System.out.print  ("Enter OTP No : ");
 
         while (!selectedBank.validateOTPNumber(scanner.next())) {
             System.out.println("Invalid PAC No!!");
-            System.out.println("Press enter to request OTP No again.");
+            System.out.println("Press enter to request OTP Number again.");
             scanner.nextLine();
             scanner.nextLine();
             selectedBank.generateOTPNumber();
@@ -71,6 +92,16 @@ public class testPayment {
 
         System.out.println("Valid OTP No..");
         System.out.println("Payment Completed...");
+
+        paymentByCard.calculateTaxAmount();
+        paymentByCard.addCharge();
+        paymentByCard.calculateTotalAmount();
+
+        System.out.print("\nPress enter to view receipt");
+        scanner.nextLine();
+        scanner.nextLine();
+
+        System.out.println(paymentByCard.generateReceipt());
     }
 
     public static void main(String[] args){
@@ -89,7 +120,7 @@ public class testPayment {
         if (paymentMethod == 1) {
             paymentByCash(subtotal);
         } else if (paymentMethod == 2) {
-            paymentByCard();
+            paymentByCard(subtotal);
         }
 
     }
