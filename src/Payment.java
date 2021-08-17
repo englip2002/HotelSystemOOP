@@ -13,8 +13,6 @@ public abstract class Payment {
 
 
     //------------------Constructors--------------------
-    public Payment(){}
-
     public Payment(double subtotal){
         paymentDate = Calendar.getInstance();
         paymentStatus = "Completed";
