@@ -1,22 +1,38 @@
 
 public class RoomType {
 	private String name;
-	private int numberOfBeds;
-	private double pricePerStay;
+	private int numberOfTwinBeds;
+	private int numberOfKingBeds;
+	private double pricePerNight;
+	private int totalNumberOfRooms;
 	
 	public RoomType() {
-		this("", 0, 0);
+		this("", 0, 0, 0);
 	}
 	
-	public RoomType(String name, int numberOfBeds, double pricePerStay) {
+	public RoomType(String name, int numberOfTwinBeds, int numberOfKingBeds, double pricePerNight) {
 		this.setName(name);
-		this.setNumberOfBeds(numberOfBeds);
-		this.setPricePerStay(pricePerStay);
+		this.setNumberOfTwinBeds(numberOfTwinBeds);
+		this.setNumberOfKingBeds(numberOfKingBeds);
+		this.setPricePerNight(pricePerNight);
+		this.totalNumberOfRooms = 0;
 	}
 
+//	@Override
+//	public String toString() {
+//		return name;
+//	}
+	
 	@Override
-	public String toString() {
-		return "\nRoom Type: " + name + "\nNumber of beds: " + numberOfBeds + "\nPrice per Stay: " + pricePerStay;
+	public boolean equals(Object obj) {
+		if (obj instanceof RoomType) {
+			return this.name.equals( ((RoomType)obj).getName() );
+		}
+		return false;
+	}
+	
+	public void addRoom() {
+		this.totalNumberOfRooms++;
 	}
 	
 	// Getters
@@ -24,12 +40,20 @@ public class RoomType {
 		return name;
 	}
 
-	public int getNumberOfBeds() {
-		return numberOfBeds;
+	public int getNumberOfTwinBeds() {
+		return numberOfTwinBeds;
+	}	
+	
+	public int getNumberOfKingBeds() {
+		return numberOfKingBeds;
 	}	
 
-	public double getPricePerStay() {
-		return pricePerStay;
+	public double getPricePerNight() {
+		return pricePerNight;
+	}
+	
+	public int getTotalNumberOfRooms() {
+		return totalNumberOfRooms;
 	}
 
 	// Setters
@@ -37,11 +61,15 @@ public class RoomType {
 		this.name = name;
 	}
 	
-	public void setNumberOfBeds(int numberOfBeds) {
-		this.numberOfBeds = numberOfBeds;
+	public void setNumberOfTwinBeds(int numberOfTwinBeds) {
+		this.numberOfTwinBeds = numberOfTwinBeds;
 	}
 	
-	public void setPricePerStay(double pricePerStay) {
-		this.pricePerStay = pricePerStay;
+	public void setNumberOfKingBeds(int numberOfKingBeds) {
+		this.numberOfKingBeds = numberOfKingBeds;
+	}
+	
+	public void setPricePerNight(double pricePerNight) {
+		this.pricePerNight = pricePerNight;
 	}	
 }

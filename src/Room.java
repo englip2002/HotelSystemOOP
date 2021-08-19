@@ -1,18 +1,40 @@
+import java.util.ArrayList;
 
 public class Room {
 	private int roomNumber;
-	private Floor floor;
 	private boolean isReserved;
 	private RoomType roomType;
-	
-	public Room(Floor floor, int roomNumber, RoomType roomType) {
+	private ArrayList<ReservationSchedule> reservedDays;
+	private static int totalNumberOfRooms = 0;
+
+	public Room(int roomNumber, RoomType roomType) {
 		this.roomNumber = roomNumber;
 		this.setRoomType(roomType);
+		totalNumberOfRooms++;
+		roomType.addRoom();
+		reservedDays = new ArrayList<ReservationSchedule>();
+	}
+
+	public void addReservationSchedule(ReservationSchedule schedule) {
+		if (this.validateReservationSchedule(schedule)) {
+			reservedDays.add(schedule);	
+		}
 	}
 	
+	public boolean validateReservationSchedule(ReservationSchedule schedule) {
+		for (ReservationSchedule each : reservedDays) {
+			if (! ( ( schedule.getStartDate().isBefore(each.getStartDate()) && schedule.getEndDate().compareTo(each.getStartDate()) <= 0 )
+					&& ( schedule.getStartDate().compareTo(each.getStartDate()) >= 0 && schedule.getEndDate().isAfter(each.getStartDate()) ))
+					) {
+				return false;
+			}
+		}
+		return true;
+	}
+
 	@Override
 	public String toString() {
-		return "Room Number: " + this.getRoomNumber() + this.floor + this.getRoomType() + "\nIs reserved: " + this.isReserved();
+		return "Room Number: " + this.getRoomNumber() + this.getRoomType() + "\nIs reserved: " + this.isReserved();
 	}
 
 	// Getters
@@ -27,9 +49,13 @@ public class Room {
 	public RoomType getRoomType() {
 		return roomType;
 	}
+
+	public static int getTotalNumberOfRooms() {
+		return totalNumberOfRooms;
+	}
 	
-	public Floor getFloor() {
-		return floor;
+	public ArrayList<ReservationSchedule> getReservedDays() {
+		return reservedDays;
 	}
 
 	// Setters
@@ -39,9 +65,5 @@ public class Room {
 
 	public void setRoomType(RoomType roomType) {
 		this.roomType = roomType;
-	}
-	
-	public void setFloor(Floor floor) {
-		this.floor = floor;
 	}
 }

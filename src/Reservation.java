@@ -5,8 +5,7 @@ public class Reservation {
 	private static int newestReservationNo = 0;
 	private String reservationID;
 	private Customer reservedCustomer;
-	private LocalDate startDate;
-	private LocalDate endDate;
+	private ReservationSchedule schedule;
 	private ArrayList<Room> reservedRooms;
 	private Payment payment;
 	private boolean isCancelled;
@@ -19,8 +18,7 @@ public class Reservation {
 		reservationID = "R" + String.format("%010d", newestReservationNo);
 		
 		this.reservedCustomer = reservedCustomer;
-		this.startDate = LocalDate.of(startYear, startMonth, startDay);
-		this.endDate = LocalDate.of(endYear, endMonth, endDay);
+		this.schedule = new ReservationSchedule(LocalDate.of(startYear, startMonth, startDay), LocalDate.of(endYear, endMonth, endDay));
 		this.reservedRooms = new ArrayList<Room>(reservedRooms);
 		this.payment = payment;
 		this.isCancelled = false;
@@ -39,16 +37,7 @@ public class Reservation {
 		return result.substring(0, result.length()-2);
 	}
 	
-	@Override
-	public String toString() {
-		return 	"Reservation ID: " + reservationID + 
-				"\nReserved by: " + reservedCustomer + 
-				"\nStart Date: " + startDate + 
-				"\nEnd Date: " + endDate + 
-				"\nRooms: " + listOfReservedRooms() + 
-				"\nPayment: " + payment + 
-				"\nIs cancelled: " + isCancelled;
-	}
+	
 	
 	// Getters
 	public String getReservationID() {
@@ -59,14 +48,11 @@ public class Reservation {
 		return reservedCustomer;
 	}
 
-	public LocalDate getReservationStartDate() {
-		return startDate;
+	public ReservationSchedule getSchedule() {
+		return schedule;
 	}
-
-	public LocalDate getReservationEndDate() {
-		return endDate;
-	}
-
+	
+	
 	public ArrayList<Room> getReservedRooms() {
 		return reservedRooms;
 	}
@@ -83,15 +69,4 @@ public class Reservation {
 	public void setReservedCustomer(Customer reservedCustomer) {
 		this.reservedCustomer = reservedCustomer;
 	}
-
-	public void setReservationStartDate(int startDay, int startMonth, int startYear) {
-		startDate = LocalDate.of(startYear, startMonth, startDay);
-	}
-
-	public void setReservationEndDate(int endDay, int endMonth, int endYear) {
-		endDate = LocalDate.of(endYear, endMonth, endDay);
-	}
-
-	
-	
 }
