@@ -3,6 +3,7 @@ import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
 
 public class FoodOrder {
+    private int OrderID;
     private Food[] food=new Food[100]; //need to do order more food? food[] and quantity[]
     private int[] quantity=new int[100];
     private double subtotal=0;
@@ -10,6 +11,7 @@ public class FoodOrder {
     private LocalDateTime serveTime;
     private static int foodCount=0;
 
+    //how to generate order id automatically
     public FoodOrder() {
     };
 
@@ -20,6 +22,11 @@ public class FoodOrder {
         this.serveDate = LocalDate.of(serveYear, serveMonth, serveDay);
         this.serveTime = serveDate.atTime(hour, minutes);
         foodCount++;
+    }
+
+    //getter setter
+    public int getOrderID() {
+        return OrderID;
     }
 
     public void addFood(Food food, int quantity){
@@ -74,5 +81,7 @@ public class FoodOrder {
         
         //return food.toString() + " " + quantity + " " + subtotal + " " + serveDate.toString() + " " + serveTime.getHour() + ":" + serveTime.getMinute();
     }
+
+
 
 }
