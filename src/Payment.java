@@ -1,9 +1,9 @@
-import java.util.Calendar;
+import java.time.LocalDate;
 
 public abstract class Payment {
     private static int paymentCount = 0;
     private String paymentId;
-    private Calendar paymentDate;
+    private LocalDate paymentDate;
     private static double taxRate = 0.06;
     private double taxAmount;
     private double subtotal;
@@ -14,7 +14,7 @@ public abstract class Payment {
 
     //------------------Constructors--------------------
     public Payment(double subtotal){
-        paymentDate = Calendar.getInstance();
+        paymentDate = LocalDate.now();
         paymentStatus = "Completed";
         paymentCount++;
         paymentId = String.format("P%06d", paymentCount);
@@ -27,7 +27,7 @@ public abstract class Payment {
         return paymentId;
     }
 
-    public Calendar getPaymentDate() {
+    public LocalDate getPaymentDate() {
         return paymentDate;
     }
 
@@ -58,7 +58,7 @@ public abstract class Payment {
         this.paymentId = paymentId;
     }
 
-    public void setPaymentDate(Calendar paymentDate) {
+    public void setPaymentDate(LocalDate paymentDate) {
         this.paymentDate = paymentDate;
     }
 
