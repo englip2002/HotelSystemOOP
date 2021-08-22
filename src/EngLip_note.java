@@ -30,7 +30,7 @@ public class EngLip_note {
         /*when need to order, choose food type, get index number, loop foods in that foodType,
           then get index number of food, then pass to order with time*/ 
         int i=0,j=0;
-        FoodOrder order=new FoodOrder(foodType[i].getFood(j), 2, 2020, 11, 11, 13, 05);
+        FoodOrder order=new FoodOrder(foodType[i].getFood(j),1, time);
         order.addFood(foodType[1].getFood(1), 1);
         System.out.print(order.generateOrderReceipt());
         displayMenu(foodType,0);
