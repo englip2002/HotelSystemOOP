@@ -1,7 +1,7 @@
 import java.time.LocalDate;
 import java.time.LocalDateTime;
 
-public class driverProgram_EngLip {
+public class EngLip_note {
     public static void main(String[] args) {
 
         //initialize food data
@@ -33,21 +33,22 @@ public class driverProgram_EngLip {
         FoodOrder order=new FoodOrder(foodType[i].getFood(j), 2, 2020, 11, 11, 13, 05);
         order.addFood(foodType[1].getFood(1), 1);
         System.out.print(order.generateOrderReceipt());
-
         displayMenu(foodType,0);
 
     }
 
     public static void displayMenu(FoodType[] foodTypes, int foodTypeChoice){
-        int i;
-        System.out.println("              MENU              ");
-        System.out.println("--------------------------------");
-          for(i=0;i<100;i++){
-            if(foodTypes[foodTypeChoice].getFood(i)==null)
-              break;
-            
-            System.out.print(foodTypes[foodTypeChoice].getFood(i).toString()+"\n");
-          }
-        }
+      int i;
+      System.out.println("              MENU              ");
+      System.out.println("--------------------------------");
+      for(i=0;i<100;i++){
+         if(foodTypes[foodTypeChoice].getFood(i)==null)
+          break;
+         
+        System.out.print(foodTypes[foodTypeChoice].getFood(i).toString()+"\n");
+      }
     }
+
+
+  }
 

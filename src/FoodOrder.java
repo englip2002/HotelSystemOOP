@@ -24,9 +24,22 @@ public class FoodOrder {
         foodCount++;
     }
 
+    public FoodOrder(Food food, int quantity, LocalDate serveDate, LocalDateTime serveTime) {
+        this.food[foodCount] = new Food(food);
+        this.quantity[foodCount] = quantity;
+        calculateSubtotal();
+        this.serveDate = serveDate;
+        this.serveTime = serveTime;
+        foodCount++;
+    }
+
     //getter setter
     public int getOrderID() {
         return OrderID;
+    }
+
+    public int getFoodCount() {
+        return foodCount;
     }
 
     public void addFood(Food food, int quantity){
@@ -40,7 +53,7 @@ public class FoodOrder {
         subtotal+=food[foodCount].getPrice()*quantity[foodCount];
     }
 
-    public boolean validateServeDate(){
+    public static boolean validateServeDate(LocalDate serveDate, LocalDateTime serveTime){
         if(serveDate.compareTo(LocalDate.now())>=0){
             if(serveTime.compareTo(LocalDateTime.now())>=0)
                 return true;

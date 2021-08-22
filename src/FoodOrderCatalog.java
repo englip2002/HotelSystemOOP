@@ -4,7 +4,7 @@ public class FoodOrderCatalog {
 
     public FoodOrderCatalog(){}
 
-    public void addFoodOrderCatalog(FoodOrder order){
+    public void addFoodOrder(FoodOrder order){
         foodOrderList[orderCount]=order;
         orderCount++;
     }
