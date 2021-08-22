@@ -11,7 +11,18 @@ public class ReservationSchedule {
 		this.endDate = endDate;
 		this.daysBetween = (int) ChronoUnit.DAYS.between(startDate, endDate);
 	}
-
+	
+	@Override
+	public boolean equals(Object obj) {
+		if (obj instanceof ReservationSchedule) {
+			return (startDate.equals( ((ReservationSchedule)obj ).getStartDate() )) && 
+					 (endDate.equals( ((ReservationSchedule)obj ).getEndDate() ));
+		}
+		else {
+			return false;
+		}
+	}
+	
 	//Getters
 	public LocalDate getStartDate() {
 		return startDate;

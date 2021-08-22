@@ -14,12 +14,27 @@ public class Floor {
 	}
 	
 	public void addRoom(Room room) {
-		if (numberOfRooms < maxNumberOfRooms) {
-			this.rooms[numberOfRooms] = room;
-			numberOfRooms++;
-		}
-		else {
+		if (numberOfRooms >= maxNumberOfRooms) {
 			System.out.println("This floor is full already. Cannot add more rooms. ");
+			return;
+		}
+		for (int i = 0; i < numberOfRooms; i++) {
+			if (rooms[i].getRoomNumber() == room.getRoomNumber()) {
+				System.out.println("Room number " + room.getRoomNumber() + " already exist!");
+				return;
+			}
+		}
+		this.rooms[numberOfRooms] = room;
+		numberOfRooms++;
+	}
+	
+	public void addRooms(Room[] rooms) {
+		for (Room room: rooms) {
+			if (numberOfRooms >= maxNumberOfRooms) {
+				System.out.println("This floor is full already. Cannot add more rooms. ");
+				return;
+			}
+			addRoom(room);
 		}
 	}
 	
@@ -50,7 +65,6 @@ public class Floor {
 		this.floorNumber = floorNumber;
 	}
 
-
 	public int getNumberOfRooms() {
 		return numberOfRooms;
 	}
@@ -58,7 +72,6 @@ public class Floor {
 	public int getMaxNumberOfRooms() {
 		return maxNumberOfRooms;
 	}
-
 
 	public Room[] getRooms() {
 		return rooms;

@@ -1,24 +1,39 @@
 
 public class Block {
-	private int blockNumber;
+	private String blockIdentifier;
 	private int numberOfFloors;
 	private int maxNumberOfFloors;
 	private Floor[] floors;
 	
-	public Block(int blockNumber, int maxNumberOfFloors) {
-		this.blockNumber = blockNumber;
+	public Block(String blockIdentifier, int maxNumberOfFloors) {
+		this.blockIdentifier = blockIdentifier;
 		this.maxNumberOfFloors = maxNumberOfFloors;
 		this.floors = new Floor[maxNumberOfFloors];
 		numberOfFloors = 0;
 	}
 	
 	public void addFloor(Floor floor) {
-		if (numberOfFloors < maxNumberOfFloors) {
-			floors[numberOfFloors] = floor;
-			numberOfFloors++;
+		if (numberOfFloors >= maxNumberOfFloors) {
+			System.out.println("This block is full already. Cannot add more floors.");
+			return;
 		}
-		else {
-			System.out.println("Block " + blockNumber + " is full of floors already. Cannot add more floors. ");
+		for (int i = 0; i < numberOfFloors; i++) {
+			if (floors[i].getFloorNumber() == floor.getFloorNumber()) {
+				System.out.println("Floor number " + floor.getFloorNumber() + " already exist. ");
+				return;
+			}
+		}
+		floors[numberOfFloors] = floor;
+		numberOfFloors++;
+	}
+	
+	public void addFloors(Floor[] floors) {
+		for (Floor floor: floors) {
+			if (numberOfFloors >= maxNumberOfFloors) {
+				System.out.println("This block is full already. Cannot add more floors.");
+				return;
+			}
+			addFloor(floor);
 		}
 	}
 
@@ -36,24 +51,23 @@ public class Block {
 			}
 		}
 		if (!found) {
-			System.out.println("Unable to find Floor Number " + floorNumber + " at Block " + blockNumber + "!");
+			System.out.println("Unable to find Floor Number " + floorNumber + " at Block " + blockIdentifier + "!");
 		}
 	}
 	
+	public static void setMaxNumberOfBlocks(int n) {
+		
+	}
+	
 	// Getters
-	public int getBlockNumber() {
-		return blockNumber;
+	public String getBlockIdentifier() {
+		return blockIdentifier;
 	}
 	public int getNumberOfFloors() {
 		return numberOfFloors;
 	}
 	public Floor[] getFloors() {
 		return floors;
-	}
-	
-	// Setters
-	public void setBlockNumber(int blockNumber) {
-		this.blockNumber = blockNumber;
 	}
 	
 }

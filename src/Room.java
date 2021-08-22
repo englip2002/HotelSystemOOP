@@ -2,7 +2,6 @@ import java.util.ArrayList;
 
 public class Room {
 	private int roomNumber;
-	private boolean isReserved;
 	private RoomType roomType;
 	private ArrayList<ReservationSchedule> reservedDays;
 	private static int totalNumberOfRooms = 0;
@@ -11,13 +10,21 @@ public class Room {
 		this.roomNumber = roomNumber;
 		this.setRoomType(roomType);
 		totalNumberOfRooms++;
-		roomType.addRoom();
 		reservedDays = new ArrayList<ReservationSchedule>();
 	}
 
 	public void addReservationSchedule(ReservationSchedule schedule) {
 		if (this.validateReservationSchedule(schedule)) {
 			reservedDays.add(schedule);	
+		}
+	}
+	
+	public void removeReservationSchedule(ReservationSchedule schedule) {
+		for (int i = 0; i < reservedDays.size(); i++) {
+			if (reservedDays.get(i).equals(schedule)) {
+				reservedDays.remove(i);
+				break;
+			}
 		}
 	}
 	
@@ -34,16 +41,12 @@ public class Room {
 
 	@Override
 	public String toString() {
-		return "Room Number: " + this.getRoomNumber() + this.getRoomType() + "\nIs reserved: " + this.isReserved();
+		return "Room Number: " + this.getRoomNumber() + "\n" + this.getRoomType();
 	}
 
 	// Getters
 	public int getRoomNumber() {
 		return roomNumber;
-	}
-
-	public boolean isReserved() {
-		return isReserved;
 	}
 
 	public RoomType getRoomType() {
@@ -59,10 +62,6 @@ public class Room {
 	}
 
 	// Setters
-	public void setReserved(boolean isReserved) {
-		this.isReserved = isReserved;
-	}
-
 	public void setRoomType(RoomType roomType) {
 		this.roomType = roomType;
 	}

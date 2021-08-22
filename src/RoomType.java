@@ -4,7 +4,6 @@ public class RoomType {
 	private int numberOfTwinBeds;
 	private int numberOfKingBeds;
 	private double pricePerNight;
-	private int totalNumberOfRooms;
 	
 	public RoomType() {
 		this("", 0, 0, 0);
@@ -15,13 +14,12 @@ public class RoomType {
 		this.setNumberOfTwinBeds(numberOfTwinBeds);
 		this.setNumberOfKingBeds(numberOfKingBeds);
 		this.setPricePerNight(pricePerNight);
-		this.totalNumberOfRooms = 0;
 	}
 
-//	@Override
-//	public String toString() {
-//		return name;
-//	}
+	@Override
+	public String toString() {
+		return name;
+	}
 	
 	@Override
 	public boolean equals(Object obj) {
@@ -31,9 +29,6 @@ public class RoomType {
 		return false;
 	}
 	
-	public void addRoom() {
-		this.totalNumberOfRooms++;
-	}
 	
 	// Getters
 	public String getName() {
@@ -50,10 +45,6 @@ public class RoomType {
 
 	public double getPricePerNight() {
 		return pricePerNight;
-	}
-	
-	public int getTotalNumberOfRooms() {
-		return totalNumberOfRooms;
 	}
 
 	// Setters
