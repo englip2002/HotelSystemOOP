@@ -1,6 +1,6 @@
 import java.util.Scanner;
 
-public class testPayment {
+public class DriverPayment {
     public static void paymentByCash(double subtotal) {
         Scanner scanner = new Scanner(System.in);
         PaymentByCash paymentByCash = new PaymentByCash(subtotal);
@@ -11,6 +11,7 @@ public class testPayment {
         System.out.println("\n============== PAY BY CASH ===============");
         System.out.printf (" Total Amount : %.2f\n",paymentByCash.getTotalAmount());
         System.out.println(" **included tax");
+
         System.out.println("------------------------------------------");
         System.out.print(" Input cash > ");
         paymentByCash.setTotalReceived(scanner.nextDouble());
@@ -93,6 +94,19 @@ public class testPayment {
             paymentByCard.setCVV(scanner.nextInt());
         }
 
+        System.out.print("\nConfirm payment? (y=yes/n=no) > ");
+        char confirmPay = Character.toLowerCase(scanner.next().charAt(0));
+
+        while(confirmPay != 'y'&& confirmPay != 'n'){
+            System.out.println("Invalid input!! Please enter again.");
+            System.out.print("\nConfirm payment? (y=yes/n=no) > ");
+            confirmPay = Character.toLowerCase(scanner.next().charAt(0));
+        }
+
+        if(confirmPay == 'n') {
+            Payment(subtotal);
+        }
+
         System.out.print("\nPress enter to request the OTP number");
         scanner.nextLine();
         scanner.nextLine();
@@ -134,6 +148,61 @@ public class testPayment {
         System.out.println(paymentByCard.generateReceipt());
     }
 
+    public static void paymentByEWallet(double subtotal) {
+        Scanner scanner = new Scanner(System.in);
+
+        PaymentByEWallet paymentByEWallet = new PaymentByEWallet(subtotal);
+
+        paymentByEWallet.calculateTaxAmount();
+        paymentByEWallet.calculateTotalAmount();
+
+        System.out.println("\n============ PAY BY eWALLET =============");
+        System.out.printf (" Total Amount : %.2f\n",paymentByEWallet.getTotalAmount());
+        System.out.println(" **included tax");
+
+        System.out.println("------------------------------------------");
+
+        System.out.print(" Enter your 6-digit PIN > ");
+        paymentByEWallet.setPinNumber(scanner.next());
+
+        while(!paymentByEWallet.validatePinNumber()){
+            System.out.println("Invalid PIN!! Please enter again.");
+            System.out.print("\n Enter your 6-digit PIN > ");
+            paymentByEWallet.setPinNumber(scanner.next());
+        }
+
+        System.out.print("\nConfirm payment? (y=yes/n=no) > ");
+        char confirmPay = Character.toLowerCase(scanner.next().charAt(0));
+
+        while(confirmPay != 'y'&& confirmPay != 'n'){
+            System.out.println("Invalid input!! Please enter again.");
+            System.out.print("\nConfirm payment? (y=yes/n=no) > ");
+            confirmPay = Character.toLowerCase(scanner.next().charAt(0));
+        }
+
+        if(confirmPay == 'n') {
+            Payment(subtotal);
+        }
+
+        System.out.println();
+        for (int i = 3; i > 0; i--) {
+            System.out.printf("Processing payment... (%d sec)\n",i);
+            try {
+                Thread.sleep( 1500);
+            } catch (InterruptedException ie) {
+                Thread.currentThread().interrupt();
+            }
+        }
+
+        System.out.println("\nPayment Completed...");
+
+        System.out.print("\nPress enter to view receipt");
+        scanner.nextLine();
+        scanner.nextLine();
+
+        System.out.println(paymentByEWallet.generateReceipt());
+    }
+
     public static void Payment(double subtotal) {
         Scanner scanner = new Scanner(System.in);
         System.out.println("\n******************************************");
@@ -142,14 +211,22 @@ public class testPayment {
         System.out.println("Choose payment method:");
         System.out.println(" [1] Cash");
         System.out.println(" [2] Credit/Debit Card");
+        System.out.println(" [3] E-Wallet");
         System.out.print("\nEnter your choice > ");
         int paymentMethod = scanner.nextInt();
 
-        if (paymentMethod == 1) {
-            paymentByCash(subtotal);
-        } else if (paymentMethod == 2) {
-            paymentByCard(subtotal);
+        while (paymentMethod < 1 || paymentMethod > 3){
+            System.out.println("Invalid input!! Please enter again.");
+            System.out.print("\nEnter your choice > ");
+            paymentMethod = scanner.nextInt();
         }
+
+        if (paymentMethod == 1)
+            paymentByCash(subtotal);
+        else if (paymentMethod == 2)
+            paymentByCard(subtotal);
+        else
+            paymentByEWallet(subtotal);
     }
 
     public static void main(String[] args){
