@@ -51,7 +51,7 @@
             if (cardNumber.charAt(0) == '4')
                 cardType = "Visa";
             else
-                cardType = "MasterCard";
+                cardType = "Master Card";
         }
 
         public double calculateCharge() {
