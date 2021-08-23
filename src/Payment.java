@@ -54,24 +54,12 @@ public abstract class Payment {
 
 
     //---------------------Setters-----------------------
-    public void setPaymentId(String paymentId) {
-        this.paymentId = paymentId;
-    }
-
-    public void setPaymentDate(LocalDate paymentDate) {
-        this.paymentDate = paymentDate;
-    }
-
     public void setSubtotal(double subtotal) {
         this.subtotal = subtotal;
     }
 
     public static void setTaxRate(double taxRate) {
         Payment.taxRate = taxRate;
-    }
-
-    public void setTaxAmount(double taxAmount) {
-        this.taxAmount = taxAmount;
     }
 
     public void setTotalAmount(double totalAmount) {
