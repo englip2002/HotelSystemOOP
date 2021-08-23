@@ -21,9 +21,6 @@ public class Bank {
         this.bankName = bankName;
     }
 
-    public void setOTPNumber(String pacNumber) {
-        this.otpNumber = pacNumber;
-    }
 
     //--------------------Methods----------------------
     public void generateOTPNumber() {
@@ -35,3 +32,4 @@ public class Bank {
         return this.otpNumber.equals(otpNumber);
     }
 }
+
