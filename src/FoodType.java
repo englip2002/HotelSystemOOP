@@ -2,16 +2,15 @@ public class FoodType {
     final int LIMIT = 100;
     private String typeName;
     private Food[] foods = new Food[LIMIT];
-    private static int amountOfFood = 0;
+    private int numOfFood;
 
     public FoodType(String typeName, Food[] foods) {
         this.typeName = typeName;
         this.foods=foods;
-        amountOfFood++;
+        numOfFood= foods.length;
     }
 
     public FoodType() {
-        amountOfFood++;
     };
 
     public Food getFood(int i){
@@ -22,7 +21,7 @@ public class FoodType {
         return typeName;
     }
 
-    public int getAmountOfFood() {
-        return amountOfFood;
+    public int getNumOfFood(){
+        return numOfFood;
     }
 }

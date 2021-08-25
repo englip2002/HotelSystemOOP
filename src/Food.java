@@ -31,8 +31,7 @@ public class Food {
     }
 
     public String toString() {
-        return String.format("%-20s %-10.2f", foodName,price);
-        //String.format("Food Name: %-10s\nFood Type: %-10s\nPrice: %-.2lf\n", foodName, foodType, price);
+        return String.format("%-30s %-10.2f", foodName,price);
     }
 
 }
