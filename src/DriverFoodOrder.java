@@ -7,8 +7,14 @@ import java.util.Scanner;
 
 public class DriverFoodOrder {
     public static void main(String[] args) {
+        //get food order
         FoodOrder foodOrder=new FoodOrder();
         foodOrder=FoodOrdering();
+
+        //pass food order to foodOrderRecord to store
+        FoodOrderRecord foodOrderRecord=new FoodOrderRecord();
+        foodOrderRecord.addFoodOrder(foodOrder);
+
         System.out.println(foodOrder.getOrderID());
     }
 
@@ -34,25 +40,11 @@ public class DriverFoodOrder {
 
         LocalDateTime serveDateAndTime = LocalDateTime.now();
 
-        Food[] noodles = new Food[LIMIT];
-        noodles[0] = new Food("White Sauce Spaghetti", 6.90);
-        noodles[1] = new Food("Maggi Kari", 3.2);
-
-        Food[] rice = new Food[LIMIT];
-        rice[0] = new Food("Egg Fried Rice", 4.0);
-        rice[1] = new Food("Chicken Rice", 5.0);
-        rice[2] = new Food("Nasi Kandar", 4.50);
-
-        Food[] drink = new Food[LIMIT];
-        drink[0] = new Food("Orange Juice", 2.2);
-        drink[1] = new Food("Apple Juice", 2.1);
-        drink[2] = new Food("Pineapple Lemon Juice", 3.0);
-
+        
         // initialize foodType and pass foods to foodtype
         FoodType[] foodType = new FoodType[100];
-        foodType[0] = new FoodType("Noodle", noodles);
-        foodType[1] = new FoodType("Rice", rice);
-        foodType[2] = new FoodType("Drink", drink);
+        foodType=initializeFood();
+        
 
         // user enter and validate reserve date
         boolean valid;
@@ -117,6 +109,31 @@ public class DriverFoodOrder {
 
         // direct pass the order ID to the reservation by return
         return foodOrder;
+    }
+
+    public static FoodType[] initializeFood(){
+        final int LIMIT = 100;
+        Food[] noodles = new Food[LIMIT];
+        noodles[0] = new Food("White Sauce Spaghetti", 6.90);
+        noodles[1] = new Food("Maggi Kari", 3.2);
+
+        Food[] rice = new Food[LIMIT];
+        rice[0] = new Food("Egg Fried Rice", 4.0);
+        rice[1] = new Food("Chicken Rice", 5.0);
+        rice[2] = new Food("Nasi Kandar", 4.50);
+
+        Food[] drink = new Food[LIMIT];
+        drink[0] = new Food("Orange Juice", 2.2);
+        drink[1] = new Food("Apple Juice", 2.1);
+        drink[2] = new Food("Pineapple Lemon Juice", 3.0);
+
+        // initialize foodType and pass foods to foodtype
+        FoodType[] foodType = new FoodType[100];
+        foodType[0] = new FoodType("Noodle", noodles);
+        foodType[1] = new FoodType("Rice", rice);
+        foodType[2] = new FoodType("Drink", drink);
+
+        return foodType;
     }
 
 }
