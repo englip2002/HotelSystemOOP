@@ -31,7 +31,6 @@ public class DriverFoodOrder {
     }
 
     public static FoodOrder FoodOrdering() {
-        final int LIMIT = 100;
         int i, foodTypeChoice, foodChoice, quantityOfFood;
         char continueAddFood = 'N';
         String serveDateString, serveTimeString;
