@@ -8,8 +8,8 @@ import java.util.Scanner;
 public class DriverFoodOrder {
     public static void main(String[] args) {
         //get food order
-        FoodOrder foodOrder=new FoodOrder();
-        foodOrder=FoodOrdering();
+        FoodOrder foodOrder = new FoodOrder();
+        foodOrder = FoodOrdering();
 
         //pass food order to foodOrderRecord to store
         FoodOrderRecord foodOrderRecord=new FoodOrderRecord();
@@ -102,6 +102,10 @@ public class DriverFoodOrder {
             System.out.print("Continue add food ?(Y to continue) ");
             continueAddFood = scanner.next().charAt(0);
             continueAddFood = Character.toUpperCase(continueAddFood);
+
+            // clear screen
+            System.out.print("\033[H\033[2J");
+            System.out.flush();
         } while (continueAddFood == 'Y');
 
         System.out.print(foodOrder.generateOrderReceipt());    

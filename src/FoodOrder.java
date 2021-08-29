@@ -70,10 +70,6 @@ public class FoodOrder {
     }
 
     public String generateOrderReceipt() {
-        // clear screen
-        System.out.print("\033[H\033[2J");
-        System.out.flush();
-
         DateTimeFormatter Timeformatter = DateTimeFormatter.ofPattern("HH:mm");
         DateTimeFormatter Dateformatter = DateTimeFormatter.ofPattern("dd-MM-uuuu");
         return "\n----------------------------------------------------------------------------------------\n"
