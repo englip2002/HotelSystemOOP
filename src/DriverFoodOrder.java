@@ -9,7 +9,8 @@ public class DriverFoodOrder {
     public static void main(String[] args) {
         //get food order
         FoodOrder foodOrder = new FoodOrder();
-        foodOrder = FoodOrdering();
+        LocalDate reservationStartDate= LocalDate.now();
+        foodOrder = FoodOrdering(reservationStartDate);
 
         //pass food order to foodOrderRecord to store
         FoodOrderRecord foodOrderRecord=new FoodOrderRecord();
@@ -30,7 +31,7 @@ public class DriverFoodOrder {
         }
     }
 
-    public static FoodOrder FoodOrdering() {
+    public static FoodOrder FoodOrdering(LocalDate reservationStartDate) {
         int i, foodTypeChoice, foodChoice, quantityOfFood;
         char continueAddFood = 'N';
         String serveDateString, serveTimeString;
@@ -64,11 +65,11 @@ public class DriverFoodOrder {
             } catch (DateTimeParseException e) {
                 valid = false;
             }
-
-            if (!serveDateAndTime.isAfter(LocalDateTime.now()) || valid == false)
+            
+            if (!serveDateAndTime.toLocalDate().isAfter(reservationStartDate) || valid == false)
                 System.out.println("Invalid Time Please Retry\n");
 
-        } while (!serveDateAndTime.isAfter(LocalDateTime.now()) || valid == false);
+        } while (!serveDateAndTime.toLocalDate().isAfter(reservationStartDate) || valid == false);
 
         do {
             System.out.println("\n Food Type");
