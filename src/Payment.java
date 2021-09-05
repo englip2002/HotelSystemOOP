@@ -13,7 +13,7 @@ public abstract class Payment {
 
 
     //------------------Constructors--------------------
-    public Payment(double subtotal){
+    protected Payment(double subtotal){
         paymentDate = LocalDate.now();
         paymentStatus = "Completed";
         paymentCount++;
