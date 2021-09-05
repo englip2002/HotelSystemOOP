@@ -1,6 +1,6 @@
 
 public class FoodOrderRecord{ // if dont have just use Object then cast
-    private FoodOrder[] foodOrderList = new FoodOrder[100];
+    private FoodOrder[] foodOrderList;
     private static int orderCount = 0;
 
     public FoodOrderRecord() {
@@ -11,37 +11,30 @@ public class FoodOrderRecord{ // if dont have just use Object then cast
         orderCount++;
     }
 
-    public void generateFoodOrderRecord(String orderID) {
+    public String generateFoodOrderRecord(String orderID) {
         int i = 0;
-        boolean orderFound = false;
         for (i = 0; i < orderCount; i++) {
             if (foodOrderList[i].getOrderID().equalsIgnoreCase(orderID)) {
-                foodOrderList[i].generateOrderReceipt();
-                orderFound = true;
+                return foodOrderList[i].generateOrderReceipt();
             }
         }
 
-        if (orderFound == false) {
-            System.out.println("Order ID not found!");
-        }
+        return "Order ID not found!";
     }
 
 
-    // make changes use generate order record by Object
-    public void generateFoodOrderRecord(Object obj) {
+    // make changes use generate order record by Object 
+    public String generateFoodOrderRecord(Object obj) {
         int i = 0;
-        boolean orderFound = false;
         if (obj instanceof Reservation) {
             for (i = 0; i < orderCount; i++) {
                 if (foodOrderList[i].getOrderID().equalsIgnoreCase(((Reservation) obj).getOrderID())) {
-                    foodOrderList[i].generateOrderReceipt();
-                    orderFound = true;
+                    return foodOrderList[i].generateOrderReceipt();
                 }
             }
         }
 
-        if (orderFound == false) {
-            System.out.println("Order ID not found!");
-        }
+        return "OrderID not found!";
+
     }
 }

@@ -14,7 +14,7 @@ public class FoodOrder{
 
     };
 
-    public String generateOrderID() {
+    private String generateOrderID() {
         return String.format("O%03d", orderCount+1);
     }
 
@@ -39,10 +39,6 @@ public class FoodOrder{
         return foodCount;
     }
 
-    public LocalDateTime getServeDate() {
-        return serveTime;
-    }
-
     public void addFood(Food food, int quantity) {
         this.food[foodCount] = food;
         this.quantity[foodCount] = quantity;
@@ -50,20 +46,16 @@ public class FoodOrder{
         foodCount++;
     }
 
-    public void calculateSubtotal() {
+    private void calculateSubtotal() {
         subtotal += food[foodCount].getPrice() * quantity[foodCount];
     }
 
-    public void cancel() {
-        new FoodOrder();
-    }
 
     private String loopFood() {
         String foodString = new String();
         for (int i = 0; i < foodCount; i++) {
             foodString = foodString.concat(String.format("%s %14d %24.2f\n", food[i].toString(), quantity[i],
                     (food[i].getPrice() * quantity[i])));
-            // foodString=foodString.concat(food[i].toString()+quantity[i]+"\n");
         }
         return foodString;
     }
@@ -78,8 +70,8 @@ public class FoodOrder{
                 String.format("\n%-30s %-20s %-20s %-20s\n", "Food Ordered", "Unit Price", "Quantity", "Subtotal(RM)")
                 + "----------------------------------------------------------------------------------------\n"
                 + String.format("%s", loopFood()) + String.format("\n%s %71.2f\n", "Total(RM)", subtotal)
-                + String.format("\nServe Date    %s \n", serveTime.format(Dateformatter))
-                + String.format("Serve Time    %s\n", serveTime.format(Timeformatter));
+                + String.format("\nServe Date:       %s \n", serveTime.format(Dateformatter))
+                + String.format("Serve Time  :     %s\n", serveTime.format(Timeformatter));
 
     }
 
