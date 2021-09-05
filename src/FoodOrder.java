@@ -1,7 +1,7 @@
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
 
-public class FoodOrder {
+public class FoodOrder{
     private String OrderID;
     private Food[] food = new Food[100];
     private int[] quantity = new int[100];
@@ -10,7 +10,6 @@ public class FoodOrder {
     private int foodCount = 0;
     private static int orderCount = 0;
 
-    // how to generate order id automatically
     public FoodOrder() {
 
     };
