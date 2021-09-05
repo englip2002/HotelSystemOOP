@@ -4,6 +4,7 @@ public class FoodOrderRecord{ // if dont have just use Object then cast
     private static int orderCount = 0;
 
     public FoodOrderRecord() {
+        foodOrderList = new FoodOrder[100];
     }
 
     public void addFoodOrder(FoodOrder order) {

@@ -7,17 +7,18 @@ import java.util.Scanner;
 
 public class DriverFoodOrder {
     public static void main(String[] args) {
-        //this variable is a variable that will be used by all order
+        // this variable is a variable that will be used by all order
         FoodOrder foodOrder = new FoodOrder();
-        //FoodOrderRecord to store order record
+        // FoodOrderRecord to store order record
         FoodOrderRecord foodOrderRecord = new FoodOrderRecord();
         LocalDate reservationStartDate = LocalDate.now(); // for sample can run
-        // get food order 
+        // get food order
         foodOrder = FoodOrdering(reservationStartDate);
         // after done all ordering pass food order to foodOrderRecord to store
         foodOrderRecord.addFoodOrder(foodOrder);
 
         System.out.println(foodOrder.getOrderID());
+        System.out.println(foodOrderRecord.generateFoodOrderRecord("O001"));
     }
 
     public static void displayMenu(FoodType[] foodType, int foodTypeChoice) {
@@ -77,22 +78,22 @@ public class DriverFoodOrder {
             for (i = 0; i < FoodType.getNumOfFoodType(); i++) {
                 System.out.print((i + 1) + ") " + foodType[i].getTypeName() + "\n");
             }
-        
-            //validation of foodtype choice
+
+            // validation of foodtype choice
             do {
                 System.out.print("Enter your choice on food type: ");
                 foodTypeChoice = scanner.nextInt() - 1;
 
-                //because foodtypeChoice -1 alrd so numOfFoodtype also need to -1 to balance
-                if (foodTypeChoice > FoodType.getNumOfFoodType()-1 || foodTypeChoice < 0)
+                // because foodtypeChoice -1 alrd so numOfFoodtype also need to -1 to balance
+                if (foodTypeChoice > FoodType.getNumOfFoodType() - 1 || foodTypeChoice < 0)
                     System.out.println("Invalid Choice! Please Re-enter.");
 
-            } while (foodTypeChoice > FoodType.getNumOfFoodType()-1 || foodTypeChoice < 0);
+            } while (foodTypeChoice > FoodType.getNumOfFoodType() - 1 || foodTypeChoice < 0);
 
-            //display menu of the foodType choice
+            // display menu of the foodType choice
             displayMenu(foodType, foodTypeChoice);
 
-            //validation of food choice
+            // validation of food choice
             do {
                 System.out.print("Enter your choice of food: ");
                 foodChoice = scanner.nextInt() - 1;
@@ -102,12 +103,17 @@ public class DriverFoodOrder {
 
             } while (foodChoice > foodType[foodTypeChoice].getNumOfFood() - 1 || foodChoice < 0);
 
+            do {
+                System.out.print("Enter the number of food: ");
+                quantityOfFood = scanner.nextInt();
 
-            System.out.print("Enter the number of food: ");
-            quantityOfFood = scanner.nextInt();
+                if(quantityOfFood<=0)
+                    System.out.println("Invalid Input! Please Re-enter.");
+
+            } while (quantityOfFood <= 0);
 
             // pass data to food order
-            // if foodCount = 0, means no order yet
+            // if foodCount = 0, means no order yet - to pass serveDateAndTime at very begining
             if (foodOrder.getFoodCount() == 0) {
                 foodOrder = new FoodOrder(foodType[foodTypeChoice].getFood(foodChoice), quantityOfFood,
                         serveDateAndTime);
@@ -115,12 +121,13 @@ public class DriverFoodOrder {
                 foodOrder.addFood(foodType[foodTypeChoice].getFood(foodChoice), quantityOfFood);
             }
 
-            System.out.print("Continue add food ?(Y to continue) ");
+            System.out.print("Continue add food ? (Y to continue) ");
             continueAddFood = scanner.next().charAt(0);
 
             // clear screen
             System.out.print("\033[H\033[2J");
             System.out.flush();
+
         } while (Character.toUpperCase(continueAddFood) == 'Y');
 
         System.out.print(foodOrder.generateOrderReceipt());
