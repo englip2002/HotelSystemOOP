@@ -1,14 +1,14 @@
 import java.time.LocalDate;
 
 public abstract class Payment {
-    private static int paymentCount = 0;
-    private String paymentId;
-    private LocalDate paymentDate;
-    private static double taxRate = 0.06;
-    private double taxAmount;
-    private double subtotal;
-    private double totalAmount = 0;
-    private String paymentStatus;
+    protected static int paymentCount = 0;
+    protected String paymentId;
+    protected LocalDate paymentDate;
+    protected static double taxRate = 0.06;
+    protected double taxAmount;
+    protected double subtotal;
+    protected double totalAmount = 0;
+    protected String paymentStatus;
 
 
 
@@ -50,26 +50,6 @@ public abstract class Payment {
     public String getPaymentStatus() {
         return paymentStatus;
     }
-
-
-
-    //---------------------Setters-----------------------
-    public void setSubtotal(double subtotal) {
-        this.subtotal = subtotal;
-    }
-
-    public static void setTaxRate(double taxRate) {
-        Payment.taxRate = taxRate;
-    }
-
-    public void setTotalAmount(double totalAmount) {
-        this.totalAmount = totalAmount;
-    }
-
-    public void setPaymentStatus(String paymentStatus) {
-        this.paymentStatus = paymentStatus;
-    }
-
 
 
     //---------------------Methods------------------------
