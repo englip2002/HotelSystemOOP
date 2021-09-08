@@ -32,7 +32,7 @@ public class PaymentByCash extends Payment {
 
     //--------------------Methods----------------------
     public void calculateChange(){
-        change = totalReceived - getTotalAmount();
+        change = totalReceived - totalAmount;
     }
 
     @Override
@@ -40,17 +40,17 @@ public class PaymentByCash extends Payment {
         return  "\n------------------------------------------------------\n" +
                 "                    PAYMENT RECEIPT                  \n" +
                 "------------------------------------------------------\n" +
-                String.format("%s                                     %s\n\n", getPaymentId(), getPaymentDate()) +
+                String.format("%s                                     %s\n\n", paymentId, paymentDate) +
                 String.format("Payment Method                                %8s\n\n", paymentType) +
-                String.format("Subtotal                                      %8.2f\n", getSubtotal()) +
-                String.format("Tax Amount (%d%%)                               %8.2f\n",(int)(getTaxRate() * 100), getTaxAmount()) +
-                String.format("Total Amount                                  %8.2f\n\n", getTotalAmount()) +
+                String.format("Subtotal                                      %8.2f\n", subtotal) +
+                String.format("Tax Amount (%d%%)                               %8.2f\n",(int)(taxRate * 100), taxAmount) +
+                String.format("Total Amount                                  %8.2f\n\n", totalAmount) +
                 "Total Received                                " + String.format("%8.2f\n", totalReceived) +
                 "Change                                        " + String.format("%8.2f\n", change) +
                 "------------------------------------------------------";
     }
 
     public boolean validateTotalReceived(){
-        return !(totalReceived < getTotalAmount());
+        return !(totalReceived < totalAmount);
     }
 }
