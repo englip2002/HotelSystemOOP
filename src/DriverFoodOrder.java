@@ -118,8 +118,8 @@ public class DriverFoodOrder {
             // pass data to food order
             // if foodCount = 0, means no order yet - to pass serveDateAndTime at very begining
             if (foodOrder.getFoodCount() == 0) {
-                foodOrder = new FoodOrder(foodType[foodTypeChoice].getFood(foodChoice), quantityOfFood,
-                        serveDateAndTime);
+                foodOrder.setServeTime(serveDateAndTime);
+                foodOrder.addFood(foodType[foodTypeChoice].getFood(foodChoice), quantityOfFood);
             } else {
                 foodOrder.addFood(foodType[foodTypeChoice].getFood(foodChoice), quantityOfFood);
             }

@@ -12,25 +12,16 @@ public class FoodOrder {
 
     public FoodOrder() {
         final int LIMIT=100;
+        OrderID = generateOrderID();
         food=new Food[LIMIT];
         quantity=new int[LIMIT];
         subtotal=0;
         foodCount=0;
+        orderCount++;
     };
 
     private String generateOrderID() {
         return String.format("O%03d", orderCount + 1);
-    }
-
-    public FoodOrder(Food food, int quantity, LocalDateTime serveTime) {
-        OrderID = generateOrderID();
-        this.food[foodCount] = food;
-        this.quantity[foodCount] = quantity;
-        subtotal=0;
-        subtotal=calculateSubtotal();
-        this.serveTime = serveTime;
-        foodCount=1;
-        orderCount++;
     }
 
     // getter setter
@@ -40,6 +31,10 @@ public class FoodOrder {
 
     public int getFoodCount() {
         return foodCount;
+    }
+
+    public void setServeTime(LocalDateTime serveTime) {
+        this.serveTime=serveTime;
     }
 
     public void addFood(Food food, int quantity) {
