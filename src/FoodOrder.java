@@ -3,15 +3,19 @@ import java.time.format.DateTimeFormatter;
 
 public class FoodOrder {
     private String OrderID;
-    private Food[] food = new Food[100];
-    private int[] quantity = new int[100];
-    private double subtotal = 0;
+    private Food[] food;
+    private int[] quantity;
+    private double subtotal;
     private LocalDateTime serveTime;
-    private int foodCount = 0;
+    private int foodCount;
     private static int orderCount = 0;
 
     public FoodOrder() {
-
+        final int LIMIT=100;
+        food=new Food[LIMIT];
+        quantity=new int[LIMIT];
+        subtotal=0;
+        foodCount=0;
     };
 
     private String generateOrderID() {
@@ -19,14 +23,13 @@ public class FoodOrder {
     }
 
     public FoodOrder(Food food, int quantity, LocalDateTime serveTime) {
+        OrderID = generateOrderID();
         this.food[foodCount] = food;
         this.quantity[foodCount] = quantity;
-        calculateSubtotal();
+        subtotal=0;
+        subtotal=calculateSubtotal();
         this.serveTime = serveTime;
-        OrderID = OrderID + orderCount;
-        OrderID = generateOrderID();
-
-        foodCount++;
+        foodCount=1;
         orderCount++;
     }
 
@@ -42,12 +45,12 @@ public class FoodOrder {
     public void addFood(Food food, int quantity) {
         this.food[foodCount] = food;
         this.quantity[foodCount] = quantity;
-        calculateSubtotal();
+        subtotal=calculateSubtotal();
         foodCount++;
     }
 
-    private void calculateSubtotal() {
-        subtotal += food[foodCount].getPrice() * quantity[foodCount];
+    private double calculateSubtotal() {
+        return subtotal+(food[foodCount].getPrice() * quantity[foodCount]);
     }
 
     private String CompileOrderedFood() {
