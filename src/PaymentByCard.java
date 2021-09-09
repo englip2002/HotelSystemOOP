@@ -60,7 +60,7 @@
 
         @Override
         public void calculateTotalAmount() {
-            setTotalAmount(calculateCharge());
+            totalAmount = calculateCharge();
             super.calculateTotalAmount();
         }
 
@@ -79,17 +79,17 @@
             return "\n------------------------------------------------------\n"
                     + "                    PAYMENT RECEIPT                  \n"
                     + "------------------------------------------------------\n"
-                    + String.format("%s                                     %s\n\n", getPaymentId(), getPaymentDate())
+                    + String.format("%s                                     %s\n\n", paymentId, paymentDate)
                     + String.format("Payment Method                         %15s\n", paymentType)
                     + String.format("Card Number                            %15s\n", cardNumber)
                     + String.format("Card Type                              %15s\n", cardType)
                     + String.format("Bank                                   %15s\n\n", bank.getBankName())
-                    + String.format("Subtotal                               %15.2f\n", getSubtotal())
-                    + String.format("Tax Amount (%d%%)                        %15.2f\n", (int) (getTaxRate() * 100),
+                    + String.format("Subtotal                               %15.2f\n", subtotal)
+                    + String.format("Tax Amount (%d%%)                        %15.2f\n", (int) (taxRate * 100),
                     getTaxAmount())
                     + String.format("Charge     (%d%%)                        %15.2f\n", (int) (chargePercentage * 100),
                     calculateCharge())
-                    + String.format("Total Amount                           %15.2f\n", getTotalAmount())
+                    + String.format("Total Amount                           %15.2f\n", totalAmount)
                     + "------------------------------------------------------";
         }
     }

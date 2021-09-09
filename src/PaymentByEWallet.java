@@ -27,11 +27,11 @@ public class PaymentByEWallet extends Payment {
         return  "\n------------------------------------------------------\n" +
                 "                    PAYMENT RECEIPT                  \n" +
                 "------------------------------------------------------\n" +
-                String.format("%s                                     %s\n\n", getPaymentId(), getPaymentDate()) +
+                String.format("%s                                     %s\n\n", paymentId, paymentDate) +
                 String.format("Payment Method                                %8s\n\n", paymentType) +
-                String.format("Subtotal                                      %8.2f\n", getSubtotal()) +
-                String.format("Tax Amount (%d%%)                               %8.2f\n",(int)(getTaxRate() * 100), getTaxAmount()) +
-                String.format("Total Amount                                  %8.2f\n", getTotalAmount()) +
+                String.format("Subtotal                                      %8.2f\n", subtotal) +
+                String.format("Tax Amount (%d%%)                               %8.2f\n",(int)(taxRate * 100), taxAmount) +
+                String.format("Total Amount                                  %8.2f\n", totalAmount) +
                 "------------------------------------------------------";
     }
 }
