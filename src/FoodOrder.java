@@ -1,7 +1,7 @@
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
 
-public class FoodOrder{
+public class FoodOrder {
     private String OrderID;
     private Food[] food = new Food[100];
     private int[] quantity = new int[100];
@@ -15,16 +15,16 @@ public class FoodOrder{
     };
 
     private String generateOrderID() {
-        return String.format("O%03d", orderCount+1);
+        return String.format("O%03d", orderCount + 1);
     }
 
     public FoodOrder(Food food, int quantity, LocalDateTime serveTime) {
-        this.food[foodCount] = new Food(food);
+        this.food[foodCount] = food;
         this.quantity[foodCount] = quantity;
         calculateSubtotal();
         this.serveTime = serveTime;
         OrderID = OrderID + orderCount;
-        OrderID=generateOrderID();
+        OrderID = generateOrderID();
 
         foodCount++;
         orderCount++;
@@ -50,8 +50,7 @@ public class FoodOrder{
         subtotal += food[foodCount].getPrice() * quantity[foodCount];
     }
 
-
-    private String loopFood() {
+    private String CompileOrderedFood() {
         String foodString = new String();
         for (int i = 0; i < foodCount; i++) {
             foodString = foodString.concat(String.format("%s %14d %24.2f\n", food[i].toString(), quantity[i],
@@ -69,7 +68,7 @@ public class FoodOrder{
 
                 String.format("\n%-30s %-20s %-20s %-20s\n", "Food Ordered", "Unit Price", "Quantity", "Subtotal(RM)")
                 + "----------------------------------------------------------------------------------------\n"
-                + String.format("%s", loopFood()) + String.format("\n%s %71.2f\n", "Total(RM)", subtotal)
+                + String.format("%s", CompileOrderedFood()) + String.format("\n%s %71.2f\n", "Total(RM)", subtotal)
                 + String.format("\nServe Date:       %s \n", serveTime.format(Dateformatter))
                 + String.format("Serve Time  :     %s\n", serveTime.format(Timeformatter));
 

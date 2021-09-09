@@ -24,6 +24,7 @@ public class Food {
         return foodName;
     }
 
+    @Override
     public String toString() {
         return String.format("%-30s %-10.2f", foodName,price);
     }

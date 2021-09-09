@@ -9,9 +9,11 @@ public class DriverFoodOrder {
     public static void main(String[] args) {
         // this variable is a variable that will be used by all order
         FoodOrder foodOrder = new FoodOrder();
+
         // FoodOrderRecord to store order record
         FoodOrderRecord foodOrderRecord = new FoodOrderRecord();
-        LocalDate reservationStartDate = LocalDate.now(); // for sample can run
+        LocalDate reservationStartDate = LocalDate.now(); // actually is the reservation time
+
         // get food order
         foodOrder = FoodOrdering(reservationStartDate);
         // after done all ordering pass food order to foodOrderRecord to store
@@ -19,6 +21,7 @@ public class DriverFoodOrder {
 
         System.out.println(foodOrder.getOrderID());
         System.out.println(foodOrderRecord.generateFoodOrderRecord("O001"));
+        System.out.println(foodOrderRecord.generateFoodOrderRecord(foodOrder));
     }
 
     public static void displayMenu(FoodType[] foodType, int foodTypeChoice) {
