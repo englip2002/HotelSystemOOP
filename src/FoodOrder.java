@@ -21,7 +21,7 @@ public class FoodOrder {
     }
 
     private String generateOrderID() {
-        return String.format("O%03d", orderCount + 1);
+        return String.format("O%03d", orderCount);
     }
 
     // getter setter
