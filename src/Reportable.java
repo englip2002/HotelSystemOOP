@@ -1,4 +1,4 @@
 
 public interface Reportable {
-	String generateReport();
+	void generateReport();
 }
