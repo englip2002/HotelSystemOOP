@@ -51,18 +51,15 @@ public class DriverFoodOrder {
         do {
             dateValidity = true;
             try {
-                System.out.print("Enter food reserve date (DD-MM-YYYY): ");
+                System.out.print("Enter food reserve date (YYYY-MM-DD): ");
                 serveDateString = scanner.nextLine();
 
                 System.out.print("Enter food reserve time (HH:MM): ");
                 serveTimeString = scanner.nextLine();
 
-                DateTimeFormatter Timeformatter = DateTimeFormatter.ofPattern("HH:mm");
-                DateTimeFormatter Dateformatter = DateTimeFormatter.ofPattern("dd-MM-uuuu");
-
                 // formatting the entered and store in serveDateandTime
-                serveDateAndTime = LocalDateTime.of(LocalDate.parse(serveDateString, Dateformatter),
-                        LocalTime.parse(serveTimeString, Timeformatter));
+                serveDateAndTime = LocalDateTime.of(LocalDate.parse(serveDateString),
+                        LocalTime.parse(serveTimeString));
 
             } catch (DateTimeParseException e) {
                 dateValidity = false;

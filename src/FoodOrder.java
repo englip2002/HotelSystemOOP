@@ -18,7 +18,7 @@ public class FoodOrder {
         subtotal=0;
         foodCount=0;
         orderCount++;
-    };
+    }
 
     private String generateOrderID() {
         return String.format("O%03d", orderCount + 1);
