@@ -1,7 +1,6 @@
 public class FoodType {
     private String typeName;
     private Food[] foods;
-    private static int numOfFoodType=0;
 
     public FoodType() {
     };
@@ -9,19 +8,20 @@ public class FoodType {
     public FoodType(String typeName, Food[] foods) {
         this.typeName = typeName;
         this.foods=foods;
-        numOfFoodType++;
     }
 
+    //get particular food
     public Food getFood(int foodIndex){
         return foods[foodIndex];
     }
 
-    public String getTypeName() {
-        return typeName;
+    //get food array
+    public Food[] getFood(){
+        return foods;
     }
 
-    public static int getNumOfFoodType(){
-        return numOfFoodType;
+    public String getTypeName() {
+        return typeName;
     }
 
     public int getNumOfFood(){

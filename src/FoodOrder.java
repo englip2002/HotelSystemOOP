@@ -12,12 +12,12 @@ public class FoodOrder {
 
     public FoodOrder() {
         final int LIMIT=100;
+        orderCount++;
         OrderID = generateOrderID();
         food=new Food[LIMIT];
         quantity=new int[LIMIT];
         subtotal=0;
         foodCount=0;
-        orderCount++;
     }
 
     private String generateOrderID() {
@@ -64,11 +64,11 @@ public class FoodOrder {
                 + "                                       ORDER SUMMARY                 \n"
                 + "----------------------------------------------------------------------------------------\n" +
 
-                String.format("\n%-30s %-20s %-20s %-20s\n", "Food Ordered", "Unit Price", "Quantity", "Subtotal(RM)")
+                String.format("%-30s %-20s %-20s %-20s\n", "Food Ordered", "Unit Price", "Quantity", "Subtotal(RM)")
                 + "----------------------------------------------------------------------------------------\n"
                 + String.format("%s", CompileOrderedFood()) + String.format("\n%s %71.2f\n", "Total(RM)", subtotal)
-                + String.format("\nServe Date:       %s \n", serveTime.format(Dateformatter))
-                + String.format("Serve Time  :     %s\n", serveTime.format(Timeformatter));
+                + String.format("\nServe Date     :     %-20s\n", serveTime.format(Dateformatter))
+                + String.format("Serve Time     :     %-20s\n", serveTime.format(Timeformatter));
 
     }
 

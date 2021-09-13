@@ -20,7 +20,6 @@ public class FoodOrderRecord implements Comparator<Object>{ //if dont have just 
                 return foodOrderList[i].generateOrderReceipt();
             }
         }
-
         return "Order ID not found!";
     }
 

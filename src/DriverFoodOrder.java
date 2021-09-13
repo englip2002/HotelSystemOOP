@@ -19,18 +19,10 @@ public class DriverFoodOrder {
         foodOrderRecord.addFoodOrder(foodOrder);
 
         System.out.println(foodOrder.getOrderID());
-        System.out.println(foodOrderRecord.generateFoodOrderRecord("O001"));
-        System.out.println(foodOrderRecord.generateFoodOrderRecord(foodOrder));
+        System.out.println(foodOrderRecord.generateFoodOrderRecord(foodOrder.getOrderID()));
     }
 
-    public static void displayMenu(FoodType[] foodType, int foodTypeChoice) {
-        int i;
-        System.out.println("\n              MENU              ");
-        System.out.println("--------------------------------");
-        for (i = 0; i < foodType[foodTypeChoice].getNumOfFood(); i++) {
-            System.out.print((i + 1) + ") " + foodType[foodTypeChoice].getFood(i).toString() + "\n");
-        }
-    }
+
 
     public static FoodOrder FoodOrdering(LocalDate reservationStartDate) {
         int i, foodTypeChoice, foodChoice, quantityOfFood;
@@ -66,35 +58,38 @@ public class DriverFoodOrder {
 
             // print error message
             if (!serveDateAndTime.toLocalDate().isAfter(reservationStartDate) || dateValidity == false)
-                System.out.println("Invalid Time Please Retry\n");
+                System.out.println("Invalid Time! Please Re-enter.\n");
 
         } while (!serveDateAndTime.toLocalDate().isAfter(reservationStartDate) || dateValidity == false);
 
         // print food menu and get user choice
         do {
-            System.out.println("\n Food Type");
-            System.out.println("==================");
-            for (i = 0; i < FoodType.getNumOfFoodType(); i++) {
-                System.out.print((i + 1) + ") " + foodType[i].getTypeName() + "\n");
+            System.out.println("\n             Food Type Menu        ");
+            System.out.println("+-----+----------------------+---------+");
+            System.out.printf("| %-3s | %-20s | %-7s |\n","No","Food Type","Choices");
+            System.out.println("+-----+----------------------+---------+");
+            for (i = 0; i < foodType.length; i++) {
+                System.out.printf("| %-3d | %-20s | %-7d |\n", (i+1),foodType[i].getTypeName(),foodType[i].getFood().length);
             }
+            System.out.println("+-----+----------------------+---------+");
 
             // validation of foodtype choice
             do {
-                System.out.print("Enter your choice on food type: ");
+                System.out.print("Enter the No of Food Type: ");
                 foodTypeChoice = scanner.nextInt() - 1;
 
                 // because foodtypeChoice -1 alrd so numOfFoodtype also need to -1 to balance
-                if (foodTypeChoice > FoodType.getNumOfFoodType() - 1 || foodTypeChoice < 0)
+                if (foodTypeChoice > foodType.length - 1 || foodTypeChoice < 0)
                     System.out.println("Invalid Choice! Please Re-enter.");
 
-            } while (foodTypeChoice > FoodType.getNumOfFoodType() - 1 || foodTypeChoice < 0);
+            } while (foodTypeChoice > foodType.length - 1 || foodTypeChoice < 0);
 
             // display menu of the foodType choice
             displayMenu(foodType, foodTypeChoice);
 
             // validation of food choice
             do {
-                System.out.print("Enter your choice of food: ");
+                System.out.print("Enter the No of Food: ");
                 foodChoice = scanner.nextInt() - 1;
 
                 if (foodChoice > foodType[foodTypeChoice].getNumOfFood() - 1 || foodChoice < 0)
@@ -103,7 +98,7 @@ public class DriverFoodOrder {
             } while (foodChoice > foodType[foodTypeChoice].getNumOfFood() - 1 || foodChoice < 0);
 
             do {
-                System.out.print("Enter the number of food: ");
+                System.out.print("Enter the Quantity of Purchase: ");
                 quantityOfFood = scanner.nextInt();
 
                 if(quantityOfFood<=0)
@@ -131,8 +126,20 @@ public class DriverFoodOrder {
 
         System.out.print(foodOrder.generateOrderReceipt());
 
-        // direct pass the order ID to the reservation by return
+        // pass the food order back to main to Record and get order ID to store in reservation
         return foodOrder;
+    }
+
+    public static void displayMenu(FoodType[] foodType, int foodTypeChoice) {
+        int i;
+        System.out.println("\n                       MENU                        ");
+        System.out.println("+-----+--------------------------------+------------+");
+        System.out.println("| No  | Food                           | Price(RM)  |");
+        System.out.println("+-----+--------------------------------+------------+");
+        for (i = 0; i < foodType[foodTypeChoice].getNumOfFood(); i++) {
+            System.out.printf("| %-3d | %-30s | %-10.2f |\n",(i+1),foodType[foodTypeChoice].getFood(i).getFoodName(),foodType[foodTypeChoice].getFood(i).getPrice());
+        }
+        System.out.println("+-----+--------------------------------+------------+");
     }
 
     public static FoodType[] initializeFood() {
