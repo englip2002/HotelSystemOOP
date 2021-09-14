@@ -69,7 +69,7 @@ public class Final {
                             foodOrderRecord);
                     // store reservation record
                     cust.addReservation(reservation);
-
+                    //foodOrderRecord.generateFoodOrderRecord(reservation.getOrderID());
                     break;
                 }
 
@@ -361,7 +361,7 @@ public class Final {
         // enter any key to continue
         System.out.print("< Press any key to continue >");
         scanner.nextLine();
-        
+
         /*
          * 
          * Payment (shu wei)
