@@ -1,6 +1,6 @@
 import java.time.LocalDate;
 
-public abstract class Payment {
+public abstract class Payment implements Reportable {
     protected static int paymentCount = 0;
     protected String paymentId;
     protected LocalDate paymentDate;
@@ -68,5 +68,12 @@ public abstract class Payment {
     public double refund() {
         paymentStatus = "Refunded";
         return  totalAmount;
+    }
+
+    @Override
+    public String generateReport() {
+        return  "\nPayment Report for " + paymentId + "\n" +
+                "Payment Status: " + paymentStatus +
+                generateReceipt() + "\n";
     }
 }
