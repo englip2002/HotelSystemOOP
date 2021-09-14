@@ -38,7 +38,4 @@ public class FoodOrderRecord implements Comparator<Object>{ //if dont have just 
         return "Order Record not found!";
     }
 
-    public int compare(Object obj1, Object obj2){
-        return ();
-    }
 }
