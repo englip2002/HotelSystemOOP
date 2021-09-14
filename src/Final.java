@@ -340,7 +340,7 @@ public class Final {
         // Eng Lip
         // make food Order
         char orderChoice = 'N';
-        System.out.println("Food Ordering ");
+        System.out.println("\n\nFood Ordering ");
         System.out.println("=====================");
         System.out.print("Do you wish to order food ? (Y/N) :");
         orderChoice = Character.toUpperCase(scanner.next().charAt(0));
@@ -358,27 +358,25 @@ public class Final {
             // store food order record
             foodOrderRecord.addFoodOrder(foodOrder);
         }
-        // enter any key to continue
-        System.out.print("< Press any key to continue >");
-        scanner.nextLine();
+        
 
         /*
          * 
          * Payment (shu wei)
          * 
          */
-        Payment payment = null;
-        Payment(reservationTotalAmount + foodOrderTotalAmount); // havent complete? didnt return anything
+        Payment payment=Payment(reservationTotalAmount + foodOrderTotalAmount); 
 
         // Assume payment is made
         Reservation reservation = new Reservation(cust, schedule, reservedRooms, foodOrderID, payment);
 
         System.out.println("\nThe following is the summary of your reservation: ");
         System.out.println(reservation.generateReport());
-        ;
+
         System.out.print("< Press any key to continue >");
         scanner.nextLine();
-
+        scanner.nextLine();
+        
         return reservation;
     }
 
@@ -419,6 +417,7 @@ public class Final {
             System.out.println(reservations.get(viewOpt).generateReport());
             System.out.print("< Press any key to continue >");
             scanner.nextLine();
+            scanner.nextLine();
 
             // Print Food Order Report
 
@@ -432,8 +431,7 @@ public class Final {
     }
 
     // Food Ordering Methods
-    public static FoodOrder FoodOrdering(LocalDate reservationStartDate, LocalDate reservationEndDate,
-            FoodType[] foodType) {
+    public static FoodOrder FoodOrdering(LocalDate reservationStartDate, LocalDate reservationEndDate, FoodType[] foodType) {
         int i, foodTypeChoice, foodChoice, quantityOfFood;
         char continueAddFood = 'N';
         String serveDateString, serveTimeString;
@@ -534,6 +532,9 @@ public class Final {
 
         System.out.print(foodOrder.generateReport());
 
+        System.out.print("< Press any key to continue >");
+        scanner.nextLine();
+        scanner.nextLine();
         // pass the food order back to main to Record and get order ID to store in
         // reservation
         return foodOrder;
@@ -577,7 +578,7 @@ public class Final {
     }
 
     // Payment
-    public static void paymentByCash(double subtotal) {
+    public static Payment paymentByCash(double subtotal) {
         Scanner scanner = new Scanner(System.in);
         PaymentByCash paymentByCash = new PaymentByCash(subtotal);
 
@@ -622,9 +623,11 @@ public class Final {
         scanner.nextLine();
 
         System.out.println(paymentByCash.generateReceipt());
+        scanner.close();
+        return paymentByCash;
     }
 
-    public static void paymentByCard(double subtotal) {
+    public static Payment paymentByCard(double subtotal) {
         Scanner scanner = new Scanner(System.in);
         PaymentByCard paymentByCard = new PaymentByCard(subtotal);
         Bank[] bank = new Bank[5];
@@ -717,14 +720,16 @@ public class Final {
 
         System.out.println("\nPayment Completed !!");
 
-        System.out.print("\nPress enter to view receipt");
+        System.out.print("\n<Press enter to view receipt>");
         scanner.nextLine();
         scanner.nextLine();
 
         System.out.println(paymentByCard.generateReceipt());
+        scanner.close();
+        return paymentByCard;
     }
 
-    public static void paymentByEWallet(double subtotal) {
+    public static Payment paymentByEWallet(double subtotal) {
         Scanner scanner = new Scanner(System.in);
 
         PaymentByEWallet paymentByEWallet = new PaymentByEWallet(subtotal);
@@ -772,15 +777,18 @@ public class Final {
 
         System.out.println("\nPayment Completed...");
 
-        System.out.print("\nPress enter to view receipt");
+        System.out.print("\n<Press enter to view receipt>");
         scanner.nextLine();
         scanner.nextLine();
 
         System.out.println(paymentByEWallet.generateReceipt());
+        scanner.close();
+        return paymentByEWallet;
     }
 
-    public static void Payment(double subtotal) {
+    public static Payment Payment(double subtotal) {
         Scanner scanner = new Scanner(System.in);
+        Payment payment;
         System.out.println("\n******************************************");
         System.out.println("||               PAYMENT                ||");
         System.out.println("******************************************");
@@ -798,10 +806,14 @@ public class Final {
         }
 
         if (paymentMethod == 1)
-            paymentByCash(subtotal);
+            payment=paymentByCash(subtotal);
         else if (paymentMethod == 2)
-            paymentByCard(subtotal);
+            payment=paymentByCard(subtotal);
         else
-            paymentByEWallet(subtotal);
+            payment=paymentByEWallet(subtotal);
+
+        scanner.close();
+        return payment;
     }
+
 }
