@@ -1,6 +1,5 @@
-import java.util.Comparator;
 
-public class FoodOrderRecord implements Comparator<Object>{ //if dont have just use Object then cast
+public class FoodOrderRecord{ 
     private FoodOrder[] foodOrderList;
     private static int orderCount = 0;
 
