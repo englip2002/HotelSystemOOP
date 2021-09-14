@@ -9,6 +9,16 @@
         public PaymentByCard(double subtotal) {
             super(subtotal);
         };
+        
+        //Used for assigning default reservation's payment record (P00001)
+        public PaymentByCard(double subtotal, String bankName, String cardNumber) {
+            super(subtotal);
+            this.bank = new Bank(bankName);
+            this.cardNumber = cardNumber;
+            validateCardType();
+            calculateTaxAmount();
+            calculateTotalAmount();
+        }
 
         //-------------------------getter setter------------------------------------------
         public String getCardNumber() {
@@ -65,7 +75,7 @@
         }
 
         public boolean validCard() {
-            if (cardNumber.length() == 12) {
+            if (cardNumber.length() == 16) {
                 if (CVV >= 100 && CVV < 1000)
                     return true;
                 else
@@ -80,16 +90,14 @@
                     + "                    PAYMENT RECEIPT                  \n"
                     + "------------------------------------------------------\n"
                     + String.format("%s                                     %s\n\n", paymentId, paymentDate)
-                    + String.format("Payment Method                         %15s\n", paymentType)
-                    + String.format("Card Number                            %15s\n", cardNumber)
-                    + String.format("Card Type                              %15s\n", cardType)
-                    + String.format("Bank                                   %15s\n\n", bank.getBankName())
-                    + String.format("Subtotal                               %15.2f\n", subtotal)
-                    + String.format("Tax Amount (%d%%)                        %15.2f\n", (int) (taxRate * 100),
-                    getTaxAmount())
-                    + String.format("Charge     (%d%%)                        %15.2f\n", (int) (chargePercentage * 100),
-                    calculateCharge())
-                    + String.format("Total Amount                           %15.2f\n", totalAmount)
+                    + String.format("Payment Method                        %16s\n", paymentType)
+                    + String.format("Card Number                           %16s\n", cardNumber)
+                    + String.format("Card Type                             %16s\n", cardType)
+                    + String.format("Bank                                  %16s\n\n", bank.getBankName())
+                    + String.format("Subtotal                              %16.2f\n", subtotal)
+                    + String.format("Tax Amount (%d%%)                     %18.2f\n", (int) (taxRate * 100), getTaxAmount())
+                    + String.format("Charge     (%d%%)                     %18.2f\n", (int) (chargePercentage * 100), calculateCharge())
+                    + String.format("Total Amount                          %16.2f\n", totalAmount)
                     + "------------------------------------------------------";
         }
     }
