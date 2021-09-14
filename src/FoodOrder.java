@@ -13,15 +13,11 @@ public class FoodOrder implements Reportable{
     public FoodOrder() {
         final int LIMIT=100;
         orderCount++;
-        OrderID = generateOrderID();
+        OrderID = String.format("O%03d", orderCount);
         food=new Food[LIMIT];
         quantity=new int[LIMIT];
         subtotal=0;
         foodCount=0;
-    }
-
-    private String generateOrderID() {
-        return String.format("O%03d", orderCount);
     }
 
     // getter setter
@@ -31,6 +27,10 @@ public class FoodOrder implements Reportable{
 
     public int getFoodCount() {
         return foodCount;
+    }
+
+    public double getSubtotal() {
+        return subtotal;
     }
 
     public void setServeTime(LocalDateTime serveTime) {

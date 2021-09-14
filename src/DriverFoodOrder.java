@@ -13,8 +13,11 @@ public class DriverFoodOrder {
         FoodOrderRecord foodOrderRecord = new FoodOrderRecord();
         LocalDate reservationStartDate = LocalDate.now(); // actually is the reservation time
 
+        //Food Type and Foods
+        FoodType[] foodType = initializeFood();
+
         // get food order
-        foodOrder = FoodOrdering(reservationStartDate);
+        foodOrder = FoodOrdering(reservationStartDate,foodType);
         // after done all ordering pass food order to foodOrderRecord to store
         foodOrderRecord.addFoodOrder(foodOrder);
 
@@ -23,8 +26,7 @@ public class DriverFoodOrder {
     }
 
 
-
-    public static FoodOrder FoodOrdering(LocalDate reservationStartDate) {
+    public static FoodOrder FoodOrdering(LocalDate reservationStartDate, FoodType[] foodType) {
         int i, foodTypeChoice, foodChoice, quantityOfFood;
         char continueAddFood = 'N';
         String serveDateString, serveTimeString;
@@ -33,10 +35,6 @@ public class DriverFoodOrder {
         FoodOrder foodOrder = new FoodOrder();
 
         LocalDateTime serveDateAndTime = LocalDateTime.now();
-
-        // initialize foodType and pass foods to foodtype
-        FoodType[] foodType = new FoodType[0];
-        foodType = initializeFood();
 
         // user enter and validate reserve date
         do {
@@ -57,10 +55,10 @@ public class DriverFoodOrder {
             }
 
             // print error message
-            if (!serveDateAndTime.toLocalDate().isAfter(reservationStartDate) || dateValidity == false)
+            if (serveDateAndTime.toLocalDate().isBefore(reservationStartDate) || dateValidity == false)
                 System.out.println("Invalid Time! Please Re-enter.\n");
 
-        } while (!serveDateAndTime.toLocalDate().isAfter(reservationStartDate) || dateValidity == false);
+        } while (serveDateAndTime.toLocalDate().isBefore(reservationStartDate) || dateValidity == false);
 
         // print food menu and get user choice
         do {
