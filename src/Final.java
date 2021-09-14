@@ -23,9 +23,9 @@ public class Final {
         FoodOrderRecord foodOrderRecord = new FoodOrderRecord();
 
         /*
-         * 
+         *
          * Login
-         * 
+         *
          */
         // Assume customer login successful
         Customer cust = new Customer();
@@ -33,14 +33,14 @@ public class Final {
         r2.add(new Room(999, roomTypes[0]));
         cust.addReservation(
                 new Reservation(cust, new ReservationSchedule(LocalDate.of(2021, 10, 5), LocalDate.of(2021, 10, 10)),
-                        r2, "", new PaymentByCard(100)));
+                        r2, "", new PaymentByCard(100, "Public Bank", "4156928601528375")));
 
         // Main Menu
         int menuOpt = 0;
         while (menuOpt != 5) {
             System.out.print("\033[H\033[2J");
             System.out.flush();
-            System.out.println("+----------------------------------+\n" + "|      Hotel Reservation Menu      |\n"
+            System.out.println("\n+----------------------------------+\n" + "|      Hotel Reservation Menu      |\n"
                     + "+----------------------------------+\n" + "| 1 - View Profile                 |\n"
                     + "| 2 - Make a Reservation           |\n" + "| 3 - View Reservations            |\n"
                     + "| 4 - Cancel Reservation           |\n" + "| 5 - Logout                       |\n"
@@ -183,7 +183,7 @@ public class Final {
     }
 
     public static Reservation makeReservation(Scanner scanner, Customer cust, RoomType[] roomTypes, Block block,
-            FoodType[] foodType, FoodOrderRecord foodOrderRecord) {
+                                              FoodType[] foodType, FoodOrderRecord foodOrderRecord) {
 
         // Constants
         int MAX_RESERVATION_DAYS = 365;
@@ -356,16 +356,16 @@ public class Final {
             // get subtotal
             foodOrderTotalAmount = foodOrder.getSubtotal();
             // store food order record
-            foodOrderRecord.addFoodOrder(foodOrder);            
+            foodOrderRecord.addFoodOrder(foodOrder);
         }
-        
+
 
         /*
-         * 
+         *
          * Payment (shu wei)
-         * 
+         *
          */
-        Payment payment=makePayment(reservationTotalAmount + foodOrderTotalAmount,scanner); 
+        Payment payment=makePayment(reservationTotalAmount + foodOrderTotalAmount,scanner);
 
         // Assume payment is made
         Reservation reservation = new Reservation(cust, schedule, reservedRooms, foodOrderID, payment);
@@ -373,9 +373,9 @@ public class Final {
         System.out.println("\nThe following is the summary of your reservation: ");
         System.out.println(reservation.generateReport());
 
-        System.out.print("< Press any key to continue >");
+        System.out.print("< Press enter to continue >");
         scanner.nextLine();
-        
+
         return reservation;
     }
 
@@ -414,15 +414,18 @@ public class Final {
             viewOpt -= 1;
 
             System.out.println(reservations.get(viewOpt).generateReport());
-            System.out.print("< Press any key to continue >");
+            System.out.print("< Press enter to continue >");
             scanner.nextLine();
 
             // Print Food Order Report
             System.out.println(foodOrderRecord.generateFoodOrderRecord(reservations.get(viewOpt)));
-            System.out.print("< Press any key to continue >");
+            System.out.print("< Press enter to continue >");
             scanner.nextLine();
-            
+
             // Print Payment Report
+            System.out.println(reservations.get(viewOpt).getPayment().generateReport());
+            System.out.print("< Press enter to continue >");
+            scanner.nextLine();
 
         } while (viewOpt != 0);
     }
@@ -458,11 +461,11 @@ public class Final {
             }
 
             // print error message
-            
+
             if(dateValidity == false)
                 System.out.println("Invalid Date Format! Please Re-enter.\n");
             else if (serveDateAndTime.toLocalDate().isBefore(reservationStartDate)|| serveDateAndTime.toLocalDate().isAfter(reservationEndDate))
-            System.out.println("Invalid Time! Please Re-enter.\n");
+                System.out.println("Invalid Time! Please Re-enter.\n");
 
         } while (serveDateAndTime.toLocalDate().isBefore(reservationStartDate)
                 || serveDateAndTime.toLocalDate().isAfter(reservationEndDate) || dateValidity == false);
@@ -533,7 +536,7 @@ public class Final {
 
         System.out.print(foodOrder.generateReport());
 
-        System.out.print("< Press any key to continue >");
+        System.out.print("< Press enter to continue >");
         scanner.nextLine();
         scanner.nextLine();
 
@@ -619,9 +622,9 @@ public class Final {
 
         System.out.printf("\n Total received : %.2f\n", paymentByCash.getTotalReceived());
         System.out.printf(" Change         : %.2f\n", paymentByCash.getChange());
-        System.out.println("\nPayment Completed...");
+        System.out.println("\nPayment Completed !!");
 
-        System.out.print("\nPress enter to view receipt");
+        System.out.print("\n< Press enter to view receipt >");
         scanner.nextLine();
         scanner.nextLine();
 
@@ -687,7 +690,7 @@ public class Final {
             makePayment(subtotal,scanner);
         }
 
-        System.out.print("\nPress enter to request the OTP number");
+        System.out.print("\n< Press enter to request the OTP number >");
         scanner.nextLine();
         scanner.nextLine();
 
@@ -699,7 +702,7 @@ public class Final {
 
         while (!paymentByCard.getBank().validateOTPNumber(scanner.next())) {
             System.out.println("\nInvalid OTP No !!");
-            System.out.print("Press enter to request OTP Number again");
+            System.out.print("< Press enter to request OTP Number again >");
             scanner.nextLine();
             scanner.nextLine();
             paymentByCard.getBank().generateOTPNumber();
@@ -713,7 +716,7 @@ public class Final {
         for (int i = 3; i > 0; i--) {
             System.out.printf("Processing payment... (%d sec)\n", i);
             try {
-                Thread.sleep(1500);
+                Thread.sleep(1000);
             } catch (InterruptedException ie) {
                 Thread.currentThread().interrupt();
             }
@@ -721,7 +724,7 @@ public class Final {
 
         System.out.println("\nPayment Completed !!");
 
-        System.out.print("\n<Press enter to view receipt>");
+        System.out.print("\n< Press enter to view receipt >");
         scanner.nextLine();
         scanner.nextLine();
 
@@ -767,15 +770,15 @@ public class Final {
         for (int i = 3; i > 0; i--) {
             System.out.printf("Processing payment... (%d sec)\n", i);
             try {
-                Thread.sleep(1500);
+                Thread.sleep(1000);
             } catch (InterruptedException ie) {
                 Thread.currentThread().interrupt();
             }
         }
 
-        System.out.println("\nPayment Completed...");
+        System.out.println("\nPayment Completed !!");
 
-        System.out.print("\n<Press enter to view receipt>");
+        System.out.print("\n< Press enter to view receipt >");
         scanner.nextLine();
         scanner.nextLine();
 
