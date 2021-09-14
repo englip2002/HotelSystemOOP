@@ -1,7 +1,7 @@
 import java.time.LocalDate;
 import java.time.temporal.ChronoUnit;
 
-public class ReservationSchedule {
+public class ReservationSchedule implements Reportable{
 	private LocalDate startDate;
 	private LocalDate endDate;
 	private int daysBetween;
@@ -18,9 +18,16 @@ public class ReservationSchedule {
 			return (startDate.equals( ((ReservationSchedule)obj ).getStartDate() )) && 
 					 (endDate.equals( ((ReservationSchedule)obj ).getEndDate() ));
 		}
-		else {
-			return false;
-		}
+		return false;
+	}
+	
+	@Override
+	public String generateReport() {
+		return "     [ " + startDate + " - " + endDate + " ] (" + daysBetween + " nights)\n";
+	}
+	
+	public String generateTableRow() {
+		return startDate.toString() + " | " + endDate.toString() + " | ";
 	}
 	
 	//Getters

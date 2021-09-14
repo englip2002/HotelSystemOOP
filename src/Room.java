@@ -1,6 +1,6 @@
 import java.util.ArrayList;
 
-public class Room {
+public class Room implements Reportable{
 	private int roomNumber;
 	private RoomType roomType;
 	private ArrayList<ReservationSchedule> reservedDays;
@@ -41,7 +41,12 @@ public class Room {
 
 	@Override
 	public String toString() {
-		return "Room Number: " + this.getRoomNumber() + "\n" + this.getRoomType();
+		return String.format("%03d ", roomNumber) + roomType.toString();
+	}
+	
+	@Override
+	public String generateReport() {
+		return String.format("| %7d | ", roomNumber) + roomType.generateReport() + "\n";
 	}
 
 	// Getters

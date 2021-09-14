@@ -1,12 +1,12 @@
 
 public class Block {
-	private String blockIdentifier;
+	private String blockID;
 	private int numberOfFloors;
 	private int maxNumberOfFloors;
 	private Floor[] floors;
 	
-	public Block(String blockIdentifier, int maxNumberOfFloors) {
-		this.blockIdentifier = blockIdentifier;
+	public Block(String blockID, int maxNumberOfFloors) {
+		this.blockID = blockID;
 		this.maxNumberOfFloors = maxNumberOfFloors;
 		this.floors = new Floor[maxNumberOfFloors];
 		numberOfFloors = 0;
@@ -51,7 +51,7 @@ public class Block {
 			}
 		}
 		if (!found) {
-			System.out.println("Unable to find Floor Number " + floorNumber + " at Block " + blockIdentifier + "!");
+			System.out.println("Unable to find Floor Number " + floorNumber + " at Block " + blockID + "!");
 		}
 	}
 	
@@ -60,8 +60,8 @@ public class Block {
 	}
 	
 	// Getters
-	public String getBlockIdentifier() {
-		return blockIdentifier;
+	public String getBlockID() {
+		return blockID;
 	}
 	public int getNumberOfFloors() {
 		return numberOfFloors;

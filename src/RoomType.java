@@ -1,5 +1,5 @@
 
-public class RoomType {
+public class RoomType implements Reportable{
 	private String name;
 	private int numberOfTwinBeds;
 	private int numberOfKingBeds;
@@ -18,7 +18,7 @@ public class RoomType {
 
 	@Override
 	public String toString() {
-		return name;
+		return String.format("%-13s | ", name);
 	}
 	
 	@Override
@@ -27,6 +27,11 @@ public class RoomType {
 			return this.name.equals( ((RoomType)obj).getName() );
 		}
 		return false;
+	}
+	
+	@Override
+	public String generateReport() {
+		return String.format("%-15s | RM%13.2f |", name, pricePerNight);
 	}
 	
 	
