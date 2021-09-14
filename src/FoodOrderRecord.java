@@ -17,7 +17,7 @@ public class FoodOrderRecord implements Comparator<Object>{ //if dont have just 
         int i = 0;
         for (i = 0; i < orderCount; i++) {
             if (foodOrderList[i].getOrderID().equalsIgnoreCase(orderID)) {
-                return foodOrderList[i].generateOrderReceipt();
+                return foodOrderList[i].generateReport();
             }
         }
         return "Order ID not found!";
@@ -30,7 +30,7 @@ public class FoodOrderRecord implements Comparator<Object>{ //if dont have just 
         if (obj instanceof Reservation) {
             for (i = 0; i < orderCount; i++) {
                 if (compare(foodOrderList[i], obj)==0) {
-                    return foodOrderList[i].generateOrderReceipt();
+                    return foodOrderList[i].generateReport();
                 }
             }
         }

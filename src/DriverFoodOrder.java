@@ -124,7 +124,7 @@ public class DriverFoodOrder {
 
         } while (Character.toUpperCase(continueAddFood) == 'Y');
 
-        System.out.print(foodOrder.generateOrderReceipt());
+        System.out.print(foodOrder.generateReport());
 
         // pass the food order back to main to Record and get order ID to store in reservation
         return foodOrder;

@@ -1,7 +1,7 @@
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
 
-public class FoodOrder {
+public class FoodOrder implements Reportable{
     private String OrderID;
     private Food[] food;
     private int[] quantity;
@@ -57,7 +57,8 @@ public class FoodOrder {
         return foodString;
     }
 
-    public String generateOrderReceipt() {
+    @Override
+    public String generateReport() {
         DateTimeFormatter Timeformatter = DateTimeFormatter.ofPattern("HH:mm");
         DateTimeFormatter Dateformatter = DateTimeFormatter.ofPattern("dd-MM-uuuu");
         return "\n----------------------------------------------------------------------------------------\n"
