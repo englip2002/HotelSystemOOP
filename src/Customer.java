@@ -12,6 +12,15 @@ public class Customer {
 		reservations.add(reservation);
 	}
 	
+	public void cancelReservation(String reservationID, Block block) {
+		for (Reservation each: reservations) {
+			if (each.getReservationID().equals(reservationID)) {
+				each.cancel(block);
+				break;
+			}
+		}
+	}
+	
 	public ArrayList<Reservation> getReservationList() {
 		return reservations;
 	}
