@@ -1,4 +1,3 @@
-import java.util.Calendar;
 
 public class PaymentByCash extends Payment {
     private static String paymentType = "Cash";

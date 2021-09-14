@@ -75,7 +75,7 @@ public class Final {
 
                 // View Previous Reservations
                 case 3: {
-                    viewPreviousReservations(scanner, cust);
+                    viewPreviousReservations(scanner, cust,foodOrderRecord);
                     break;
                 }
 
@@ -351,12 +351,12 @@ public class Final {
 
         if (orderChoice == 'Y') {
             // execute food ordering
-            foodOrder = FoodOrdering(startDate,endDate, foodType);
+            foodOrder = FoodOrdering(startDate,endDate, foodType,scanner);
             foodOrderID = foodOrder.getOrderID();
             // get subtotal
             foodOrderTotalAmount = foodOrder.getSubtotal();
             // store food order record
-            foodOrderRecord.addFoodOrder(foodOrder);
+            foodOrderRecord.addFoodOrder(foodOrder);            
         }
         
 
@@ -365,7 +365,7 @@ public class Final {
          * Payment (shu wei)
          * 
          */
-        Payment payment=makePayment(reservationTotalAmount + foodOrderTotalAmount); 
+        Payment payment=makePayment(reservationTotalAmount + foodOrderTotalAmount,scanner); 
 
         // Assume payment is made
         Reservation reservation = new Reservation(cust, schedule, reservedRooms, foodOrderID, payment);
@@ -375,12 +375,11 @@ public class Final {
 
         System.out.print("< Press any key to continue >");
         scanner.nextLine();
-        scanner.nextLine();
         
         return reservation;
     }
 
-    public static void viewPreviousReservations(Scanner scanner, Customer cust) {
+    public static void viewPreviousReservations(Scanner scanner, Customer cust, FoodOrderRecord foodOrderRecord) {
 
         System.out.println("\n                ( View Reservations )\n");
 
@@ -417,10 +416,12 @@ public class Final {
             System.out.println(reservations.get(viewOpt).generateReport());
             System.out.print("< Press any key to continue >");
             scanner.nextLine();
-            scanner.nextLine();
 
             // Print Food Order Report
-
+            System.out.println(foodOrderRecord.generateFoodOrderRecord(reservations.get(viewOpt)));
+            System.out.print("< Press any key to continue >");
+            scanner.nextLine();
+            
             // Print Payment Report
 
         } while (viewOpt != 0);
@@ -431,14 +432,12 @@ public class Final {
     }
 
     // Food Ordering Methods
-    public static FoodOrder FoodOrdering(LocalDate reservationStartDate, LocalDate reservationEndDate, FoodType[] foodType) {
+    public static FoodOrder FoodOrdering(LocalDate reservationStartDate, LocalDate reservationEndDate, FoodType[] foodType, Scanner scanner) {
         int i, foodTypeChoice, foodChoice, quantityOfFood;
         char continueAddFood = 'N';
         String serveDateString, serveTimeString;
         boolean dateValidity;
-        Scanner scanner = new Scanner(System.in);
         FoodOrder foodOrder = new FoodOrder();
-
         LocalDateTime serveDateAndTime = LocalDateTime.now();
 
         // user enter and validate reserve date
@@ -446,10 +445,10 @@ public class Final {
             dateValidity = true;
             try {
                 System.out.print("Enter food reserve date (YYYY-MM-DD): ");
-                serveDateString = scanner.nextLine();
+                serveDateString = scanner.next();
 
                 System.out.print("Enter food reserve time (HH:MM): ");
-                serveTimeString = scanner.nextLine();
+                serveTimeString = scanner.next();
 
                 // formatting the entered and store in serveDateandTime
                 serveDateAndTime = LocalDateTime.of(LocalDate.parse(serveDateString), LocalTime.parse(serveTimeString));
@@ -459,9 +458,11 @@ public class Final {
             }
 
             // print error message
-            if (serveDateAndTime.toLocalDate().isBefore(reservationStartDate)
-                    || serveDateAndTime.toLocalDate().isAfter(reservationEndDate) || dateValidity == false)
-                System.out.println("Invalid Time! Please Re-enter.\n");
+            
+            if(dateValidity == false)
+                System.out.println("Invalid Date Format! Please Re-enter.\n");
+            else if (serveDateAndTime.toLocalDate().isBefore(reservationStartDate)|| serveDateAndTime.toLocalDate().isAfter(reservationEndDate))
+            System.out.println("Invalid Time! Please Re-enter.\n");
 
         } while (serveDateAndTime.toLocalDate().isBefore(reservationStartDate)
                 || serveDateAndTime.toLocalDate().isAfter(reservationEndDate) || dateValidity == false);
@@ -535,8 +536,11 @@ public class Final {
         System.out.print("< Press any key to continue >");
         scanner.nextLine();
         scanner.nextLine();
-        // pass the food order back to main to Record and get order ID to store in
-        // reservation
+
+        System.out.print("\033[H\033[2J");
+        System.out.flush();
+
+        // pass the food order back to Record and get order ID to store in reservation
         return foodOrder;
     }
 
@@ -578,8 +582,7 @@ public class Final {
     }
 
     // Payment
-    public static Payment paymentByCash(double subtotal) {
-        Scanner scanner = new Scanner(System.in);
+    public static Payment paymentByCash(double subtotal, Scanner scanner) {
         PaymentByCash paymentByCash = new PaymentByCash(subtotal);
 
         paymentByCash.calculateTaxAmount();
@@ -609,7 +612,7 @@ public class Final {
         }
 
         if (confirmPay == 'n') {
-            makePayment(subtotal);
+            makePayment(subtotal,scanner);
         }
 
         paymentByCash.calculateChange();
@@ -623,12 +626,10 @@ public class Final {
         scanner.nextLine();
 
         System.out.println(paymentByCash.generateReceipt());
-        scanner.close();
         return paymentByCash;
     }
 
-    public static Payment paymentByCard(double subtotal) {
-        Scanner scanner = new Scanner(System.in);
+    public static Payment paymentByCard(double subtotal, Scanner scanner) {
         PaymentByCard paymentByCard = new PaymentByCard(subtotal);
         Bank[] bank = new Bank[5];
         bank[0] = new Bank("Maybank");
@@ -683,7 +684,7 @@ public class Final {
         }
 
         if (confirmPay == 'n') {
-            makePayment(subtotal);
+            makePayment(subtotal,scanner);
         }
 
         System.out.print("\nPress enter to request the OTP number");
@@ -725,13 +726,10 @@ public class Final {
         scanner.nextLine();
 
         System.out.println(paymentByCard.generateReceipt());
-        scanner.close();
         return paymentByCard;
     }
 
-    public static Payment paymentByEWallet(double subtotal) {
-        Scanner scanner = new Scanner(System.in);
-
+    public static Payment paymentByEWallet(double subtotal,Scanner scanner) {
         PaymentByEWallet paymentByEWallet = new PaymentByEWallet(subtotal);
 
         paymentByEWallet.calculateTaxAmount();
@@ -762,7 +760,7 @@ public class Final {
         }
 
         if (confirmPay == 'n') {
-            makePayment(subtotal);
+            makePayment(subtotal,scanner);
         }
 
         System.out.println();
@@ -782,16 +780,14 @@ public class Final {
         scanner.nextLine();
 
         System.out.println(paymentByEWallet.generateReceipt());
-        scanner.close();
         return paymentByEWallet;
     }
 
-    public static Payment makePayment(double subtotal) {
-        Scanner scanner = new Scanner(System.in);
+    public static Payment makePayment(double subtotal,Scanner scanner) {
         Payment payment;
-        System.out.println("\n******************************************");
-        System.out.println("||               PAYMENT                ||");
-        System.out.println("******************************************");
+        System.out.println("\n------------------------------------------");
+        System.out.println("|                PAYMENT                 |");
+        System.out.println("------------------------------------------");
         System.out.println("Choose payment method:");
         System.out.println(" [1] Cash");
         System.out.println(" [2] Credit/Debit Card");
@@ -806,13 +802,12 @@ public class Final {
         }
 
         if (paymentMethod == 1)
-            payment=paymentByCash(subtotal);
+            payment=paymentByCash(subtotal,scanner);
         else if (paymentMethod == 2)
-            payment=paymentByCard(subtotal);
+            payment=paymentByCard(subtotal,scanner);
         else
-            payment=paymentByEWallet(subtotal);
+            payment=paymentByEWallet(subtotal,scanner);
 
-        scanner.close();
         return payment;
     }
 
