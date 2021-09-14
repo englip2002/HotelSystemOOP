@@ -365,7 +365,7 @@ public class Final {
          * Payment (shu wei)
          * 
          */
-        Payment payment=Payment(reservationTotalAmount + foodOrderTotalAmount); 
+        Payment payment=makePayment(reservationTotalAmount + foodOrderTotalAmount); 
 
         // Assume payment is made
         Reservation reservation = new Reservation(cust, schedule, reservedRooms, foodOrderID, payment);
@@ -609,7 +609,7 @@ public class Final {
         }
 
         if (confirmPay == 'n') {
-            Payment(subtotal);
+            makePayment(subtotal);
         }
 
         paymentByCash.calculateChange();
@@ -683,7 +683,7 @@ public class Final {
         }
 
         if (confirmPay == 'n') {
-            Payment(subtotal);
+            makePayment(subtotal);
         }
 
         System.out.print("\nPress enter to request the OTP number");
@@ -762,7 +762,7 @@ public class Final {
         }
 
         if (confirmPay == 'n') {
-            Payment(subtotal);
+            makePayment(subtotal);
         }
 
         System.out.println();
@@ -786,7 +786,7 @@ public class Final {
         return paymentByEWallet;
     }
 
-    public static Payment Payment(double subtotal) {
+    public static Payment makePayment(double subtotal) {
         Scanner scanner = new Scanner(System.in);
         Payment payment;
         System.out.println("\n******************************************");
