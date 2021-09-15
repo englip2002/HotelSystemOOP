@@ -14,7 +14,7 @@ public abstract class Payment implements Reportable {
 
     //------------------Constructors--------------------
     public Payment(){};
-    
+
     protected Payment(double subtotal){
         paymentDate = LocalDate.now();
         paymentStatus = "Completed";
@@ -72,8 +72,13 @@ public abstract class Payment implements Reportable {
 
     @Override
     public String generateReport() {
-        return  "\nPayment Report for " + paymentId + "\n" +
-                "Payment Status: " + paymentStatus +
-                generateReceipt() + "\n";
+        return  "\n+----------------------------------------------------+" +
+                "\n|                   PAYMENT REPORT                   |" +
+                "\n+-----------------+-----------------+----------------+" +
+                "\n| Payment ID      | Amount          | Status         |" +
+                "\n+-----------------+-----------------+----------------+" +
+                String.format("\n| %-15s | RM%-13.2f | %-14s |", paymentId, totalAmount, paymentStatus) +
+                "\n+-----------------+-----------------+----------------+" +
+                "\nThe following is the payment receipt." + generateReceipt() + "\n";
     }
 }
