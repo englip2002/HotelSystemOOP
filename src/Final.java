@@ -28,11 +28,7 @@ public class Final {
          */
         // Assume customer login successful
         Customer cust = new Customer();
-        ArrayList<Room> r2 = new ArrayList<>();
-        r2.add(new Room(999, roomTypes[0]));
-        cust.addReservation(
-                new Reservation(cust, new ReservationSchedule(LocalDate.of(2021, 10, 5), LocalDate.of(2021, 10, 10)),
-                        r2, "", new PaymentByCard(100, "Public Bank", "4156928601528375")));
+        initializeReservations(cust, roomTypes, block);
 
         // Main Menu
         int menuOpt = 0;
@@ -123,13 +119,16 @@ public class Final {
 		// Title
 		System.out.println("\n            ( Make Reservation )\n");
 		
-		// Input start and end date
+		
+		// Input start date
 		LocalDate startDate = getDateInput(scanner, "Enter reservation start date (YYYY-MM-DD): ");
 		while (!startDate.isAfter(LocalDate.now())) {
 			System.out.println("Start date must be at least 1 day later than today's date! Please re-enter");
 			startDate = getDateInput(scanner, "Enter reservation start date (YYYY-MM-DD): ");
 		}
-		LocalDate endDate = getDateInput(scanner, "Enter reservation end date (YYYY-MM-DD): ");
+		
+		// Input end date
+		LocalDate endDate = getDateInput(scanner, "Enter reservation end date   (YYYY-MM-DD): ");
 		ReservationSchedule schedule = new ReservationSchedule(startDate, endDate);
 		while (!endDate.isAfter(startDate) || schedule.getDaysBetween() > MAX_RESERVATION_DAYS) {
 			if (!endDate.isAfter(startDate))
@@ -137,7 +136,7 @@ public class Final {
 			else if (schedule.getDaysBetween() > MAX_RESERVATION_DAYS)
 				System.out.println("Sorry, but you can only reserve up to a maximum of " + MAX_RESERVATION_DAYS
 						+ " days. Please re-enter. ");
-			endDate = getDateInput(scanner, "Enter reservation end date (YYYY-MM-DD): ");
+			endDate = getDateInput(scanner, "Enter reservation end date   (YYYY-MM-DD): ");
 			schedule = new ReservationSchedule(startDate, endDate);
 		}
 
@@ -235,7 +234,7 @@ public class Final {
 			// Display total
 			System.out.println(
 					  "+-----------------------------------------------------------+\n"
-					+ "|                                      TOTAL | RM" + String.format("%10.2f", reservationTotalAmount ) + " |\n"
+					+ "|                            TOTAL (1 night) | RM" + String.format("%10.2f", reservationTotalAmount ) + " |\n"
 					+ "+-----------------------------------------------------------+\n"
 					+ String.format("|                   GRAND TOTAL (%3d nights) | RM%10.2f |\n", 
 							schedule.getDaysBetween(), reservationTotalAmount  * schedule.getDaysBetween())
@@ -313,70 +312,19 @@ public class Final {
 
         return reservation;
     }
-
-    // Option 3 - View Previous Reservations
-    public static void viewPreviousReservations(Scanner scanner, Customer cust, FoodOrderRecord foodOrderRecord) {
-
-        System.out.println("\n                ( View Reservations )\n");
-
-        ArrayList<Reservation> reservations = cust.getReservationList();
-        if (reservations.size() == 0) {
-            System.out.println("          < You have no previous reservations! >");
-            return;
-        }
-
-        int viewOpt;
-        do {
-            String tableLine = "+-----+----------+------------+------------+----------+\n";
-            System.out.print(tableLine + String.format("| %-3s | %-8s | %-10s | %-10s | %-8s |\n", "No.", "ID",
-                    "Start Date", "End Date", "Status") + tableLine);
-
-            for (int i = 0; i < reservations.size(); i++) {
-                System.out.printf("| %3d |", i + 1);
-                System.out.println(reservations.get(i).generateTableRow());
-            }
-            System.out.println(tableLine);
-
-            do {
-                viewOpt = getIntegerInput(scanner, "Enter No. to view the details (0 to exit): ");
-                if (viewOpt < 0 || viewOpt > reservations.size()) {
-                    System.out.println("Invalid input! Please re-enter");
-                }
-            } while (viewOpt < 0 || viewOpt > reservations.size());
-
-            if (viewOpt == 0)
-                return;
-
-            viewOpt -= 1;
-
-            System.out.println(reservations.get(viewOpt).generateReport());
-            System.out.print("< Press enter to continue >");
-            scanner.nextLine();
-
-            // Print Food Order Report
-            System.out.println(foodOrderRecord.generateFoodOrderRecord(reservations.get(viewOpt)));
-            System.out.print("< Press enter to continue >");
-            scanner.nextLine();
-
-            // Print Payment Report
-            System.out.println(reservations.get(viewOpt).getPayment().generateReport());
-            System.out.print("< Press enter to continue >");
-            scanner.nextLine();
-
-        } while (viewOpt != 0);
-    }
     
     // Option 3 - View Previous Reservations
     public static void viewReservations(Scanner scanner, Customer cust) {
-		
-		System.out.println("\n                ( View Reservations )\n");
-		
-		ArrayList<Reservation> reservations = cust.getReservationList();
-		if (reservations.size() == 0) {
-			System.out.println("          < You have no previous reservations! >");
-			return;
-		}
-		
+        System.out.println("\n                 ( View Reservations )\n");
+
+        ArrayList<Reservation> reservations = cust.getReservationList();
+        if (reservations.size() == 0) {
+            System.out.println("         < You have no previous reservations! >");
+            System.out.println("              < Press enter to continue >");
+            scanner.nextLine();
+            return;
+        }
+        
 		int viewOpt;
 		do {
 			printReservationsTable(reservations);
@@ -405,13 +353,15 @@ public class Final {
     
     // Option 4 - Cancel Previous Reservations
 	public static void cancelReservations(Scanner scanner, Customer cust, Block block) {
-		System.out.println("\n                ( Cancel Reservations )\n");
-		
+        System.out.println("\n                ( Cancel Reservations )\n");
+
 		ArrayList<Reservation> reservations = cust.getReservationList();
-		if (reservations.size() == 0) {
-			System.out.println("          < You have no previous reservations! >");
-			return;
-		}
+        if (reservations.size() == 0) {
+            System.out.println("         < You have no previous reservations! >");
+            System.out.println("              < Press enter to continue >");
+            scanner.nextLine();
+            return;
+        }
 		
 		int menuOpt;
 		printReservationsTable(reservations);
@@ -918,11 +868,11 @@ public class Final {
 	
 	public static void initializeReservations(Customer cust, RoomType[] roomTypes, Block block) {
 		
-		ArrayList<Room> r2 = new ArrayList<>();
-		r2.add(new Room(999, roomTypes[0]));
-		cust.addReservation(new Reservation(
-				cust, new ReservationSchedule(LocalDate.of(2021, 10, 5), LocalDate.of(2021, 10, 10)), 
-				r2, "", new PaymentByCard(100)));
+//		ArrayList<Room> r2 = new ArrayList<>();
+//		r2.add(new Room(999, roomTypes[0]));
+//		cust.addReservation(new Reservation(
+//				cust, new ReservationSchedule(LocalDate.of(2021, 10, 5), LocalDate.of(2021, 10, 10)), 
+//				r2, "", new PaymentByCard(100)));
 	}
 	
 	public static void printReservationsTable(ArrayList<Reservation> reservations) {
