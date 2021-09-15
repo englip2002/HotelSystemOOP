@@ -390,13 +390,13 @@ public class Final {
         String inputYN = scanner.nextLine().toUpperCase();
         if (inputYN.equals("YES")) {
             cust.cancelReservation(reservations.get(menuOpt).getReservationID());
-            System.out.println("( Cancellation completed. Reservation " + cancelID + " is now cancelled. )");
+            System.out.printf("( Cancellation completed. Reservation %s is now cancelled\n  and RM%.2f will be refunded to you later. )\n", cancelID, reservations.get(menuOpt).getPayment().refund());
         }
         else {
             System.out.println("< Cancellation stopped. Returning to main menu. >");
         }
 
-        System.out.print("< Press enter to continue >");
+        System.out.print("\n< Press enter to continue >");
         scanner.nextLine();
     }
 
