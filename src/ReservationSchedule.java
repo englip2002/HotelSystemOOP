@@ -1,7 +1,7 @@
 import java.time.LocalDate;
 import java.time.temporal.ChronoUnit;
 
-public class ReservationSchedule implements Reportable{
+public class ReservationSchedule implements Reportable, Comparable<LocalDate>{
 	private LocalDate startDate;
 	private LocalDate endDate;
 	private int daysBetween;
@@ -19,6 +19,21 @@ public class ReservationSchedule implements Reportable{
 					 (endDate.equals( ((ReservationSchedule)obj ).getEndDate() ));
 		}
 		return false;
+	}
+	
+	@Override
+	public int compareTo(LocalDate o) {
+		// Negative = schedule is in the past (earlier than o)
+		// 0 = schedule is active (o is inside the schedule)
+		// Positive = schedule is in future (later than o)
+		
+		if (endDate.compareTo(o) < 0) {
+			return -1;
+		}
+		else if (startDate.compareTo(o) > 0) {
+			return 1;
+		}
+		return 0;
 	}
 	
 	@Override

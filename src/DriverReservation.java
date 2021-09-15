@@ -27,11 +27,7 @@ public class DriverReservation {
 		 */
 		// Assume customer login successful
 		Customer cust = new Customer();
-		ArrayList<Room> r2 = new ArrayList<>();
-		r2.add(new Room(999, roomTypes[0]));
-		cust.addReservation(new Reservation(
-				cust, new ReservationSchedule(LocalDate.of(2021, 10, 5), LocalDate.of(2021, 10, 10)), 
-				r2, "", new PaymentByCard(100)));
+		
 
 		// Main Menu
 		int menuOpt = 0;
@@ -74,13 +70,13 @@ public class DriverReservation {
 
 			// View Previous Reservations
 			case 3: {
-				viewPreviousReservations(scanner, cust);
+				viewReservations(scanner, cust);
 				break;
 			}
 			
 			// Cancel Previous Reservation
 			case 4: {
-				// Waiting for seng wai's Customer Class
+				cancelReservations(scanner, cust, block);
 				break;
 			}
 			
@@ -98,71 +94,8 @@ public class DriverReservation {
 		System.out.println("EOP");
 		scanner.close();
 	}
-
-	public static LocalDate getDateInput(Scanner scanner, String question) {
-		LocalDate d = null;
-		boolean invalidDate = true;
-		do {
-			try {
-				System.out.print(question);
-				String inputDate = scanner.nextLine();				
-				d = LocalDate.parse(inputDate);
-				invalidDate = false;
-			} catch (DateTimeParseException e) {
-				System.out.println("Invalid date format, please re-enter. ");
-			}
-		} while (invalidDate);
-		return d;
-	}
-
-	public static int getIntegerInput(Scanner scanner, String question) {
-		int output = 0;
-		boolean invalidInput;
-		do {
-			invalidInput = false;
-			System.out.print(question);
-			String inputStr = scanner.nextLine().replaceAll("\\s+", "");
-			if (inputStr.length() == 0)
-				invalidInput = true;
-			else {
-				try {
-					output = Integer.parseInt(inputStr);
-				} catch (NumberFormatException e) {
-					invalidInput = true;
-				}
-			}
-			if (invalidInput)
-				System.out.println("Invalid input! Please re-enter. ");
-		} while (invalidInput);
-		return output;
-	}
 	
-	public static Block initializeRooms(RoomType[] roomTypes) {
-		// Manual room creation
-		int floorsPerBlock = 10;
-		int roomsPerFloor = 10;
-		Block block = new Block("A", floorsPerBlock);
-		
-		Floor[] floors = new Floor[floorsPerBlock];
-		for (int i = 0; i < floorsPerBlock; i++) {
-			floors[i] = new Floor(i+1, roomsPerFloor);
-			for (int j = 0; j < roomsPerFloor; j++) {
-				int k = 0;
-				switch(i) {
-				case 0, 1: { k = 0; break; }
-				case 2, 3: { k = 1; break; }
-				case 4, 5: { k = 2; break; }
-				case 6, 7: {k = 3; break; }
-				case 8: { k = 4; break; }
-				case 9: {k = 5; break; }
-				}
-				floors[i].addRoom(new Room((i+1)*100+(j+1), roomTypes[k]));
-			}
-		}
-		block.addFloors(floors);
-		return block;
-	}
-	
+	// Main Functions
 	public static Reservation makeReservation(Scanner scanner, Customer cust, RoomType[] roomTypes, Block block) {
 		
 		// Constants
@@ -274,14 +207,17 @@ public class DriverReservation {
 									+ String.format("%13.2f", roomTypes[i].getPricePerNight()) + " | " + "RM"
 									+ String.format("%10.2f",reservedRoomTypeAmounts[i] * roomTypes[i].getPricePerNight())
 									+ " |");
-					total += reservedRoomTypeAmounts[i] * roomTypes[i].getPricePerNight() * schedule.getDaysBetween();
+					total += reservedRoomTypeAmounts[i] * roomTypes[i].getPricePerNight();
 				}
 			}
 			// Display total
 			System.out.println(
 					  "+-----------------------------------------------------------+\n"
 					+ "|                                      TOTAL | RM" + String.format("%10.2f", total) + " |\n"
-					+ "+-----------------------------------------------------------+\n");
+					+ "+-----------------------------------------------------------+\n"
+					+ String.format("|                   GRAND TOTAL (%3d nights) | RM%10.2f |\n", schedule.getDaysBetween(), total * schedule.getDaysBetween())
+					+ "+-----------------------------------------------------------+\n"
+					);
 
 			
 			// Ask to continue reserve more rooms or not
@@ -307,22 +243,7 @@ public class DriverReservation {
 		} while (continueChooseRoomType);
 
 		// Find vacant rooms on the chosen schedule
-		ArrayList<Room> reservedRooms = new ArrayList<Room>();
-		for (int i = 0; i < roomTypes.length; i++) {	//For each room type
-			for (int j = 0; j < reservedRoomTypeAmounts[i]; j++) {	// Get vacant rooms for n times
-				nextRoom: 
-				for (Floor f: block.getFloors()) {
-					for (Room r: f.getRooms()) {
-						if (roomTypes[i].equals(r.getRoomType()) && r.validateReservationSchedule(schedule)) {
-							r.addReservationSchedule(schedule);
-							reservedRooms.add(r);
-							break nextRoom;
-						}
-					}
-				}
-			
-			}
-		}
+		ArrayList<Room> reservedRooms = getVacantRooms(block, roomTypes, schedule, reservedRoomTypeAmounts);
 		
 		/*
 		 * 
@@ -349,7 +270,7 @@ public class DriverReservation {
 		return reservation;
 	}
 	
-	public static void viewPreviousReservations(Scanner scanner, Customer cust) {
+	public static void viewReservations(Scanner scanner, Customer cust) {
 		
 		System.out.println("\n                ( View Reservations )\n");
 		
@@ -361,19 +282,7 @@ public class DriverReservation {
 		
 		int viewOpt;
 		do {
-			String tableLine = "+-----+----------+------------+------------+----------+\n";
-			System.out.print(tableLine
-						+ String.format("| %-3s | %-8s | %-10s | %-10s | %-8s |\n", 
-								"No.", "ID", "Start Date", "End Date", "Status")
-						+ tableLine
-					);
-			
-			for (int i = 0; i < reservations.size(); i++) {
-				System.out.printf("| %3d |", i+1);
-				System.out.println(reservations.get(i).generateTableRow());
-			}
-			System.out.println(tableLine);
-			
+			printReservationsTable(reservations);
 			do {
 				viewOpt = getIntegerInput(scanner, "Enter No. to view the details (0 to exit): ");
 				if (viewOpt < 0 || viewOpt > reservations.size()) {
@@ -397,7 +306,155 @@ public class DriverReservation {
 		} while (viewOpt != 0);
 	}
 	
-	public static void cancelPreviousReservation(Scanner scanner, Customer cust) {
-		// Thinking
+	public static void cancelReservations(Scanner scanner, Customer cust, Block block) {
+		System.out.println("\n                ( Cancel Reservations )\n");
+		
+		ArrayList<Reservation> reservations = cust.getReservationList();
+		if (reservations.size() == 0) {
+			System.out.println("          < You have no previous reservations! >");
+			return;
+		}
+		
+		int menuOpt;
+		printReservationsTable(reservations);
+		do {
+			menuOpt = getIntegerInput(scanner, "Enter No. to cancel the reservation (0 to exit): ");
+			if (menuOpt < 0 || menuOpt > reservations.size()) {
+				System.out.println("Invalid input! Please re-enter");
+			}
+		} while(menuOpt < 0 || menuOpt > reservations.size());
+		
+		if (menuOpt == 0)
+			return;
+		
+		menuOpt -= 1;
+		String cancelID = reservations.get(menuOpt).getReservationID();
+		System.out.println("Are you sure you want to cancel the reservation (" + cancelID + ")?");
+		System.out.println("[ THIS ACTION CANNOT BE REVERSED! ]");
+		System.out.print("(Type 'YES' to cancel) > ");
+		String inputYN = scanner.nextLine().toUpperCase();
+		if (inputYN.equals("YES")) {
+			cust.cancelReservation(reservations.get(menuOpt).getReservationID());
+			System.out.println("( Cancellation completed. Reservation " + cancelID + " is now cancelled. )");
+		}
+		else {
+			System.out.println("< Cancellation stopped. Returning to main menu. >");
+		}
+		
+		System.out.print("< Press any key to continue >");
+		scanner.nextLine();
 	}
+	
+	
+	// Side Functions
+	
+	public static LocalDate getDateInput(Scanner scanner, String question) {
+		LocalDate d = null;
+		boolean invalidDate = true;
+		do {
+			try {
+				System.out.print(question);
+				String inputDate = scanner.nextLine();				
+				d = LocalDate.parse(inputDate);
+				invalidDate = false;
+			} catch (DateTimeParseException e) {
+				System.out.println("Invalid date format, please re-enter. ");
+			}
+		} while (invalidDate);
+		return d;
+	}
+
+	public static int getIntegerInput(Scanner scanner, String question) {
+		int output = 0;
+		boolean invalidInput;
+		do {
+			invalidInput = false;
+			System.out.print(question);
+			String inputStr = scanner.nextLine().replaceAll("\\s+", "");
+			if (inputStr.length() == 0)
+				invalidInput = true;
+			else {
+				try {
+					output = Integer.parseInt(inputStr);
+				} catch (NumberFormatException e) {
+					invalidInput = true;
+				}
+			}
+			if (invalidInput)
+				System.out.println("Invalid input! Please re-enter. ");
+		} while (invalidInput);
+		return output;
+	}
+	
+	public static ArrayList<Room> getVacantRooms(Block block, RoomType[] roomTypes, ReservationSchedule schedule, int[] reservedRoomTypeAmounts) {
+		ArrayList<Room> reservedRooms = new ArrayList<Room>();
+		for (int i = 0; i < roomTypes.length; i++) {	//For each room type
+			for (int j = 0; j < reservedRoomTypeAmounts[i]; j++) {	// Get vacant rooms for n times
+				nextRoom: 
+				for (Floor f: block.getFloors()) {
+					for (Room r: f.getRooms()) {
+						if (roomTypes[i].equals(r.getRoomType()) && r.validateReservationSchedule(schedule)) {
+							r.addReservationSchedule(schedule);
+							reservedRooms.add(r);
+							break nextRoom;
+						}
+					}
+				}
+			
+			}
+		}
+		return reservedRooms;
+	}
+	
+	public static Block initializeRooms(RoomType[] roomTypes) {
+		// Manual room creation
+		int floorsPerBlock = 10;
+		int roomsPerFloor = 10;
+		Block block = new Block("A", floorsPerBlock);
+		
+		Floor[] floors = new Floor[floorsPerBlock];
+		for (int i = 0; i < floorsPerBlock; i++) {
+			floors[i] = new Floor(i+1, roomsPerFloor);
+			for (int j = 0; j < roomsPerFloor; j++) {
+				int k = 0;
+				switch(i) {
+				case 0, 1: { k = 0; break; }
+				case 2, 3: { k = 1; break; }
+				case 4, 5: { k = 2; break; }
+				case 6, 7: {k = 3; break; }
+				case 8: { k = 4; break; }
+				case 9: {k = 5; break; }
+				}
+				floors[i].addRoom(new Room((i+1)*100+(j+1), roomTypes[k]));
+			}
+		}
+		block.addFloors(floors);
+		return block;
+	}
+	
+	public static void initializeReservations(Customer cust, RoomType[] roomTypes, Block block) {
+		
+		ArrayList<Room> r2 = new ArrayList<>();
+		r2.add(new Room(999, roomTypes[0]));
+		cust.addReservation(new Reservation(
+				cust, new ReservationSchedule(LocalDate.of(2021, 10, 5), LocalDate.of(2021, 10, 10)), 
+				r2, "", new PaymentByCard(100)));
+	}
+	
+	public static void printReservationsTable(ArrayList<Reservation> reservations) {
+		String tableLine = "+-----+----------+------------+------------+-----------+\n";
+		System.out.print(tableLine
+					+ String.format("| %-3s | %-8s | %-10s | %-10s | %-9s |\n", 
+							"No.", "ID", "Start Date", "End Date", "Status")
+					+ tableLine
+				);
+		
+		for (int i = 0; i < reservations.size(); i++) {
+			System.out.printf("| %3d |", i+1);
+			System.out.println(reservations.get(i).generateTableRow());
+		}
+		System.out.println(tableLine);
+
+	}
+	
 }

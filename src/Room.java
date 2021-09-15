@@ -23,16 +23,14 @@ public class Room implements Reportable{
 		for (int i = 0; i < reservedDays.size(); i++) {
 			if (reservedDays.get(i).equals(schedule)) {
 				reservedDays.remove(i);
-				break;
+				return;
 			}
 		}
 	}
 	
 	public boolean validateReservationSchedule(ReservationSchedule schedule) {
 		for (ReservationSchedule each : reservedDays) {
-			if (! ( ( schedule.getStartDate().isBefore(each.getStartDate()) && schedule.getEndDate().compareTo(each.getStartDate()) <= 0 )
-					&& ( schedule.getStartDate().compareTo(each.getStartDate()) >= 0 && schedule.getEndDate().isAfter(each.getStartDate()) ))
-					) {
+			if (each.compareTo(schedule.getStartDate()) == 0 || each.compareTo(schedule.getEndDate()) == 0) {
 				return false;
 			}
 		}

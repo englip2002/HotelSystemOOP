@@ -12,10 +12,10 @@ public class Customer {
 		reservations.add(reservation);
 	}
 	
-	public void cancelReservation(String reservationID, Block block) {
+	public void cancelReservation(String reservationID) {
 		for (Reservation each: reservations) {
 			if (each.getReservationID().equals(reservationID)) {
-				each.cancel(block);
+				each.cancel();
 				break;
 			}
 		}

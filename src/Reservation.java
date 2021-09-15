@@ -4,49 +4,34 @@ import java.time.LocalDate;
 public class Reservation implements Reportable {
 	private static int newestReservationNo = 0;
 	private String reservationID;
-	private Customer reservedCustomer;
+	private Customer customer;
 	private ReservationSchedule schedule;
 	private ArrayList<Room> reservedRooms;
 	private String orderID;
 	private Payment payment;
 	private boolean isCancelled;
-
-	public Reservation(Customer reservedCustomer, int startYear, int startMonth, int startDay, int endYear,
-			int endMonth, int endDay, ArrayList<Room> reservedRooms, String orderID, Payment payment) {
-		this(reservedCustomer, LocalDate.of(startYear, startMonth, startDay), LocalDate.of(endYear, endMonth, endDay),
-				reservedRooms, orderID, payment);
-	}
-
-	public Reservation(Customer reservedCustomer, LocalDate startDate, LocalDate endDate, ArrayList<Room> reservedRooms,
-			String orderID, Payment payment) {
-		this(reservedCustomer, new ReservationSchedule(startDate, endDate), reservedRooms, orderID, payment);
-	}
 	
-	public Reservation(Customer reservedCustomer, ReservationSchedule schedule, ArrayList<Room> reservedRooms,
+	public Reservation(Customer customer, ReservationSchedule schedule, ArrayList<Room> reservedRooms,
 			String orderID, Payment payment) {
 		// Auto-calculate reservation ID
 		newestReservationNo++;
 		reservationID = "R" + String.format("%07d", newestReservationNo);
 
-		this.reservedCustomer = reservedCustomer;
+		this.customer = customer;
 		this.schedule = schedule;
 		this.reservedRooms = reservedRooms;
 		this.orderID = orderID;
 		this.payment = payment;
+		
 		this.isCancelled = false;
 	}
 
 	// Methods
 	public void cancel() {
 		this.isCancelled = true;
-	}
-
-	public String listOfReservedRooms() {
-		String result = "";
-		for (Room room : reservedRooms) {
-			result += room.getRoomNumber() + "(" + room.getRoomType().getName() + "), ";
+		for (Room r: reservedRooms) {
+			r.removeReservationSchedule(schedule);
 		}
-		return result.substring(0, result.length() - 2);
 	}
 
 	@Override
@@ -72,18 +57,16 @@ public class Reservation implements Reportable {
 				+ String.format("|                     TOTAL | RM%13.2f |\n",  payment.getTotalAmount())
 				+ "+---------------------------------------------+\n";
 		
-		
 		return output;
 	}
-	
 	
 	public String generateTableRow() {
 		String output = " " + reservationID + " | "
 				+ schedule.generateTableRow();
 		if (isCancelled)
-			output += String.format("%-8s |", "Cancelled");
+			output += String.format("%-9s |", "Cancelled");
 		else
-			output += String.format("%-8s |", "Active");
+			output += String.format("%-9s |", "Completed");
 		return output;
 	}
 	
@@ -100,8 +83,8 @@ public class Reservation implements Reportable {
 		return reservationID;
 	}
 
-	public Customer getReservedCustomer() {
-		return reservedCustomer;
+	public Customer getCustomer() {
+		return customer;
 	}
 
 	public ReservationSchedule getSchedule() {
@@ -122,10 +105,5 @@ public class Reservation implements Reportable {
 
 	public boolean isCancelled() {
 		return isCancelled;
-	}
-
-	// Setters
-	public void setReservedCustomer(Customer reservedCustomer) {
-		this.reservedCustomer = reservedCustomer;
 	}
 }

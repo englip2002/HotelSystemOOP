@@ -1,3 +1,4 @@
+import java.util.ArrayList;
 
 public class Block {
 	private String blockID;
@@ -55,9 +56,6 @@ public class Block {
 		}
 	}
 	
-	public static void setMaxNumberOfBlocks(int n) {
-		
-	}
 	
 	// Getters
 	public String getBlockID() {
