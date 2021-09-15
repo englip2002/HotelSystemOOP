@@ -26,6 +26,7 @@ public class Final {
          * Login
          *
          */
+        
         // Assume customer login successful
         Customer cust = new Customer();
         initializeReservations(cust, roomTypes, block);
@@ -75,7 +76,7 @@ public class Final {
 
                 // View Previous Reservations
     			case 3: {
-    				viewReservations(scanner, cust);
+    				viewReservations(scanner, cust, foodOrderRecord);
     				break;
     			}
     			
@@ -314,7 +315,7 @@ public class Final {
     }
     
     // Option 3 - View Previous Reservations
-    public static void viewReservations(Scanner scanner, Customer cust) {
+    public static void viewReservations(Scanner scanner, Customer cust, FoodOrderRecord foodOrderRecord) {
         System.out.println("\n                 ( View Reservations )\n");
 
         ArrayList<Reservation> reservations = cust.getReservationList();
@@ -345,8 +346,14 @@ public class Final {
 			scanner.nextLine();
 			
 			// Print Food Order Report
-			
-			// Print Payment Report
+            System.out.println(foodOrderRecord.generateFoodOrderRecord(reservations.get(viewOpt)));
+            System.out.print("< Press enter to continue >");
+            scanner.nextLine();
+
+            // Print Payment Report
+            System.out.println(reservations.get(viewOpt).getPayment().generateReport());
+            System.out.print("< Press enter to continue >");
+            scanner.nextLine();
 			
 		} while (viewOpt != 0);
 	}
@@ -868,11 +875,11 @@ public class Final {
 	
 	public static void initializeReservations(Customer cust, RoomType[] roomTypes, Block block) {
 		
-//		ArrayList<Room> r2 = new ArrayList<>();
-//		r2.add(new Room(999, roomTypes[0]));
-//		cust.addReservation(new Reservation(
-//				cust, new ReservationSchedule(LocalDate.of(2021, 10, 5), LocalDate.of(2021, 10, 10)), 
-//				r2, "", new PaymentByCard(100)));
+		ArrayList<Room> r2 = new ArrayList<>();
+		r2.add(new Room(999, roomTypes[0]));
+		cust.addReservation(new Reservation(
+				cust, new ReservationSchedule(LocalDate.of(2021, 10, 5), LocalDate.of(2021, 10, 10)), 
+				r2, "", new PaymentByCard(100)));
 	}
 	
 	public static void printReservationsTable(ArrayList<Reservation> reservations) {
