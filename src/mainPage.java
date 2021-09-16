@@ -2,6 +2,7 @@
 //2000401
 //DCS2 G1
 import java.time.LocalDate;
+import java.time.format.DateTimeParseException;
 import java.util.Scanner;
 
 import javax.print.event.PrintJobListener;
@@ -75,65 +76,53 @@ public final class mainPage {
     }
 
     private Customer[] initializeCustomer() {
-        Customer[] custArr = {new Customer("C0001", "Gordon Ramsay", "06-09-1969", "Gordon69", "gordonramsay69@hotmail.com"),
-            new Customer("C0002", "Mohammad Ali", "27-11-1987", "Alibaba", "mohdali@hotmail.com"),
-            new Customer("C0003", "Ranjeev Singh", "08-10-2000", "RJ2000", "ranjeevsingh@hotmail.com"),
-            new Customer("C0004", "Leong Kah Jun", "05-05-2005", "LEONGKJ", "kahjunleong@hotmail.com"),
-            new Customer("C0005", "Jonathan Wong Chou Jin", "12-12-1975", "jonwong1975", "jonathanwong@hotmail.com")
+        Customer[] custArr = {new Customer("Gordon Ramsay", "1969-09-06", "Gordon69", "gordonramsay69@hotmail.com"),
+            new Customer("Mohammad Ali", "1987-11-27", "Alibaba", "mohdali@hotmail.com"),
+            new Customer("Ranjeev Singh", "2000-10-08", "RJ2000", "ranjeevsingh@hotmail.com"),
+            new Customer("Leong Kah Jun", "2005-05-05", "LEONGKJ", "kahjunleong@hotmail.com"),
+            new Customer("Jonathan Wong Chou Jin", "12-12-1975", "jonwong1975", "jonathanwong@hotmail.com")
         };
         return custArr;
     }
 
-    public void register() {
+    public static Customer register() {
         String registerName;
         String registerDateOfBirth;
         String registerPassword;
         String registerEmail;
-        boolean validRegister = true;
-        Scanner register = new Scanner(System.in);
-        do {
-            System.out.print("Please enter you ID : ");
-            customerID = customerLogin.nextLine();
-            for (Customer customerArr1 : customerArr) {
-                if (customerID.equals(customerArr1.getCustomerID()) == true) {
-                    validLogin = true;
-                    System.out.print("Please enter your name : ");
-                    customerName = customerLogin.nextLine();
-                    while (customerName.equals(customerArr1.getCustomerName()) == false) {
-                        System.out.print("\nInvalid name! Please enter you name again! : ");
-                        customerName = customerLogin.nextLine();
-                    }
-                    if(customerName.equals(customerArr1.getCustomerName()) == true) {
-                        System.out.print("Please enter your date of birth : ");
-                        dateOfBirth = customerLogin.nextLine();
-                        while (dateOfBirth.equals(customerArr1.getDateOfBirth()) == false) {
-                            System.out.print("\nInvalid date of birth! Please enter your date of birth again! : ");
-                            dateOfBirth = customerLogin.nextLine();
-                        }
-                        if (dateOfBirth.equals(customerArr1.getDateOfBirth()) == true) {
-                            System.out.print("Please enter your password : ");
-                            customerPassword = customerLogin.nextLine();
-                            while (customerPassword.equals(customerArr1.getCustomerPassword()) == false) {
-                                System.out.print("\nInvalid password! Please enter your password again! : ");
-                                customerPassword = customerLogin.nextLine();
-                            }
-                            if (customerPassword.equals(customerArr1.getCustomerPassword()) == true) {
-                                System.out.print("Please enter your email : ");
-                                customerEmail = customerLogin.nextLine();
-                                while (customerEmail.equals(customerArr1.getCustomerEmail()) == false) {
-                                    System.out.print("\nInvalid email! Please enter your email! : ");
-                                    customerEmail = customerLogin.nextLine();
-                                }
-                            }
-                        }
-                        System.out.print("Login successfully!!!\n");
-                    }
-                }
-            }
-            if (validRegister == false) {
-                System.out.println("\nInvalid input! Please enter again!");
-            }
-        } while (validRegister == false);
+
+        Scanner scanner = new Scanner(System.in);
+        System.out.print("Please enter you name : ");
+        registerName=scanner.nextLine();
+        
+        registerDateOfBirth=getDateInput(scanner, "Please enter your Date Of Birth (YYYY-MM-DD): ").toString();
+        System.out.print("Please enter you password : ");
+        registerPassword=scanner.nextLine();
+        System.out.print("Please enter you Email : ");
+        registerEmail=scanner.nextLine();
+        while(validateEmail(registerEmail)==false){
+            System.out.println("Invalid Email! Please Try Again");
+            System.out.print("Please enter you Email : ");
+            registerEmail=scanner.nextLine();
+        }
+
+        Customer customer=new Customer(customerID, customerName, dateOfBirth, customerPassword, customerEmail)
+    }
+
+    public static boolean validateEmail(String email){
+        boolean validateAt=false;
+        boolean validateDot=false;
+        for(int i=0;i<email.length();i++){
+            if(email.charAt(i)=='@')
+                validateAt=true;
+            if(email.charAt(i)=='.')
+                validateDot=true;
+        }
+
+        if(validateAt&&validateDot)
+            return true;
+        else
+            return false;
     }
 
     public void logout() {
@@ -153,6 +142,22 @@ public final class mainPage {
             System.out.print("-");
         }
         System.out.println();
+    }
+
+    public static LocalDate getDateInput(Scanner scanner, String question) {
+        LocalDate d = null;
+        boolean invalidDate = true;
+        do {
+            try {
+                System.out.print(question);
+                String inputDate = scanner.nextLine();
+                d = LocalDate.parse(inputDate);
+                invalidDate = false;
+            } catch (DateTimeParseException e) {
+                System.out.println("Invalid date format, please re-enter. ");
+            }
+        } while (invalidDate);
+        return d;
     }
 }
 

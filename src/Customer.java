@@ -8,9 +8,10 @@ public class Customer {
     private String customerPassword;
     private String customerEmail;
     private ArrayList<Reservation> reservations;
+    private static int customerCount=0;
     
-    public Customer(String customerID, String customerName, String dateOfBirth, String customerPassword, String customerEmail){
-        this.customerID = customerID;
+    public Customer(String customerName, String dateOfBirth, String customerPassword, String customerEmail){
+        this.customerID = String.format("C%-04d", customerCount);
         this.customerName =customerName;
         this.dateOfBirth = dateOfBirth;
         this.customerPassword = customerPassword;
