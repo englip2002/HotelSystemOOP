@@ -114,7 +114,7 @@ public class Final {
         // -------------------- Main Function (Reservation - Thong So Xue) --------------------
 
         // Constants
-        int MAX_RESERVATION_DAYS = 365;
+        final int MAX_RESERVATION_DAYS = 365;
 
         // Title
         System.out.println("\n            ( Make Reservation )\n");
@@ -373,27 +373,44 @@ public class Final {
             return;
         }
 
-        int menuOpt;
         printReservationsTable(reservations);
+        int menuOpt;
+        boolean cannotBeCancelled;
         do {
-            menuOpt = getIntegerInput(scanner, "Enter No. to cancel the reservation (0 to exit): ");
-            if (menuOpt < 0 || menuOpt > reservations.size()) {
-                System.out.println("Invalid input! Please re-enter");
+        	do {
+                menuOpt = getIntegerInput(scanner, "Enter No. to cancel the reservation (0 to exit): ");
+                if (menuOpt < 0 || menuOpt > reservations.size()) {
+                    System.out.println("Invalid input! Please re-enter");
+                }
+            } while(menuOpt < 0 || menuOpt > reservations.size());
+
+            if (menuOpt == 0)
+                return;
+
+            menuOpt -= 1;
+            boolean isEarlier = reservations.get(menuOpt).getReservationSchedule().getStartDate().compareTo(LocalDate.now()) <= 0;
+            boolean alreadyCancelled = reservations.get(menuOpt).getIsCancelled();
+            cannotBeCancelled = isEarlier || alreadyCancelled;
+            
+            if (cannotBeCancelled) {
+            	System.out.println("This reservation cannot be cancelled!");
+            	if (isEarlier)
+            		System.out.println("This reservation is already finished or currently ongoing. \n");
+            	else if (alreadyCancelled)
+            		System.out.println("This reservation is already cancelled!\n");
             }
-        } while(menuOpt < 0 || menuOpt > reservations.size());
-
-        if (menuOpt == 0)
-            return;
-
-        menuOpt -= 1;
+        } while (cannotBeCancelled);
+        
         String cancelID = reservations.get(menuOpt).getReservationID();
         System.out.println("Are you sure you want to cancel the reservation (" + cancelID + ")?");
         System.out.println("[ THIS ACTION CANNOT BE REVERSED! ]");
         System.out.print("(Type 'YES' to cancel) > ");
         String inputYN = scanner.nextLine().toUpperCase();
+        
         if (inputYN.equals("YES")) {
             cust.cancelReservation(reservations.get(menuOpt).getReservationID());
-            System.out.printf("( Cancellation completed. Reservation %s is now cancelled\n  and RM%.2f will be refunded to you later. )\n", cancelID, reservations.get(menuOpt).getPayment().refund());
+            System.out.printf("( Cancellation completed. Reservation %s is now cancelled\n  and RM%.2f will be refunded to you. )\n"
+            		, cancelID, reservations.get(menuOpt).getPayment().refund());
         }
         else {
             System.out.println("< Cancellation stopped. Returning to main menu. >");
