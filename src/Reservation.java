@@ -1,4 +1,4 @@
-import java.util.ArrayList;
+	import java.util.ArrayList;
 
 public class Reservation implements Reportable {
 	private static int newestReservationNo = 0;
@@ -10,6 +10,7 @@ public class Reservation implements Reportable {
 	private Payment payment;
 	private boolean isCancelled;
 	
+	// Constructors
 	public Reservation(Customer customer, ReservationSchedule schedule, ArrayList<Room> reservedRooms,
 			String orderID, Payment payment) {
 		// Auto-calculate reservation ID
@@ -77,21 +78,10 @@ public class Reservation implements Reportable {
 		return false;
 	}
 	
+	
 	// Getters
 	public String getReservationID() {
 		return reservationID;
-	}
-
-	public Customer getCustomer() {
-		return customer;
-	}
-
-	public ReservationSchedule getSchedule() {
-		return schedule;
-	}
-
-	public ArrayList<Room> getReservedRooms() {
-		return reservedRooms;
 	}
 
 	public String getOrderID() {
@@ -100,9 +90,5 @@ public class Reservation implements Reportable {
 	
 	public Payment getPayment() {
 		return payment;
-	}
-
-	public boolean isCancelled() {
-		return isCancelled;
 	}
 }

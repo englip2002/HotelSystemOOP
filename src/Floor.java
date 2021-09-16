@@ -5,9 +5,8 @@ public class Floor {
 	private int maxNumberOfRooms;
 	private Room[] rooms;
 	
-	
 	public Floor(int floorNumber, int maxNumberOfRooms) {
-		this.setFloorNumber(floorNumber);
+		this.floorNumber = floorNumber;
 		this.maxNumberOfRooms = maxNumberOfRooms;
 		this.rooms = new Room[maxNumberOfRooms];
 		this.numberOfRooms = 0;
@@ -60,30 +59,11 @@ public class Floor {
 		return floorNumber;
 	}
 
-
-	public void setFloorNumber(int floorNumber) {
-		this.floorNumber = floorNumber;
-	}
-
 	public int getNumberOfRooms() {
 		return numberOfRooms;
-	}
-	
-	public int getMaxNumberOfRooms() {
-		return maxNumberOfRooms;
 	}
 
 	public Room[] getRooms() {
 		return rooms;
 	}
-	
-	public Room getRoom(int roomNumber) {
-		for (Room room : rooms) {
-			if (room.getRoomNumber() == roomNumber) {
-				return room;
-			}
-		}
-		return null;
-	}
-	
 }

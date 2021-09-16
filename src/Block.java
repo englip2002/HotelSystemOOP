@@ -58,9 +58,6 @@ public class Block {
 	
 	
 	// Getters
-	public String getBlockID() {
-		return blockID;
-	}
 	public int getNumberOfFloors() {
 		return numberOfFloors;
 	}

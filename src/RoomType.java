@@ -1,21 +1,19 @@
 
 public class RoomType implements Reportable{
 	private String name;
-	private int numberOfTwinBeds;
-	private int numberOfKingBeds;
+	private int numberOfSingleBeds;
+	private int numberOfDoubleBeds;
 	private double pricePerNight;
 	
-	public RoomType() {
-		this("", 0, 0, 0);
-	}
-	
-	public RoomType(String name, int numberOfTwinBeds, int numberOfKingBeds, double pricePerNight) {
-		this.setName(name);
-		this.setNumberOfTwinBeds(numberOfTwinBeds);
-		this.setNumberOfKingBeds(numberOfKingBeds);
-		this.setPricePerNight(pricePerNight);
+	// Constructors
+	public RoomType(String name, int numberOfSingleBeds, int numberOfDoubleBeds, double pricePerNight) {
+		this.name = name;
+		this.numberOfSingleBeds = numberOfSingleBeds;
+		this.numberOfDoubleBeds = numberOfDoubleBeds;
+		this.pricePerNight = pricePerNight;
 	}
 
+	// Methods
 	@Override
 	public String toString() {
 		return String.format("%-13s | ", name);
@@ -40,32 +38,15 @@ public class RoomType implements Reportable{
 		return name;
 	}
 
-	public int getNumberOfTwinBeds() {
-		return numberOfTwinBeds;
+	public int getNumberOfSingleBeds() {
+		return numberOfSingleBeds;
 	}	
 	
-	public int getNumberOfKingBeds() {
-		return numberOfKingBeds;
+	public int getNumberOfDoubleBeds() {
+		return numberOfDoubleBeds;
 	}	
 
 	public double getPricePerNight() {
 		return pricePerNight;
-	}
-
-	// Setters
-	public void setName(String name) {
-		this.name = name;
-	}
-	
-	public void setNumberOfTwinBeds(int numberOfTwinBeds) {
-		this.numberOfTwinBeds = numberOfTwinBeds;
-	}
-	
-	public void setNumberOfKingBeds(int numberOfKingBeds) {
-		this.numberOfKingBeds = numberOfKingBeds;
-	}
-	
-	public void setPricePerNight(double pricePerNight) {
-		this.pricePerNight = pricePerNight;
 	}	
 }

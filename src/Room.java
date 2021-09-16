@@ -4,12 +4,10 @@ public class Room implements Reportable{
 	private int roomNumber;
 	private RoomType roomType;
 	private ArrayList<ReservationSchedule> reservedDays;
-	private static int totalNumberOfRooms = 0;
 
 	public Room(int roomNumber, RoomType roomType) {
 		this.roomNumber = roomNumber;
-		this.setRoomType(roomType);
-		totalNumberOfRooms++;
+		this.roomType = roomType;
 		reservedDays = new ArrayList<ReservationSchedule>();
 	}
 
@@ -56,16 +54,4 @@ public class Room implements Reportable{
 		return roomType;
 	}
 
-	public static int getTotalNumberOfRooms() {
-		return totalNumberOfRooms;
-	}
-	
-	public ArrayList<ReservationSchedule> getReservedDays() {
-		return reservedDays;
-	}
-
-	// Setters
-	public void setRoomType(RoomType roomType) {
-		this.roomType = roomType;
-	}
 }
