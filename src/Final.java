@@ -174,8 +174,8 @@ public class Final {
                 System.out.println("| "
                         + String.format("%2d", (i + 1)) + " | "
                         + String.format("%-15s", roomTypes[i].getName()) + " | "
-                        + String.format("%9d", roomTypes[i].getNumberOfTwinBeds()) + " | "
-                        + String.format("%9d", roomTypes[i].getNumberOfKingBeds()) + " | " + "RM"
+                        + String.format("%9d", roomTypes[i].getNumberOfSingleBeds()) + " | "
+                        + String.format("%9d", roomTypes[i].getNumberOfDoubleBeds()) + " | " + "RM"
                         + String.format("%13.2f", roomTypes[i].getPricePerNight()) + " | "
                         + String.format("%15d", availableRoomCounts[i]) + " |");
             }
