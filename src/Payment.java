@@ -79,6 +79,6 @@ public abstract class Payment implements Reportable {
                 "\n+-----------------+-----------------+----------------+" +
                 String.format("\n| %-15s | RM%-13.2f | %-14s |", paymentId, totalAmount, paymentStatus) +
                 "\n+-----------------+-----------------+----------------+" +
-                "\nThe following is the payment receipt." + generateReceipt() + "\n";
+                "\n\nThe following is the payment receipt." + generateReceipt() + "\n";
     }
 }

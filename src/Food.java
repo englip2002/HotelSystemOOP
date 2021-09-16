@@ -11,12 +11,6 @@ public class Food {
         this.price = price;
     }
 
-    //for pass food to food order purpose
-    public Food(Food foodOrder) {
-        this.foodName = foodOrder.foodName;
-        this.price = foodOrder.price;
-    }
-
     public double getPrice(){
         return price;
     }

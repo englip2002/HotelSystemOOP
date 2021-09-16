@@ -10,10 +10,7 @@ public class FoodType {
         this.foods=foods;
     }
 
-    //get particular food
-    public Food getFood(int foodIndex){
-        return foods[foodIndex];
-    }
+
 
     //get food array
     public Food[] getFood(){
@@ -26,5 +23,10 @@ public class FoodType {
 
     public int getNumOfFood(){
         return foods.length;
+    }
+
+    //get particular food
+    public Food getFood(int foodIndex){
+        return foods[foodIndex];
     }
 }

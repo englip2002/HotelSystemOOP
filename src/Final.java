@@ -278,6 +278,7 @@ public class Final {
         System.out.print("Do you wish to order food ? (Y/N) :");
         orderChoice = Character.toUpperCase(scanner.next().charAt(0));
 
+        //initialize data
         String foodOrderID = "-";
         double foodOrderTotalAmount = 0;
         FoodOrder foodOrder;
@@ -449,7 +450,7 @@ public class Final {
             System.out.println("+-----+----------------------+---------+");
             for (i = 0; i < foodType.length; i++) {
                 System.out.printf("| %-3d | %-20s | %-7d |\n", (i + 1), foodType[i].getTypeName(),
-                        foodType[i].getFood().length);
+                        foodType[i].getNumOfFood());
             }
             System.out.println("+-----+----------------------+---------+");
 
