@@ -308,12 +308,6 @@ public class Final {
         System.out.print("\n< Press enter to continue >");
         scanner.nextLine();
 
-        System.out.println("\nThe following is the summary of your reservation: ");
-        System.out.println(reservation.generateReport());
-
-        System.out.print("< Press enter to continue >");
-        scanner.nextLine();
-
         return reservation;
     }
 
