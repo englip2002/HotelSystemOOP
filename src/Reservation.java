@@ -88,6 +88,14 @@ public class Reservation implements Reportable {
 	public String getReservationID() {
 		return reservationID;
 	}
+	
+	public ReservationSchedule getReservationSchedule() {
+		return schedule;
+	}
+	
+	public boolean getIsCancelled() {
+		return isCancelled;
+	}
 
 	public String getOrderID() {
 		return orderID;
