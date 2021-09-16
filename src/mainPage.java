@@ -55,12 +55,26 @@ public final class mainPage {
                 .println("\t\t\t\t\t\t|__|  |__|\\______/|__|_____|_____|     \\____/|__| \\____/|__|_____| \\/  |__|");
     }
 
-    public static void login() {
-        String customerID, customerName, customerPassword, customerEmail, dateOfBirth;
+public void login() {
+        String loginPassword, loginEmail;
         boolean validLogin = false;
         Scanner customerLogin = new Scanner(System.in);
         do {
+            validLogin = false;
             System.out.print("Please enter your email : ");
+            loginEmail = customerLogin.nextLine();
+            System.out.print("Please enter your password : ");
+            loginPassword = customerLogin.nextLine();
+            for (Customer customerArr1 : customerArr) {
+                if (loginEmail.equals(customerArr1.getCustomerEmail()) == true && loginPassword.equals(customerArr1.getCustomerPassword()) == true) {
+                    validLogin = true;
+                    System.out.print("Login successfully!!!\n");
+                    break;
+                }
+            }
+            if (validLogin == false) {
+                System.out.println("\nInvalid input! Please enter again!");
+            }
         } while (validLogin == false);
     }
 
