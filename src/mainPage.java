@@ -29,10 +29,10 @@ public final class mainPage {
                 System.out.println("Invalid input. Please Enter Again!\n");
             }
             if (option == 1) {
-                login(customerArr);
+                login(customerArr,scanner);
                 drawLine();
             } else if (option == 2) {
-                customerArr[Customer.getCustomerCount() + 1] = register();
+                customerArr[Customer.getCustomerCount() + 1] = register(scanner);
                 drawLine();
             } else {
                 System.out.println("Invalid input. Please Enter Again!\n");
@@ -93,7 +93,7 @@ public final class mainPage {
         LocalDate registerDateOfBirth;
         String registerPassword;
         String registerEmail;
-        
+
         System.out.print("Please enter you name : ");
         registerName = scanner.nextLine();
 
