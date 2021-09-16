@@ -67,7 +67,7 @@ public class DriverFoodOrder {
             System.out.printf("| %-3s | %-20s | %-7s |\n","No","Food Type","Choices");
             System.out.println("+-----+----------------------+---------+");
             for (i = 0; i < foodType.length; i++) {
-                System.out.printf("| %-3d | %-20s | %-7d |\n", (i+1),foodType[i].getTypeName(),foodType[i].getFood().length);
+                System.out.printf("| %-3d | %-20s | %-7d |\n", (i+1),foodType[i].getTypeName(),foodType[i].getNumOfFood());
             }
             System.out.println("+-----+----------------------+---------+");
 

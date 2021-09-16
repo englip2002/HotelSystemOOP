@@ -11,12 +11,6 @@ public class FoodType {
     }
 
 
-
-    //get food array
-    public Food[] getFood(){
-        return foods;
-    }
-
     public String getTypeName() {
         return typeName;
     }
