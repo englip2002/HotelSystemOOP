@@ -16,12 +16,6 @@ public class Bank {
         return otpNumber;
     }
 
-    //-------------------Setters----------------------
-    public void setBankName(String bankName) {
-        this.bankName = bankName;
-    }
-
-
     //--------------------Methods----------------------
     public void generateOTPNumber() {
         int random = (int)(Math.random() * 999999);
@@ -32,4 +26,3 @@ public class Bank {
         return this.otpNumber.equals(otpNumber);
     }
 }
-
