@@ -45,7 +45,7 @@ public final class mainPage {
             } else {
                 System.out.println("Invalid input. Please Enter Again!\n");
             }
-        } while (option < 1 || option > 4);
+        } while (option != 3);
     }
 
     public static void mainBanner() {
@@ -116,10 +116,7 @@ public final class mainPage {
                 validateDot = true;
         }
 
-        if (validateAt && validateDot)
-            return true;
-        else
-            return false;
+        return (validateAt && validateDot);
     }
 
     public static void logout() {
