@@ -21,7 +21,6 @@ public final class mainPage {
             System.out.println("1. Login");
             System.out.println("2. Register");
             System.out.println("3. View and edit Customer profile");
-            System.out.println("4. Reservation History");
             drawLine();
             System.out.print("Enter your option (1-4) : ");
             option = mainPage.nextInt();
@@ -37,8 +36,6 @@ public final class mainPage {
                 drawLine();
             } else if (option == 3) {
                 editProfile();
-            } else if (option == 4) {
-                reservationHistory();
             } else {
                 System.out.println("Invalid input. Please Enter Again!\n");
             }
@@ -119,10 +116,6 @@ public final class mainPage {
         }
 
         return (validateAt && validateDot);
-    }
-
-    public static void reservationHistory() {
-        System.out.print("Hello mdfk");
     }
 
     public static void editProfile() {
