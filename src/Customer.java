@@ -50,19 +50,7 @@ public class Customer implements Reportable{
 	public ArrayList<Reservation> getReservationList() {
 		return reservations;
 	}
-    
-    public String getCustomerID() {
-        return customerID;
-    }
-    
-    public String getCustomerName() {
-        return customerName;
-    }
-
-    public LocalDate getDateOfBirth() {
-        return dateOfBirth;
-    }
-
+        
     public String getCustomerPassword() {
         return customerPassword;
     }
