@@ -39,41 +39,21 @@ public class Customer {
     public String getCustomerID() {
         return customerID;
     }
-
-    public void setCustomerID(String customerID) {
-        this.customerID = customerID;
-    }
     
     public String getCustomerName() {
         return customerName;
-    }
-
-    public void setCustomerName(String customerName) {
-        this.customerName = customerName;
     }
 
     public String getDateOfBirth() {
         return dateOfBirth;
     }
 
-    public void setDateOfBirth(String dateOfBirth) {
-        this.dateOfBirth = dateOfBirth;
-    }
-
     public String getCustomerPassword() {
         return customerPassword;
-    }
-
-    public void setCustomerPassword(String customerPassword) {
-        this.customerPassword = customerPassword;
     }
     
     public String getCustomerEmail() {
         return customerEmail;
-    }
-
-    public void setCustomerEmail(String customerEmail) {
-        this.customerEmail = customerEmail;
     }
 
     public static int getCustomerCount() {
