@@ -529,25 +529,43 @@ public class Final {
     }
 
     public static FoodType[] initializeFood() {
-        Food[] noodles = new Food[2];
+        Food[] noodles = new Food[5];
         noodles[0] = new Food("White Sauce Spaghetti", 6.90);
         noodles[1] = new Food("Maggi Kari", 3.2);
+        noodles[2]=new Food("Koay Teow", 4.50);
+        noodles[3]=new Food("Tonkatsu Ramen", 5.50);
+        noodles[4]=new Food("Mee Sua", 3.50);
 
-        Food[] rice = new Food[3];
+        Food[] rice = new Food[6];
         rice[0] = new Food("Egg Fried Rice", 4.0);
         rice[1] = new Food("Chicken Rice", 5.0);
         rice[2] = new Food("Nasi Kandar", 4.50);
+        rice[3]=new Food("Nasi Lemak", 2.30);
+        rice[4]=new Food("Nasi Kerabu", 4.20);
+        rice[5]=new Food("Briyani",5.60);
 
-        Food[] drink = new Food[3];
+        Food[] westernFood=new Food[5];
+        westernFood[0]=new Food("Chicken Chop", 7.20);
+        westernFood[1]=new Food("Steak", 10.20);
+        westernFood[2]=new Food("Fish&Chip", 8.30);
+        westernFood[3]=new Food("Lamb Chop", 12.50);
+        westernFood[4]=new Food("Garlic Bread",3.50);
+
+        Food[] drink = new Food[7];
         drink[0] = new Food("Orange Juice", 2.2);
         drink[1] = new Food("Apple Juice", 2.1);
         drink[2] = new Food("Pineapple Lemon Juice", 3.0);
+        drink[3]=new Food("Herbal Tea", 1.20);
+        drink[4]=new Food("Teh Ais",1.30);
+        drink[5]=new Food("Soya Cincau", 2.00);
+        drink[6]=new Food("Barley",1.50);
 
         // initialize foodType and pass foods to foodtype
-        FoodType[] foodType = new FoodType[3];
+        FoodType[] foodType = new FoodType[4];
         foodType[0] = new FoodType("Noodle", noodles);
         foodType[1] = new FoodType("Rice", rice);
-        foodType[2] = new FoodType("Drink", drink);
+        foodType[2]=new FoodType("Western Food", westernFood);
+        foodType[3] = new FoodType("Drink", drink);
 
         return foodType;
     }
