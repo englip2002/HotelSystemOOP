@@ -1,5 +1,3 @@
-import java.util.ArrayList;
-
 public class Block {
 	private String blockID;
 	private int numberOfFloors;
