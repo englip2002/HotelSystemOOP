@@ -15,9 +15,12 @@ public class PaymentByEWallet extends Payment {
     //-------------------Methods---------------------
     public boolean validatePinNumber(){
         if(pinNumber.length() == 6) {
-            for(int i = 1; i < pinNumber.length(); i++){
-                return Character.isDigit(pinNumber.charAt(i));
+            for(int i = 0; i < pinNumber.length(); i++){
+                if(!Character.isDigit(pinNumber.charAt(i))) {
+                    return false;
+                }
             }
+            return true;
         }
         return false;
     }
