@@ -1,15 +1,16 @@
+import java.time.LocalDate;
 import java.util.ArrayList;
 
 public class Customer {
     private String customerID;
     private String customerName;
-    private String dateOfBirth;
+    private LocalDate dateOfBirth;
     private String customerPassword;
     private String customerEmail;
     private ArrayList<Reservation> reservations;
     private static int customerCount=0;
     
-    public Customer(String customerName, String dateOfBirth, String customerPassword, String customerEmail){
+    public Customer(String customerName, LocalDate dateOfBirth, String customerPassword, String customerEmail){
         this.customerID = String.format("C%04d", customerCount);
         this.customerName =customerName;
         this.dateOfBirth = dateOfBirth;
@@ -44,7 +45,7 @@ public class Customer {
         return customerName;
     }
 
-    public String getDateOfBirth() {
+    public LocalDate getDateOfBirth() {
         return dateOfBirth;
     }
 

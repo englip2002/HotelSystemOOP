@@ -72,18 +72,18 @@ public final class mainPage {
 
     private static Customer[] initializeCustomer() {
         Customer[] custArr = new Customer[100];
-        custArr[0]=new Customer("Gordon Ramsay", "1969-09-06", "Gordon69", "gordonramsay69@hotmail.com");
-        custArr[1]=new Customer("Mohammad Ali", "1987-11-27", "Alibaba", "mohdali@hotmail.com");
-        custArr[2]=new Customer("Ranjeev Singh", "2000-10-08", "RJ2000", "ranjeevsingh@hotmail.com");
-        custArr[3]=new Customer("Leong Kah Jun", "2005-05-05", "LEONGKJ", "kahjunleong@hotmail.com");
-        custArr[4]=new Customer("Jonathan Wong Chou Jin", "12-12-1975", "jonwong1975", "jonathanwong@hotmail.com");
+        custArr[0]=new Customer("Gordon Ramsay", LocalDate.of(1996, 9, 6), "Gordon69", "gordonramsay69@hotmail.com");
+        custArr[1]=new Customer("Mohammad Ali", LocalDate.of(1987, 12, 14), "Alibaba", "mohdali@hotmail.com");
+        custArr[2]=new Customer("Ranjeev Singh", LocalDate.of(2000, 10, 18), "RJ2000", "ranjeevsingh@hotmail.com");
+        custArr[3]=new Customer("Leong Kah Jun",LocalDate.of(2005, 5, 05) , "LEONGKJ", "kahjunleong@hotmail.com");
+        custArr[4]=new Customer("Jonathan Wong Chou Jin", LocalDate.of(2001, 5, 30), "jonwong1975", "jonathanwong@hotmail.com");
 
         return custArr;
     }
 
     public static Customer register() {
         String registerName;
-        String registerDateOfBirth;
+        LocalDate registerDateOfBirth;
         String registerPassword;
         String registerEmail;
 
@@ -91,7 +91,12 @@ public final class mainPage {
         System.out.print("Please enter you name : ");
         registerName = scanner.nextLine();
 
-        registerDateOfBirth = getDateInput(scanner, "Please enter your Date Of Birth (YYYY-MM-DD): ").toString();
+        registerDateOfBirth = getDateInput(scanner, "Please enter your Date Of Birth (YYYY-MM-DD): ");
+        
+        while(registerDateOfBirth.isAfter(LocalDate.now())){
+            System.out.println("Invalid Date! Please Re-enter.");
+            registerDateOfBirth = getDateInput(scanner, "Please enter your Date Of Birth (YYYY-MM-DD): ");
+        }
         System.out.print("Please enter you password : ");
         registerPassword = scanner.nextLine();
         System.out.print("Please enter you Email : ");
