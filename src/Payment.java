@@ -13,8 +13,6 @@ public abstract class Payment implements Reportable {
 
 
     //------------------Constructors--------------------
-    public Payment(){};
-
     protected Payment(double subtotal){
         paymentDate = LocalDate.now();
         paymentStatus = "Completed";
