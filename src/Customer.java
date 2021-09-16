@@ -6,6 +6,7 @@ public class Customer {
     private String dateOfBirth;
     private String customerPassword;
     private String customerEmail;
+    private ArrayList<Reservation> reservations;
     
     public Customer(String customerID, String customerName, String dateOfBirth, String customerPassword, String customerEmail){
         this.customerID = customerID;
@@ -13,7 +14,25 @@ public class Customer {
         this.dateOfBirth = dateOfBirth;
         this.customerPassword = customerPassword;
         this.customerEmail = customerEmail;
+        reservations = new ArrayList<>();
     }
+    
+    public void addReservation(Reservation reservation) {
+		reservations.add(reservation);
+	}
+	
+	public void cancelReservation(String reservationID) {
+		for (Reservation each: reservations) {
+			if (each.getReservationID().equals(reservationID)) {
+				each.cancel();
+				break;
+			}
+		}
+	}
+	
+	public ArrayList<Reservation> getReservationList() {
+		return reservations;
+	}
     
     public String getCustomerID() {
         return customerID;
