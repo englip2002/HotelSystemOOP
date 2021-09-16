@@ -9,7 +9,7 @@
         public PaymentByCard(double subtotal) {
             super(subtotal);
         };
-        
+
         //Used for assigning default reservation's payment record (P00001)
         public PaymentByCard(double subtotal, String bankName, String cardNumber) {
             super(subtotal);
@@ -21,10 +21,6 @@
         }
 
         //-------------------------getter setter------------------------------------------
-        public String getCardNumber() {
-            return cardNumber;
-        }
-
         public void setCardNumber(String cardNumber) {
             this.cardNumber = cardNumber;
             validateCardType();
@@ -34,24 +30,12 @@
             this.bank = bank;
         }
 
-        public Bank getBank(){
-            return bank;
-        }
-
-        public int getCVV() {
-            return CVV;
-        }
-
         public void setCVV(int cvv) {
             this.CVV = cvv;
         }
 
-        public String getCardType() {
-            return cardType;
-        }
-
-        public void setCardType(String cardType) {
-            this.cardType = cardType;
+        public Bank getBank(){
+            return bank;
         }
 
         //-----------------------methods-----------------------------------
