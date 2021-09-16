@@ -32,8 +32,8 @@ public final class mainPage {
                 System.out.println();
                 System.out.println("Main Menu");
                 System.out.println("=========");
-                System.out.println("1. Register");
-                System.out.println("2. Login");
+                System.out.println("1. Login");
+                System.out.println("2. Register");
                 System.out.println("3. Logout");
                 System.out.println("4. View and edit Customer profile");
                 System.out.println("5. Reservation History");
@@ -70,7 +70,29 @@ public final class mainPage {
         boolean validLogin = false;
         Scanner customerLogin = new Scanner(System.in);
         do {
-            System.out.print("Please enter your customer ID : ");
+            System.out.print("Please enter your email : ");
+        } while (validLogin == false);
+    }
+
+    private Customer[] initializeCustomer() {
+        Customer[] custArr = {new Customer("C0001", "Gordon Ramsay", "06-09-1969", "Gordon69", "gordonramsay69@hotmail.com"),
+            new Customer("C0002", "Mohammad Ali", "27-11-1987", "Alibaba", "mohdali@hotmail.com"),
+            new Customer("C0003", "Ranjeev Singh", "08-10-2000", "RJ2000", "ranjeevsingh@hotmail.com"),
+            new Customer("C0004", "Leong Kah Jun", "05-05-2005", "LEONGKJ", "kahjunleong@hotmail.com"),
+            new Customer("C0005", "Jonathan Wong Chou Jin", "12-12-1975", "jonwong1975", "jonathanwong@hotmail.com")
+        };
+        return custArr;
+    }
+
+    public void register() {
+        String registerName;
+        String registerDateOfBirth;
+        String registerPassword;
+        String registerEmail;
+        boolean validRegister = true;
+        Scanner register = new Scanner(System.in);
+        do {
+            System.out.print("Please enter you ID : ");
             customerID = customerLogin.nextLine();
             for (Customer customerArr1 : customerArr) {
                 if (customerID.equals(customerArr1.getCustomerID()) == true) {
@@ -108,44 +130,10 @@ public final class mainPage {
                     }
                 }
             }
-            if (validLogin == false) {
+            if (validRegister == false) {
                 System.out.println("\nInvalid input! Please enter again!");
             }
-        } while (validLogin == false);
-    }
-
-    private Customer[] initializeCustomer() {
-        Customer[] custArr = {new Customer("C0001", "Gordon Ramsay", "06-09-1969", "Gordon69", "gordonramsay69@hotmail.com"),
-            new Customer("C0002", "Mohammad Ali", "27-11-1987", "Alibaba", "mohdali@hotmail.com"),
-            new Customer("C0003", "Ranjeev Singh", "08-10-2000", "RJ2000", "ranjeevsingh@hotmail.com"),
-            new Customer("C0004", "Leong Kah Jun", "05-05-2005", "LEONGKJ", "kahjunleong@hotmail.com"),
-            new Customer("C0005", "Jonathan Wong Chou Jin", "12-12-1975", "jonwong1975", "jonathanwong@hotmail.com")
-        };
-        return custArr;
-    }
-
-    public void register() {
-        String registerName;
-        String registerDateOfBirth;
-        String registerPassword;
-        String registerEmail;
-        boolean validRegister = false;
-        Scanner register = new Scanner(System.in);
-
-        System.out.print("Please enter you name : ");
-        registerName = register.nextLine();
-        for (Customer customerArr1 : customerArr) {
-            while (registerName.equals(customerArr1.getCustomerID()) == true) {
-            
-            }
-        }
-
-        System.out.print("Please enter your date of birth : ");
-        registerDateOfBirth = register.nextLine();
-        System.out.print("Please enter you name : ");
-        registerPassword = register.nextLine();
-        System.out.print("Please enter you name : ");
-        registerEmail = register.nextLine();
+        } while (validRegister == false);
     }
 
     public void logout() {
