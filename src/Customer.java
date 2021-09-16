@@ -1,7 +1,7 @@
 import java.time.LocalDate;
 import java.util.ArrayList;
 
-public class Customer {
+public class Customer implements Reportable{
     private String customerID;
     private String customerName;
     private LocalDate dateOfBirth;

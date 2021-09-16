@@ -21,14 +21,39 @@ public class Final {
         // FoodOrderRecord to store order record
         FoodOrderRecord foodOrderRecord = new FoodOrderRecord();
 
+        //to store customer record
+        Customer[] customerArr = initializeCustomer();
+        int loginCustomerIndex=0;
         /*
          *
          * Login
          *
          */
+        mainBanner();
 
-        // Assume customer login successful
-        Customer cust = new Customer();
+        int option = 0;
+        do {
+            System.out.println();
+            System.out.println("Main Menu");
+            System.out.println("=========");
+            System.out.println("1. Login");
+            System.out.println("2. Register");
+            drawLine();
+            System.out.print("Enter your option (1-4) : ");
+            option = scanner.nextInt();
+
+            if (option == 1) {
+                loginCustomerIndex=login(customerArr,scanner);
+                drawLine();
+            } else if (option == 2) {
+                customerArr[Customer.getCustomerCount() + 1] = register(scanner);
+                drawLine();
+            } else {
+                System.out.println("Invalid input. Please Enter Again!\n");
+            }
+        } while (option != 1);
+
+        Customer loginCustomer=customerArr[loginCustomerIndex];
 
         // Main Menu
         int menuOpt = 0;
@@ -65,23 +90,23 @@ public class Final {
 
                 // Make a Reservation
                 case 2: {
-                    Reservation reservation = makeReservation(scanner, cust, roomTypes, block, foodType,
+                    Reservation reservation = makeReservation(scanner, loginCustomer, roomTypes, block, foodType,
                             foodOrderRecord);
                     // store reservation record
-                    cust.addReservation(reservation);
+                    loginCustomer.addReservation(reservation);
                     //foodOrderRecord.generateFoodOrderRecord(reservation.getOrderID());
                     break;
                 }
 
                 // View Previous Reservations
                 case 3: {
-                    viewReservations(scanner, cust, foodOrderRecord);
+                    viewReservations(scanner, loginCustomer,foodOrderRecord);
                     break;
                 }
 
                 // Cancel Previous Reservations
                 case 4: {
-                    cancelReservations(scanner, cust, block);
+                    cancelReservations(scanner, loginCustomer,block);
                     break;
                 }
 
@@ -785,6 +810,109 @@ public class Final {
         return payment;
     }
 
+        //=================================Customer : Seng wai==================================================
+        public static void mainBanner() {
+            System.out.println("\t\t __    __  _____ _______ __ __           ____    ___ _________ __     ____ ");
+            System.out
+                    .println("\t\t|  |  |  |/      \\    __|__|  |         /  __\\  /  /  __\\   __|__|\\  /    |");
+            System.out
+                    .println("\t\t|  |__|  |   /\\   |  |  |__   |        /  /__ \\/  /  /__   |  |__  \\/     |");
+            System.out
+                    .println("\t\t|   __   |  |  |  |  |   __|  |        \\ __  \\   /\\ __  \\  |   __|    /|  |");
+            System.out.println("\t\t|  |  |  |   \\/   |  |  |__   |__      ___/  /  | ___/  /  |  |__ \\  / |  |");
+            System.out
+                    .println("\t\t|__|  |__|\\______/|__|_____|_____|     \\____/|__| \\____/|__|_____| \\/  |__|");
+        }
+    
+        public static int login(Customer[] customerArr, Scanner scanner) {
+            String loginPassword, loginEmail;
+            boolean validLogin = false;
+            int loginCustomerIndex=0;
+            do {
+                validLogin = false;
+                System.out.print("Please enter your email : ");
+                loginEmail = scanner.nextLine();
+
+                System.out.print("Please enter your password : ");
+                loginPassword = scanner.nextLine();
+                for (int i=0;i<customerArr.length;i++) {
+                    if (loginEmail.equals(customerArr[i].getCustomerEmail()) == true
+                            && loginPassword.equals(customerArr[i].getCustomerPassword()) == true) {
+                        validLogin = true;
+                        loginCustomerIndex=i;
+                        System.out.print("Login successfully!!!\n");
+                        break;
+                    }
+                }
+                if (validLogin == false) {
+                    System.out.println("\nInvalid input! Please enter again!");
+                }
+            } while (validLogin == false);
+
+            return loginCustomerIndex;
+        }
+    
+        private static Customer[] initializeCustomer() {
+            Customer[] custArr = new Customer[100];
+            custArr[0] = new Customer("Gordon Ramsay", LocalDate.of(1996, 9, 6), "Gordon69", "gordonramsay69@hotmail.com");
+            custArr[1] = new Customer("Mohammad Ali", LocalDate.of(1987, 12, 14), "Alibaba", "mohdali@hotmail.com");
+            custArr[2] = new Customer("Ranjeev Singh", LocalDate.of(2000, 10, 18), "RJ2000", "ranjeevsingh@hotmail.com");
+            custArr[3] = new Customer("Leong Kah Jun", LocalDate.of(2005, 5, 05), "LEONGKJ", "kahjunleong@hotmail.com");
+            custArr[4] = new Customer("Jonathan Wong Chou Jin", LocalDate.of(2001, 5, 30), "jonwong1975",
+                    "jonathanwong@hotmail.com");
+    
+            return custArr;
+        }
+    
+        public static Customer register(Scanner scanner) {
+            String registerName;
+            LocalDate registerDateOfBirth;
+            String registerPassword;
+            String registerEmail;
+    
+            System.out.print("Please enter you name : ");
+            registerName = scanner.nextLine();
+    
+            registerDateOfBirth = getDateInput(scanner, "Please enter your Date Of Birth (YYYY-MM-DD): ");
+    
+            while (registerDateOfBirth.isAfter(LocalDate.now())) {
+                System.out.println("Invalid Date! Please Re-enter.");
+                registerDateOfBirth = getDateInput(scanner, "Please enter your Date Of Birth (YYYY-MM-DD): ");
+            }
+            System.out.print("Please enter you password : ");
+            registerPassword = scanner.nextLine();
+            System.out.print("Please enter you Email : ");
+            registerEmail = scanner.nextLine();
+            while (validateEmail(registerEmail) == false) {
+                System.out.println("Invalid Email! Please Try Again");
+                System.out.print("Please enter you Email : ");
+                registerEmail = scanner.nextLine();
+            }
+    
+            Customer customer = new Customer(registerName, registerDateOfBirth, registerPassword, registerEmail);
+            return customer;
+        }
+    
+        public static boolean validateEmail(String email) {
+            boolean validateAt = false;
+            boolean validateDot = false;
+            for (int i = 0; i < email.length(); i++) {
+                if (email.charAt(i) == '@')
+                    validateAt = true;
+                if (email.charAt(i) == '.')
+                    validateDot = true;
+            }
+    
+            return (validateAt && validateDot);
+        }
+    
+        public static void drawLine() {
+            for (int i = 0; i < 106; i++) {
+                System.out.print("-");
+            }
+            System.out.println();
+        }
+
     // ===================================== Other Functions (Reservation - Thong So Xue) =====================================
 
     // Prompt and validate date input
@@ -888,4 +1016,6 @@ public class Final {
         System.out.println(tableLine);
 
     }
+
+
 }
