@@ -332,7 +332,7 @@ public class Driver_Program {
          * Payment (shu wei)
          *
          */
-        Payment payment=makePayment(reservationTotalAmount + foodOrderTotalAmount,scanner);
+        Payment payment=makePayment(reservationTotalAmount +(reservationTotalAmount * schedule.getDaysBetween()),scanner);
 
         // Assume payment is made
         Reservation reservation = new Reservation(cust, schedule, reservedRooms, foodOrderID, payment);
