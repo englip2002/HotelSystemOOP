@@ -4,7 +4,7 @@ import java.util.*;
 import java.time.LocalDateTime;
 import java.time.LocalTime;
 
-public class Final {
+public class Driver_Program {
     public static void main(String[] args) {
         // Variable declaration and definition
         Scanner scanner = new Scanner(System.in);
