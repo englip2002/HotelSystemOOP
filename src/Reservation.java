@@ -50,13 +50,18 @@ public class Reservation implements Reportable {
 		output += "+---------------------------------------------+\n"
 				+ "| Room No |    Room Type    | Price Per Night |\n"
 				+ "+---------------------------------------------+\n";
+		double total = 0;
 		for (Room room: reservedRooms) {
 			output += room.generateReport();
-		}
-		output += "+---------------------------------------------+\n"
-				+ String.format("|                     TOTAL | RM%13.2f |\n",  payment.getTotalAmount())
-				+ "+---------------------------------------------+\n";
-		
+			total += room.getRoomType().getPricePerNight();
+		}		
+        output += "+---------------------------------------------+\n"
+	            + "|           TOTAL (1 night) | RM" + String.format("%13.2f", total ) + " |\n"
+	            + "+---------------------------------------------+\n"
+	            + String.format("|  GRAND TOTAL (%3d nights) | RM%13.2f |\n",
+	            schedule.getDaysBetween(), total  * schedule.getDaysBetween())
+	            + "+---------------------------------------------+\n";
+        
 		return output;
 	}
 	
