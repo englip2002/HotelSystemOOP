@@ -1,14 +1,23 @@
-import java.util.ArrayList;
+import java.time.LocalDate;
 
 public class Customer {
-	// Customer is here to avoid compile error, waiting for sengwai to upload the complete ver.
-	private ArrayList<Reservation> reservations;
-	
-	Customer() {
-		reservations = new ArrayList<>();
-	}
-	
-	public void addReservation(Reservation reservation) {
+    private String customerID;
+    private String customerName;
+    private String dateOfBirth;
+    private String customerPassword;
+    private String customerEmail;
+    private ArrayList<Reservation> reservations;
+    
+    public Customer(String customerID, String customerName, String dateOfBirth, String customerPassword, String customerEmail){
+        this.customerID = customerID;
+        this.customerName =customerName;
+        this.dateOfBirth = dateOfBirth;
+        this.customerPassword = customerPassword;
+        this.customerEmail = customerEmail;
+        reservations = new ArrayList<>();
+    }
+    
+    public void addReservation(Reservation reservation) {
 		reservations.add(reservation);
 	}
 	
@@ -24,4 +33,44 @@ public class Customer {
 	public ArrayList<Reservation> getReservationList() {
 		return reservations;
 	}
+    
+    public String getCustomerID() {
+        return customerID;
+    }
+
+    public void setCustomerID(String customerID) {
+        this.customerID = customerID;
+    }
+    
+    public String getCustomerName() {
+        return customerName;
+    }
+
+    public void setCustomerName(String customerName) {
+        this.customerName = customerName;
+    }
+
+    public String getDateOfBirth() {
+        return dateOfBirth;
+    }
+
+    public void setDateOfBirth(String dateOfBirth) {
+        this.dateOfBirth = dateOfBirth;
+    }
+
+    public String getCustomerPassword() {
+        return customerPassword;
+    }
+
+    public void setCustomerPassword(String customerPassword) {
+        this.customerPassword = customerPassword;
+    }
+    
+    public String getCustomerEmail() {
+        return customerEmail;
+    }
+
+    public void setCustomerEmail(String customerEmail) {
+        this.customerEmail = customerEmail;
+    }
 }
