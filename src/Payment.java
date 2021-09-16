@@ -25,20 +25,8 @@ public abstract class Payment implements Reportable {
 
 
     //---------------------Getters-----------------------
-    public String getPaymentId() {
-        return paymentId;
-    }
-
-    public LocalDate getPaymentDate() {
-        return paymentDate;
-    }
-
     public double getSubtotal() {
         return subtotal;
-    }
-
-    public static double getTaxRate() {
-        return taxRate;
     }
 
     public double getTaxAmount() {
@@ -47,10 +35,6 @@ public abstract class Payment implements Reportable {
 
     public double getTotalAmount() {
         return totalAmount;
-    }
-
-    public String getPaymentStatus() {
-        return paymentStatus;
     }
 
 
