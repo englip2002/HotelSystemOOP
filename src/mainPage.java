@@ -10,7 +10,8 @@ public final class mainPage {
 
     public static void main(String[] args) {
         Scanner mainPage = new Scanner(System.in);
-        Customer[] customerArr = initializeCustomer();
+        Customer[] customerArr = new Customer[100];
+        customerArr=initializeCustomer();
         mainBanner();
 
         int option = 0;
@@ -34,7 +35,7 @@ public final class mainPage {
                 login();
                 drawLine();
             } else if (option == 2) {
-                register();
+                customerArr[Customer.getCustomerCount()+1] = register();
                 drawLine();
             } else if (option == 3) {
                 logout();
@@ -71,11 +72,13 @@ public final class mainPage {
     }
 
     private static Customer[] initializeCustomer() {
-        Customer[] custArr = { new Customer("Gordon Ramsay", "1969-09-06", "Gordon69", "gordonramsay69@hotmail.com"),
-                new Customer("Mohammad Ali", "1987-11-27", "Alibaba", "mohdali@hotmail.com"),
-                new Customer("Ranjeev Singh", "2000-10-08", "RJ2000", "ranjeevsingh@hotmail.com"),
-                new Customer("Leong Kah Jun", "2005-05-05", "LEONGKJ", "kahjunleong@hotmail.com"),
-                new Customer("Jonathan Wong Chou Jin", "12-12-1975", "jonwong1975", "jonathanwong@hotmail.com") };
+        Customer[] custArr = new Customer[100];
+        custArr[0]=new Customer("Gordon Ramsay", "1969-09-06", "Gordon69", "gordonramsay69@hotmail.com");
+        custArr[1]=new Customer("Mohammad Ali", "1987-11-27", "Alibaba", "mohdali@hotmail.com");
+        custArr[2]=new Customer("Ranjeev Singh", "2000-10-08", "RJ2000", "ranjeevsingh@hotmail.com");
+        custArr[3]=new Customer("Leong Kah Jun", "2005-05-05", "LEONGKJ", "kahjunleong@hotmail.com");
+        custArr[4]=new Customer("Jonathan Wong Chou Jin", "12-12-1975", "jonwong1975", "jonathanwong@hotmail.com");
+
         return custArr;
     }
 

@@ -1,4 +1,3 @@
-import java.time.LocalDate;
 import java.util.ArrayList;
 
 public class Customer {
@@ -11,12 +10,13 @@ public class Customer {
     private static int customerCount=0;
     
     public Customer(String customerName, String dateOfBirth, String customerPassword, String customerEmail){
-        this.customerID = String.format("C%-04d", customerCount);
+        this.customerID = String.format("C%04d", customerCount);
         this.customerName =customerName;
         this.dateOfBirth = dateOfBirth;
         this.customerPassword = customerPassword;
         this.customerEmail = customerEmail;
         reservations = new ArrayList<>();
+        customerCount++;
     }
     
     public void addReservation(Reservation reservation) {
@@ -74,5 +74,9 @@ public class Customer {
 
     public void setCustomerEmail(String customerEmail) {
         this.customerEmail = customerEmail;
+    }
+
+    public static int getCustomerCount() {
+        return customerCount;
     }
 }
