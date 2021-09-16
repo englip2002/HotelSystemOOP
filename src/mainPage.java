@@ -1,3 +1,4 @@
+
 //Lee Seng Wai
 //2000401
 //DCS2 G1
@@ -10,7 +11,7 @@ public final class mainPage {
     public static void main(String[] args) {
         Scanner mainPage = new Scanner(System.in);
         Customer[] customerArr = new Customer[100];
-        customerArr=initializeCustomer();
+        customerArr = initializeCustomer();
         mainBanner();
 
         int option = 0;
@@ -20,7 +21,6 @@ public final class mainPage {
             System.out.println("=========");
             System.out.println("1. Login");
             System.out.println("2. Register");
-            System.out.println("3. View and edit Customer profile");
             drawLine();
             System.out.print("Enter your option (1-4) : ");
             option = mainPage.nextInt();
@@ -32,14 +32,12 @@ public final class mainPage {
                 login(customerArr);
                 drawLine();
             } else if (option == 2) {
-                customerArr[Customer.getCustomerCount()+1] = register();
+                customerArr[Customer.getCustomerCount() + 1] = register();
                 drawLine();
-            } else if (option == 3) {
-                editProfile();
             } else {
                 System.out.println("Invalid input. Please Enter Again!\n");
             }
-        } while (option != 3);
+        } while (option != 1 && option != 2);
     }
 
     public static void mainBanner() {
@@ -55,7 +53,7 @@ public final class mainPage {
                 .println("\t\t\t\t\t\t|__|  |__|\\______/|__|_____|_____|     \\____/|__| \\____/|__|_____| \\/  |__|");
     }
 
-public static void login(Customer[] customerArr) {
+    public static void login(Customer[] customerArr) {
         String loginPassword, loginEmail;
         boolean validLogin = false;
         Scanner customerLogin = new Scanner(System.in);
@@ -66,7 +64,8 @@ public static void login(Customer[] customerArr) {
             System.out.print("Please enter your password : ");
             loginPassword = customerLogin.nextLine();
             for (Customer customerArr1 : customerArr) {
-                if (loginEmail.equals(customerArr1.getCustomerEmail()) == true && loginPassword.equals(customerArr1.getCustomerPassword()) == true) {
+                if (loginEmail.equals(customerArr1.getCustomerEmail()) == true
+                        && loginPassword.equals(customerArr1.getCustomerPassword()) == true) {
                     validLogin = true;
                     System.out.print("Login successfully!!!\n");
                     break;
@@ -80,11 +79,12 @@ public static void login(Customer[] customerArr) {
 
     private static Customer[] initializeCustomer() {
         Customer[] custArr = new Customer[100];
-        custArr[0]=new Customer("Gordon Ramsay", LocalDate.of(1996, 9, 6), "Gordon69", "gordonramsay69@hotmail.com");
-        custArr[1]=new Customer("Mohammad Ali", LocalDate.of(1987, 12, 14), "Alibaba", "mohdali@hotmail.com");
-        custArr[2]=new Customer("Ranjeev Singh", LocalDate.of(2000, 10, 18), "RJ2000", "ranjeevsingh@hotmail.com");
-        custArr[3]=new Customer("Leong Kah Jun",LocalDate.of(2005, 5, 05) , "LEONGKJ", "kahjunleong@hotmail.com");
-        custArr[4]=new Customer("Jonathan Wong Chou Jin", LocalDate.of(2001, 5, 30), "jonwong1975", "jonathanwong@hotmail.com");
+        custArr[0] = new Customer("Gordon Ramsay", LocalDate.of(1996, 9, 6), "Gordon69", "gordonramsay69@hotmail.com");
+        custArr[1] = new Customer("Mohammad Ali", LocalDate.of(1987, 12, 14), "Alibaba", "mohdali@hotmail.com");
+        custArr[2] = new Customer("Ranjeev Singh", LocalDate.of(2000, 10, 18), "RJ2000", "ranjeevsingh@hotmail.com");
+        custArr[3] = new Customer("Leong Kah Jun", LocalDate.of(2005, 5, 05), "LEONGKJ", "kahjunleong@hotmail.com");
+        custArr[4] = new Customer("Jonathan Wong Chou Jin", LocalDate.of(2001, 5, 30), "jonwong1975",
+                "jonathanwong@hotmail.com");
 
         return custArr;
     }
@@ -100,8 +100,8 @@ public static void login(Customer[] customerArr) {
         registerName = scanner.nextLine();
 
         registerDateOfBirth = getDateInput(scanner, "Please enter your Date Of Birth (YYYY-MM-DD): ");
-        
-        while(registerDateOfBirth.isAfter(LocalDate.now())){
+
+        while (registerDateOfBirth.isAfter(LocalDate.now())) {
             System.out.println("Invalid Date! Please Re-enter.");
             registerDateOfBirth = getDateInput(scanner, "Please enter your Date Of Birth (YYYY-MM-DD): ");
         }
@@ -130,10 +130,6 @@ public static void login(Customer[] customerArr) {
         }
 
         return (validateAt && validateDot);
-    }
-
-    public static void editProfile() {
-
     }
 
     public static void drawLine() {
