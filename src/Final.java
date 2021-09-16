@@ -29,7 +29,6 @@ public class Final {
 
         // Assume customer login successful
         Customer cust = new Customer();
-        initializeReservations(cust, roomTypes, block);
 
         // Main Menu
         int menuOpt = 0;
@@ -854,15 +853,6 @@ public class Final {
         }
         block.addFloors(floors);
         return block;
-    }
-
-    public static void initializeReservations(Customer cust, RoomType[] roomTypes, Block block) {
-
-        ArrayList<Room> r2 = new ArrayList<>();
-        r2.add(new Room(999, roomTypes[0]));
-        cust.addReservation(new Reservation(
-                cust, new ReservationSchedule(LocalDate.of(2021, 10, 5), LocalDate.of(2021, 10, 10)),
-                r2, "", new PaymentByCard(100, "Public Bank", "4123678298658986")));
     }
 
     public static void printReservationsTable(ArrayList<Reservation> reservations) {
