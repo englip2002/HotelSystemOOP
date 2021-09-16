@@ -10,16 +10,6 @@
             super(subtotal);
         };
 
-        //Used for assigning default reservation's payment record (P00001)
-        public PaymentByCard(double subtotal, String bankName, String cardNumber) {
-            super(subtotal);
-            this.bank = new Bank(bankName);
-            this.cardNumber = cardNumber;
-            validateCardType();
-            calculateTaxAmount();
-            calculateTotalAmount();
-        }
-
         //-------------------------getter setter------------------------------------------
         public void setCardNumber(String cardNumber) {
             this.cardNumber = cardNumber;
