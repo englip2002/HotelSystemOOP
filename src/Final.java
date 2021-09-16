@@ -608,19 +608,19 @@ public class Final {
 
         if (confirmPay == 'n') {
             makePayment(subtotal,scanner);
+        } else {
+            paymentByCash.calculateChange();
+
+            System.out.printf("\n Total received : %.2f\n", paymentByCash.getTotalReceived());
+            System.out.printf(" Change         : %.2f\n", paymentByCash.getChange());
+            System.out.println("\nPayment Completed !!");
+
+            System.out.print("\n< Press enter to view receipt >");
+            scanner.nextLine();
+            scanner.nextLine();
+
+            System.out.println(paymentByCash.generateReceipt());
         }
-
-        paymentByCash.calculateChange();
-
-        System.out.printf("\n Total received : %.2f\n", paymentByCash.getTotalReceived());
-        System.out.printf(" Change         : %.2f\n", paymentByCash.getChange());
-        System.out.println("\nPayment Completed !!");
-
-        System.out.print("\n< Press enter to view receipt >");
-        scanner.nextLine();
-        scanner.nextLine();
-
-        System.out.println(paymentByCash.generateReceipt());
         return paymentByCash;
     }
 
@@ -680,47 +680,48 @@ public class Final {
 
         if (confirmPay == 'n') {
             makePayment(subtotal,scanner);
-        }
-
-        System.out.print("\n< Press enter to request the OTP number >");
-        scanner.nextLine();
-        scanner.nextLine();
-
-        paymentByCard.getBank().generateOTPNumber();
-        System.out.println("\n+-----------------+");
-        System.out.printf("| OTP No : %s |\n", paymentByCard.getBank().getOtpNumber());
-        System.out.println("+-----------------+");
-        System.out.print(" Enter OTP No : ");
-
-        while (!paymentByCard.getBank().validateOTPNumber(scanner.next())) {
-            System.out.println("\nInvalid OTP No !!");
-            System.out.print("< Press enter to request OTP Number again >");
+        } else {
+            System.out.print("\n< Press enter to request the OTP number >");
             scanner.nextLine();
             scanner.nextLine();
+
             paymentByCard.getBank().generateOTPNumber();
             System.out.println("\n+-----------------+");
             System.out.printf("| OTP No : %s |\n", paymentByCard.getBank().getOtpNumber());
             System.out.println("+-----------------+");
             System.out.print(" Enter OTP No : ");
-        }
 
-        System.out.println();
-        for (int i = 3; i > 0; i--) {
-            System.out.printf("Processing payment... (%d sec)\n", i);
-            try {
-                Thread.sleep(1000);
-            } catch (InterruptedException ie) {
-                Thread.currentThread().interrupt();
+            while (!paymentByCard.getBank().validateOTPNumber(scanner.next())) {
+                System.out.println("\nInvalid OTP No !!");
+                System.out.print("< Press enter to request OTP Number again >");
+                scanner.nextLine();
+                scanner.nextLine();
+                paymentByCard.getBank().generateOTPNumber();
+                System.out.println("\n+-----------------+");
+                System.out.printf("| OTP No : %s |\n", paymentByCard.getBank().getOtpNumber());
+                System.out.println("+-----------------+");
+                System.out.print(" Enter OTP No : ");
             }
+
+            System.out.println();
+            for (int i = 3; i > 0; i--) {
+                System.out.printf("Processing payment... (%d sec)\n", i);
+                try {
+                    Thread.sleep(1000);
+                } catch (InterruptedException ie) {
+                    Thread.currentThread().interrupt();
+                }
+            }
+
+            System.out.println("\nPayment Completed !!");
+
+            System.out.print("\n< Press enter to view receipt >");
+            scanner.nextLine();
+            scanner.nextLine();
+
+            System.out.println(paymentByCard.generateReceipt());
         }
 
-        System.out.println("\nPayment Completed !!");
-
-        System.out.print("\n< Press enter to view receipt >");
-        scanner.nextLine();
-        scanner.nextLine();
-
-        System.out.println(paymentByCard.generateReceipt());
         return paymentByCard;
     }
 
@@ -756,25 +757,26 @@ public class Final {
 
         if (confirmPay == 'n') {
             makePayment(subtotal,scanner);
-        }
-
-        System.out.println();
-        for (int i = 3; i > 0; i--) {
-            System.out.printf("Processing payment... (%d sec)\n", i);
-            try {
-                Thread.sleep(1000);
-            } catch (InterruptedException ie) {
-                Thread.currentThread().interrupt();
+        } else {
+            System.out.println();
+            for (int i = 3; i > 0; i--) {
+                System.out.printf("Processing payment... (%d sec)\n", i);
+                try {
+                    Thread.sleep(1000);
+                } catch (InterruptedException ie) {
+                    Thread.currentThread().interrupt();
+                }
             }
+
+            System.out.println("\nPayment Completed !!");
+
+            System.out.print("\n< Press enter to view receipt >");
+            scanner.nextLine();
+            scanner.nextLine();
+
+            System.out.println(paymentByEWallet.generateReceipt());
         }
 
-        System.out.println("\nPayment Completed !!");
-
-        System.out.print("\n< Press enter to view receipt >");
-        scanner.nextLine();
-        scanner.nextLine();
-
-        System.out.println(paymentByEWallet.generateReceipt());
         return paymentByEWallet;
     }
 
