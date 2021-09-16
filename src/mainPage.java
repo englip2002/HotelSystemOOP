@@ -9,7 +9,7 @@ import java.util.Scanner;
 public final class mainPage {
 
     public static void main(String[] args) {
-        Scanner mainPage = new Scanner(System.in);
+        Scanner scanner = new Scanner(System.in);
         Customer[] customerArr = new Customer[100];
         customerArr = initializeCustomer();
         mainBanner();
@@ -23,7 +23,7 @@ public final class mainPage {
             System.out.println("2. Register");
             drawLine();
             System.out.print("Enter your option (1-4) : ");
-            option = mainPage.nextInt();
+            option = scanner.nextInt();
 
             if (option < 1 || option > 4) {
                 System.out.println("Invalid input. Please Enter Again!\n");
@@ -53,16 +53,15 @@ public final class mainPage {
                 .println("\t\t\t\t\t\t|__|  |__|\\______/|__|_____|_____|     \\____/|__| \\____/|__|_____| \\/  |__|");
     }
 
-    public static void login(Customer[] customerArr) {
+    public static void login(Customer[] customerArr, Scanner scanner) {
         String loginPassword, loginEmail;
         boolean validLogin = false;
-        Scanner customerLogin = new Scanner(System.in);
         do {
             validLogin = false;
             System.out.print("Please enter your email : ");
-            loginEmail = customerLogin.nextLine();
+            loginEmail = scanner.nextLine();
             System.out.print("Please enter your password : ");
-            loginPassword = customerLogin.nextLine();
+            loginPassword = scanner.nextLine();
             for (Customer customerArr1 : customerArr) {
                 if (loginEmail.equals(customerArr1.getCustomerEmail()) == true
                         && loginPassword.equals(customerArr1.getCustomerPassword()) == true) {
@@ -89,13 +88,12 @@ public final class mainPage {
         return custArr;
     }
 
-    public static Customer register() {
+    public static Customer register(Scanner scanner) {
         String registerName;
         LocalDate registerDateOfBirth;
         String registerPassword;
         String registerEmail;
-
-        Scanner scanner = new Scanner(System.in);
+        
         System.out.print("Please enter you name : ");
         registerName = scanner.nextLine();
 
