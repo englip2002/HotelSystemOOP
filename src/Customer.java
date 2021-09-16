@@ -18,6 +18,20 @@ public class Customer {
         reservations = new ArrayList<>();
         customerCount++;
     }
+	
+	@Override
+    public String generateReport() {
+        return String.format(
+                "\n+------------------------------------------------+\n"
+                + "|             View Customer Profile              |\n"
+                + "+------------------------------------------------+\n"
+                + "| ID            | %-30s |\n"
+                + "| Name          | %-30s |\n"
+                + "| Date of Birth | %-30s |\n"
+                + "| Email         | %-30s |\n"
+                + "+------------------------------------------------+\n"
+                , customerID, customerName, dateOfBirth, customerPassword, customerEmail);
+    }
     
     public void addReservation(Reservation reservation) {
 		reservations.add(reservation);
