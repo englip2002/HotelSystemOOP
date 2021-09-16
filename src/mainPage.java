@@ -20,9 +20,8 @@ public final class mainPage {
             System.out.println("=========");
             System.out.println("1. Login");
             System.out.println("2. Register");
-            System.out.println("3. Logout");
-            System.out.println("4. View and edit Customer profile");
-            System.out.println("5. Reservation History");
+            System.out.println("3. View and edit Customer profile");
+            System.out.println("4. Reservation History");
             drawLine();
             System.out.print("Enter your option (1-4) : ");
             option = mainPage.nextInt();
@@ -37,10 +36,8 @@ public final class mainPage {
                 customerArr[Customer.getCustomerCount()+1] = register();
                 drawLine();
             } else if (option == 3) {
-                logout();
-            } else if (option == 4) {
                 editProfile();
-            } else if (option == 5) {
+            } else if (option == 4) {
                 reservationHistory();
             } else {
                 System.out.println("Invalid input. Please Enter Again!\n");
@@ -122,10 +119,6 @@ public final class mainPage {
         }
 
         return (validateAt && validateDot);
-    }
-
-    public static void logout() {
-        System.out.println("Thank you for your service!");
     }
 
     public static void reservationHistory() {
