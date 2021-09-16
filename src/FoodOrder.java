@@ -68,8 +68,9 @@ public class FoodOrder implements Reportable{
                 String.format("%-30s %-20s %-20s %-20s\n", "Food Ordered", "Unit Price", "Quantity", "Subtotal(RM)")
                 + "----------------------------------------------------------------------------------------\n"
                 + String.format("%s", compileOrderedFood()) + String.format("\n%s %71.2f\n", "Total(RM)", subtotal)
-                + String.format("\nServe Date (DD-MM-YYYY)     : %-20s\n", serveTime.format(Dateformatter))
-                + String.format("Serve Time (HH:MM)          : %-20s\n", serveTime.format(Timeformatter));
+                + String.format("\nOrder ID                    : %-20s", OrderID)
+                + String.format("\nServe Date (DD-MM-YYYY)     : %-20s", serveTime.format(Dateformatter))
+                + String.format("\nServe Time (HH:MM)          : %-20s\n", serveTime.format(Timeformatter));
 
     }
 
