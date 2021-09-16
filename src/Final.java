@@ -487,8 +487,7 @@ public class Final {
             } while (quantityOfFood <= 0);
 
             // pass data to food order
-            // if foodCount = 0, means no order yet - to pass serveDateAndTime at very
-            // begining
+            // if foodCount = 0, means no order yet - set serveDateAndTime
             if (foodOrder.getFoodCount() == 0) {
                 foodOrder.setServeTime(serveDateAndTime);
                 foodOrder.addFood(foodType[foodTypeChoice].getFood(foodChoice), quantityOfFood);
