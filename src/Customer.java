@@ -31,7 +31,7 @@ public class Customer implements Reportable{
                 + "| Date of Birth | %-30s |\n"
                 + "| Email         | %-30s |\n"
                 + "+------------------------------------------------+\n"
-                , customerID, customerName, dateOfBirth, customerPassword, customerEmail);
+                , customerID, customerName, dateOfBirth, customerEmail);
     }
     
     public void addReservation(Reservation reservation) {

@@ -41,18 +41,23 @@ public class Final {
             drawLine();
             System.out.print("Enter your option (1-4) : ");
             option = scanner.nextInt();
+            scanner.nextLine();
 
             if (option == 1) {
                 loginCustomerIndex=login(customerArr,scanner);
                 drawLine();
             } else if (option == 2) {
-                customerArr[Customer.getCustomerCount() + 1] = register(scanner);
+                customerArr[Customer.getCustomerCount()] = register(scanner);
                 drawLine();
             } else {
                 System.out.println("Invalid input. Please Enter Again!\n");
             }
+
         } while (option != 1);
 
+        System.out.println("Login Success!");
+        System.out.print("\n< Press enter to continue >");
+        scanner.nextLine();
         Customer loginCustomer=customerArr[loginCustomerIndex];
 
         // Main Menu
@@ -84,7 +89,9 @@ public class Final {
 
             switch (menuOpt) {
                 case 1: {
-                    // View customer profile (Lee Seng Wai)
+                    System.out.println(customerArr[loginCustomerIndex].generateReport());
+                    System.out.print("\n< Press enter to continue >");
+                    scanner.nextLine();
                     break;
                 }
 
@@ -835,7 +842,7 @@ public class Final {
 
                 System.out.print("Please enter your password : ");
                 loginPassword = scanner.nextLine();
-                for (int i=0;i<customerArr.length;i++) {
+                for (int i=0;i<Customer.getCustomerCount();i++) {
                     if (loginEmail.equals(customerArr[i].getCustomerEmail()) == true
                             && loginPassword.equals(customerArr[i].getCustomerPassword()) == true) {
                         validLogin = true;
@@ -881,6 +888,7 @@ public class Final {
             }
             System.out.print("Please enter you password : ");
             registerPassword = scanner.nextLine();
+            
             System.out.print("Please enter you Email : ");
             registerEmail = scanner.nextLine();
             while (validateEmail(registerEmail) == false) {
