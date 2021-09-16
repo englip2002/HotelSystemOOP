@@ -570,6 +570,12 @@ public class Final {
         westernFood[3]=new Food("Lamb Chop", 12.50);
         westernFood[4]=new Food("Garlic Bread",3.50);
 
+        Food[] soup=new Food[4];
+        soup[0]=new Food("Tomyam", 5.20);
+        soup[1]=new Food("Mushroom Soup", 4.50);
+        soup[2]=new Food("Chicken Soup", 3.00);
+        soup[3]=new Food("Pumpkin Soup", 4.50);
+
         Food[] drink = new Food[7];
         drink[0] = new Food("Orange Juice", 2.2);
         drink[1] = new Food("Apple Juice", 2.1);
@@ -580,11 +586,12 @@ public class Final {
         drink[6]=new Food("Barley",1.50);
 
         // initialize foodType and pass foods to foodtype
-        FoodType[] foodType = new FoodType[4];
+        FoodType[] foodType = new FoodType[5];
         foodType[0] = new FoodType("Noodle", noodles);
         foodType[1] = new FoodType("Rice", rice);
         foodType[2]=new FoodType("Western Food", westernFood);
-        foodType[3] = new FoodType("Drink", drink);
+        foodType[3]=new FoodType("Soup", soup);
+        foodType[4] = new FoodType("Drink", drink);
 
         return foodType;
     }
