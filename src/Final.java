@@ -305,6 +305,9 @@ public class Final {
         // Assume payment is made
         Reservation reservation = new Reservation(cust, schedule, reservedRooms, foodOrderID, payment);
 
+        System.out.print("< Press enter to continue >");
+        scanner.nextLine();
+
         System.out.println("\nThe following is the summary of your reservation: ");
         System.out.println(reservation.generateReport());
 

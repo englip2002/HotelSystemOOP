@@ -48,7 +48,7 @@ public class FoodOrder implements Reportable{
         return subtotal+(food[foodCount].getPrice() * quantity[foodCount]);
     }
 
-    private String CompileOrderedFood() {
+    private String compileOrderedFood() {
         String foodString = new String();
         for (int i = 0; i < foodCount; i++) {
             foodString = foodString.concat(String.format("%s %14d %24.2f\n", food[i].toString(), quantity[i],
@@ -67,7 +67,7 @@ public class FoodOrder implements Reportable{
 
                 String.format("%-30s %-20s %-20s %-20s\n", "Food Ordered", "Unit Price", "Quantity", "Subtotal(RM)")
                 + "----------------------------------------------------------------------------------------\n"
-                + String.format("%s", CompileOrderedFood()) + String.format("\n%s %71.2f\n", "Total(RM)", subtotal)
+                + String.format("%s", compileOrderedFood()) + String.format("\n%s %71.2f\n", "Total(RM)", subtotal)
                 + String.format("\nServe Date (DD-MM-YYYY)     : %-20s\n", serveTime.format(Dateformatter))
                 + String.format("Serve Time (HH:MM)          : %-20s\n", serveTime.format(Timeformatter));
 

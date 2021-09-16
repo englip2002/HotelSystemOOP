@@ -1,5 +1,6 @@
+import java.util.Comparator;
 
-public class FoodOrderRecord{ 
+public class FoodOrderRecord implements Comparator<Object>{ 
     private FoodOrder[] foodOrderList;
     private static int orderCount = 0;
 
@@ -12,29 +13,25 @@ public class FoodOrderRecord{
         orderCount++;
     }
 
-    public String generateFoodOrderRecord(String orderID) {
-        int i = 0;
-        for (i = 0; i < orderCount; i++) {
-            if (foodOrderList[i].getOrderID().equalsIgnoreCase(orderID)) {
-                return foodOrderList[i].generateReport();
-            }
-        }
-        return "Order ID not found!";
-    }
-
-
     // make changes use generate order record by Object 
     public String generateFoodOrderRecord(Object obj) {
         int i = 0;
         if (obj instanceof Reservation) {
             for (i = 0; i < orderCount; i++) {
-                if (foodOrderList[i].getOrderID().equalsIgnoreCase(((Reservation)obj).getOrderID())) {
+                if (compare(foodOrderList[i], obj)==1) {
                     return foodOrderList[i].generateReport();
                 }
             }
         }
 
         return "Order Record not found!";
+    }
+
+    public int compare(Object obj1, Object obj2){
+        if(((FoodOrder)obj1).getOrderID().equalsIgnoreCase(((Reservation)obj2).getOrderID()))
+            return 1;
+        else
+            return 0;
     }
 
 }
