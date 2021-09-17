@@ -55,7 +55,6 @@ public class Driver_Program {
 
         } while (option != 1);
 
-        System.out.println("Login Success!");
         System.out.print("\n< Press enter to continue >");
         scanner.nextLine();
         Customer loginCustomer=customerArr[loginCustomerIndex];
