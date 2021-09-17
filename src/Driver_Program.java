@@ -34,7 +34,7 @@ public class Driver_Program {
         int option = 0;
         do {
             System.out.println();
-            System.out.println("Main Menu");
+            System.out.println("Main Page");
             System.out.println("=========");
             System.out.println("1. Login");
             System.out.println("2. Register");
