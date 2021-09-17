@@ -212,13 +212,13 @@ public class Driver_Program {
 
             do { // Choose a room type
                 roomChoice = getIntegerInput(scanner, "Choose a room type to reserve (Enter number): ") - 1;
-                if (roomChoice < 0 || roomChoice >= roomTypes.length) {
+                if (roomChoice < 0 || roomChoice > roomTypes.length) {
                     System.out.println("Invalid input! Please re-enter. ");
                 }
                 else if (availableRoomCounts[roomChoice] == 0) {
                     System.out.println("Sorry, but we currently don't have any available rooms for this room type. Please choose another room type. ");
                 }
-            } while (roomChoice < 0 || roomChoice >= roomTypes.length || availableRoomCounts[roomChoice] == 0);
+            } while (roomChoice < 0 || roomChoice > roomTypes.length || availableRoomCounts[roomChoice] == 0);
 
 
             do { // Enter reserve amount
@@ -891,7 +891,9 @@ public class Driver_Program {
                 System.out.print("Please enter you Email : ");
                 registerEmail = scanner.nextLine();
             }
-    
+            System.out.println("Sign Up Success!");
+            System.out.print("\n< Press enter to continue >");
+            scanner.nextLine();
             Customer customer = new Customer(registerName, registerDateOfBirth, registerPassword, registerEmail);
             return customer;
         }
