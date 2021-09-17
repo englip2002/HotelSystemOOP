@@ -762,6 +762,12 @@ public class Driver_Program {
         System.out.print(" Enter your 6-digit PIN > ");
         paymentByEWallet.setPinNumber(scanner.next());
 
+        while(!paymentByEWallet.validatePinNumber()) {
+            System.out.println("\n Invalid PIN!!");
+            System.out.print(" Enter your 6-digit PIN > ");
+            paymentByEWallet.setPinNumber(scanner.next());
+        }
+
         System.out.print("\n< Press enter to continue >");
         scanner.nextLine();
         scanner.nextLine();
