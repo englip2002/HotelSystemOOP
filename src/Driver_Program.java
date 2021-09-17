@@ -700,7 +700,7 @@ public class Driver_Program {
             System.out.print("\n Card Number: ");
             paymentByCard.setCardNumber(scanner.next());
 
-            System.out.print("\n CVV        : ");
+            System.out.print(" CVV        : ");
             paymentByCard.setCVV(scanner.nextInt());
         }
 
