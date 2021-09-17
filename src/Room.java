@@ -36,11 +36,6 @@ public class Room implements Reportable{
 	}
 
 	@Override
-	public String toString() {
-		return String.format("%03d ", roomNumber) + roomType.toString();
-	}
-	
-	@Override
 	public String generateReport() {
 		return String.format("| %7d | ", roomNumber) + roomType.generateReport() + "\n";
 	}
