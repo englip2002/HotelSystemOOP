@@ -129,7 +129,7 @@ public class Driver_Program {
             }
         }
 
-        System.out.println("EOP");
+        System.out.println("Logout successful. ");
         scanner.close();
     }
 
