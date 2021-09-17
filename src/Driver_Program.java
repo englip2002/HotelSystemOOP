@@ -87,6 +87,7 @@ public class Driver_Program {
             }
 
             switch (menuOpt) {
+                // View Profile
                 case 1: {
                     System.out.println(customerArr[loginCustomerIndex].generateReport());
                     System.out.print("\n< Press enter to continue >");
@@ -132,11 +133,6 @@ public class Driver_Program {
     }
 
     // ===================================== Main Functions =====================================
-
-    // Option 1 - View Profile
-    /*
-     * ...
-     */
 
     // Option 2 - Make reservation (Book room + food order + make payment)
     public static Reservation makeReservation(Scanner scanner, Customer cust, RoomType[] roomTypes, Block block,
