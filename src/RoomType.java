@@ -13,12 +13,7 @@ public class RoomType implements Reportable{
 		this.pricePerNight = pricePerNight;
 	}
 
-	// Methods
-	@Override
-	public String toString() {
-		return String.format("%-13s | ", name);
-	}
-	
+	// Methods	
 	@Override
 	public boolean equals(Object obj) {
 		if (obj instanceof RoomType) {
