@@ -50,12 +50,18 @@
 
         public boolean validCard() {
             if (cardNumber.length() == 16) {
-                if (CVV >= 100 && CVV < 1000)
-                    return true;
-                else
+                if (CVV < 100 || CVV >= 1000)
                     return false;
-            } else
+
+                for (int i = 0; i < cardNumber.length(); i++){
+                    if(!Character.isDigit(cardNumber.charAt(i))){
+                        return false;
+                    }
+                }
+            } else {
                 return false;
+            }
+            return true;
         }
 
         @Override
