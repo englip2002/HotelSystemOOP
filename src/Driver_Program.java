@@ -822,7 +822,7 @@ public class Driver_Program {
         return payment;
     }
 
-        //=================================Customer : Seng wai==================================================
+        //=================================Customer : Lee Seng Wai==================================================
         public static void mainBanner() {
             System.out.println("\t\t __    __  _____ _______ __ __           ____    ___ _________ __     ____ ");
             System.out
