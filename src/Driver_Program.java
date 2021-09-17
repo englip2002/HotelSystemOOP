@@ -306,7 +306,7 @@ public class Driver_Program {
         char orderChoice = 'N';
         System.out.println("\n\nFood Ordering ");
         System.out.println("=====================");
-        System.out.print("Do you wish to order food ? (Y/N) :");
+        System.out.print("Do you wish to order food ? (Y for Yes) :");
         orderChoice = Character.toUpperCase(scanner.next().charAt(0));
 
         //initialize data
