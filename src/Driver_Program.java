@@ -351,11 +351,13 @@ public class Driver_Program {
 
         int viewOpt;
         do {
+            // Clear Screen
             System.out.print("\033[H\033[2J");
             System.out.flush();
             
             System.out.println("\n                 ( View Reservations )\n");
             printReservationsTable(reservations);
+            // Ask for option
             do {
                 viewOpt = getIntegerInput(scanner, "Enter No. to view the details (0 to exit): ");
                 if (viewOpt < 0 || viewOpt > reservations.size()) {
@@ -363,11 +365,13 @@ public class Driver_Program {
                 }
             } while(viewOpt < 0 || viewOpt > reservations.size());
 
+            // Back to main menu
             if (viewOpt == 0)
                 return;
 
             viewOpt -= 1;
 
+            // Print Reservation Report
             System.out.println(reservations.get(viewOpt).generateReport());
             System.out.print("< Press enter to continue >");
             scanner.nextLine();
@@ -396,6 +400,7 @@ public class Driver_Program {
         }
         
         do {
+            // Clear Screen
             System.out.print("\033[H\033[2J");
             System.out.flush();
 
@@ -404,17 +409,20 @@ public class Driver_Program {
             int menuOpt;
             boolean cannotBeCancelled;
             do {
+                // Ask for option
                 do {
                     menuOpt = getIntegerInput(scanner, "Enter No. to cancel the reservation (0 to exit): ");
                     if (menuOpt < 0 || menuOpt > reservations.size()) {
                         System.out.println("Invalid input! Please re-enter");
                     }
                 } while(menuOpt < 0 || menuOpt > reservations.size());
-
+    
+                // Back to main menu
                 if (menuOpt == 0)
                     return;
 
                 menuOpt -= 1;
+                // Validate reservation can be cancelled or not
                 boolean isEarlier = reservations.get(menuOpt).getReservationSchedule().getStartDate().compareTo(LocalDate.now()) <= 0;
                 boolean alreadyCancelled = reservations.get(menuOpt).getIsCancelled();
                 cannotBeCancelled = isEarlier || alreadyCancelled;
@@ -425,6 +433,7 @@ public class Driver_Program {
                     System.out.println("This reservation is already cancelled!\n");
             } while (cannotBeCancelled);
             
+            // Ask for double confirmation
             String cancelID = reservations.get(menuOpt).getReservationID();
             System.out.println("Are you sure you want to cancel the reservation (" + cancelID + ")?");
             System.out.println("[ THIS ACTION CANNOT BE REVERSED! ]");
