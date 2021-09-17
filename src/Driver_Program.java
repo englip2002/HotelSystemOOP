@@ -843,7 +843,6 @@ public class Driver_Program {
                             && loginPassword.equals(customerArr[i].getCustomerPassword()) == true) {
                         validLogin = true;
                         loginCustomerIndex=i;
-                        System.out.print("Login successfully!!!\n");
                         break;
                     }
                 }
