@@ -1,4 +1,4 @@
-	import java.util.ArrayList;
+import java.util.ArrayList;
 
 public class Reservation implements Reportable {
 	private static int newestReservationNo = 0;
