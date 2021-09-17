@@ -1,4 +1,3 @@
-import java.time.LocalDate;
 import java.util.ArrayList;
 
 public class Customer implements Reportable{
