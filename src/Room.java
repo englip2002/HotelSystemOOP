@@ -34,7 +34,7 @@ public class Room implements Reportable{
 		}
 		return true;
 	}
-
+	
 	@Override
 	public String generateReport() {
 		return String.format("| %7d | ", roomNumber) + roomType.generateReport() + "\n";
