@@ -20,9 +20,10 @@ public class PaymentByEWallet extends Payment {
                     return false;
                 }
             }
-            return true;
+        } else {
+            return false;
         }
-        return false;
+        return true;
     }
 
     @Override
