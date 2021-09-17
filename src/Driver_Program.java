@@ -380,7 +380,7 @@ public class Driver_Program {
             System.out.print("< Press enter to continue >");
             scanner.nextLine();
 
-        } while (viewOpt != 0);
+        } while (true);
     }
 
     // Option 4 - Cancel Previous Reservations
