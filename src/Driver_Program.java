@@ -39,7 +39,7 @@ public class Driver_Program {
             System.out.println("1. Login");
             System.out.println("2. Register");
             drawLine();
-            System.out.print("Enter your option (1-4) : ");
+            System.out.print("Enter your option (1-2) : ");
             option = scanner.nextInt();
             scanner.nextLine();
 
