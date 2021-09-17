@@ -398,7 +398,7 @@ public class Driver_Program {
         int menuOpt;
         boolean cannotBeCancelled;
         do {
-        	do {
+            do {
                 menuOpt = getIntegerInput(scanner, "Enter No. to cancel the reservation (0 to exit): ");
                 if (menuOpt < 0 || menuOpt > reservations.size()) {
                     System.out.println("Invalid input! Please re-enter");
@@ -412,26 +412,26 @@ public class Driver_Program {
             boolean isEarlier = reservations.get(menuOpt).getReservationSchedule().getStartDate().compareTo(LocalDate.now()) <= 0;
             boolean alreadyCancelled = reservations.get(menuOpt).getIsCancelled();
             cannotBeCancelled = isEarlier || alreadyCancelled;
-            
+
             if (cannotBeCancelled) {
-            	System.out.println("This reservation cannot be cancelled!");
-            	if (isEarlier)
-            		System.out.println("This reservation is already finished or currently ongoing. \n");
-            	else if (alreadyCancelled)
-            		System.out.println("This reservation is already cancelled!\n");
+                System.out.println("This reservation cannot be cancelled!");
+                if (isEarlier)
+                    System.out.println("This reservation is already finished or currently ongoing. \n");
+                else if (alreadyCancelled)
+                    System.out.println("This reservation is already cancelled!\n");
             }
         } while (cannotBeCancelled);
-        
+
         String cancelID = reservations.get(menuOpt).getReservationID();
         System.out.println("Are you sure you want to cancel the reservation (" + cancelID + ")?");
         System.out.println("[ THIS ACTION CANNOT BE REVERSED! ]");
         System.out.print("(Type 'YES' to cancel) > ");
         String inputYN = scanner.nextLine().toUpperCase();
-        
+
         if (inputYN.equals("YES")) {
             cust.cancelReservation(reservations.get(menuOpt).getReservationID());
             System.out.printf("( Cancellation completed. Reservation %s is now cancelled\n  and RM%.2f will be refunded to you. )\n"
-            		, cancelID, reservations.get(menuOpt).getPayment().refund());
+                    , cancelID, reservations.get(menuOpt).getPayment().refund());
         }
         else {
             System.out.println("< Cancellation stopped. Returning to main menu. >");
@@ -761,6 +761,12 @@ public class Driver_Program {
         System.out.print(" Enter your 6-digit PIN > ");
         paymentByEWallet.setPinNumber(scanner.next());
 
+        while(!paymentByEWallet.validatePinNumber()) {
+            System.out.println("\n Invalid PIN!!");
+            System.out.print(" Enter your 6-digit PIN > ");
+            paymentByEWallet.setPinNumber(scanner.next());
+        }
+
         System.out.print("\n< Press enter to continue >");
         scanner.nextLine();
         scanner.nextLine();
@@ -812,109 +818,109 @@ public class Driver_Program {
         return payment;
     }
 
-        //=================================Customer : Seng wai==================================================
-        public static void mainBanner() {
-            System.out.println("\t\t __    __  _____ _______ __ __           ____    ___ _________ __     ____ ");
-            System.out
-                    .println("\t\t|  |  |  |/      \\    __|__|  |         /  __\\  /  /  __\\   __|__|\\  /    |");
-            System.out
-                    .println("\t\t|  |__|  |   /\\   |  |  |__   |        /  /__ \\/  /  /__   |  |__  \\/     |");
-            System.out
-                    .println("\t\t|   __   |  |  |  |  |   __|  |        \\ __  \\   /\\ __  \\  |   __|    /|  |");
-            System.out.println("\t\t|  |  |  |   \\/   |  |  |__   |__      ___/  /  | ___/  /  |  |__ \\  / |  |");
-            System.out
-                    .println("\t\t|__|  |__|\\______/|__|_____|_____|     \\____/|__| \\____/|__|_____| \\/  |__|");
-        }
-    
-        public static int login(Customer[] customerArr, Scanner scanner) {
-            String loginPassword, loginEmail;
-            boolean validLogin = false;
-            int loginCustomerIndex=0;
-            do {
-                validLogin = false;
-                System.out.print("Please enter your email : ");
-                loginEmail = scanner.nextLine();
+    //=================================Customer : Seng wai==================================================
+    public static void mainBanner() {
+        System.out.println("\t\t __    __  _____ _______ __ __           ____    ___ _________ __     ____ ");
+        System.out
+                .println("\t\t|  |  |  |/      \\    __|__|  |         /  __\\  /  /  __\\   __|__|\\  /    |");
+        System.out
+                .println("\t\t|  |__|  |   /\\   |  |  |__   |        /  /__ \\/  /  /__   |  |__  \\/     |");
+        System.out
+                .println("\t\t|   __   |  |  |  |  |   __|  |        \\ __  \\   /\\ __  \\  |   __|    /|  |");
+        System.out.println("\t\t|  |  |  |   \\/   |  |  |__   |__      ___/  /  | ___/  /  |  |__ \\  / |  |");
+        System.out
+                .println("\t\t|__|  |__|\\______/|__|_____|_____|     \\____/|__| \\____/|__|_____| \\/  |__|");
+    }
 
-                System.out.print("Please enter your password : ");
-                loginPassword = scanner.nextLine();
-                for (int i=0;i<Customer.getCustomerCount();i++) {
-                    if (loginEmail.equals(customerArr[i].getCustomerEmail()) == true
-                            && loginPassword.equals(customerArr[i].getCustomerPassword()) == true) {
-                        validLogin = true;
-                        loginCustomerIndex=i;
-                        System.out.print("Login successfully!!!\n");
-                        break;
-                    }
-                }
-                if (validLogin == false) {
-                    System.out.println("\nInvalid input! Please enter again!");
-                }
-            } while (validLogin == false);
+    public static int login(Customer[] customerArr, Scanner scanner) {
+        String loginPassword, loginEmail;
+        boolean validLogin = false;
+        int loginCustomerIndex=0;
+        do {
+            validLogin = false;
+            System.out.print("Please enter your email : ");
+            loginEmail = scanner.nextLine();
 
-            return loginCustomerIndex;
-        }
-    
-        private static Customer[] initializeCustomer() {
-            Customer[] custArr = new Customer[100];
-            custArr[0] = new Customer("Gordon Ramsay", LocalDate.of(1996, 9, 6), "Gordon69", "gordonramsay69@hotmail.com");
-            custArr[1] = new Customer("Mohammad Ali", LocalDate.of(1987, 12, 14), "Alibaba", "mohdali@hotmail.com");
-            custArr[2] = new Customer("Ranjeev Singh", LocalDate.of(2000, 10, 18), "RJ2000", "ranjeevsingh@hotmail.com");
-            custArr[3] = new Customer("Leong Kah Jun", LocalDate.of(2005, 5, 05), "LEONGKJ", "kahjunleong@hotmail.com");
-            custArr[4] = new Customer("Jonathan Wong Chou Jin", LocalDate.of(2001, 5, 30), "jonwong1975",
-                    "jonathanwong@hotmail.com");
-    
-            return custArr;
-        }
-    
-        public static Customer register(Scanner scanner) {
-            String registerName;
-            LocalDate registerDateOfBirth;
-            String registerPassword;
-            String registerEmail;
-    
-            System.out.print("Please enter you name : ");
-            registerName = scanner.nextLine();
-    
-            registerDateOfBirth = getDateInput(scanner, "Please enter your Date Of Birth (YYYY-MM-DD): ");
-    
-            while (registerDateOfBirth.isAfter(LocalDate.now())) {
-                System.out.println("Invalid Date! Please Re-enter.");
-                registerDateOfBirth = getDateInput(scanner, "Please enter your Date Of Birth (YYYY-MM-DD): ");
+            System.out.print("Please enter your password : ");
+            loginPassword = scanner.nextLine();
+            for (int i=0;i<Customer.getCustomerCount();i++) {
+                if (loginEmail.equals(customerArr[i].getCustomerEmail()) == true
+                        && loginPassword.equals(customerArr[i].getCustomerPassword()) == true) {
+                    validLogin = true;
+                    loginCustomerIndex=i;
+                    System.out.print("Login successfully!!!\n");
+                    break;
+                }
             }
-            System.out.print("Please enter you password : ");
-            registerPassword = scanner.nextLine();
-            
+            if (validLogin == false) {
+                System.out.println("\nInvalid input! Please enter again!");
+            }
+        } while (validLogin == false);
+
+        return loginCustomerIndex;
+    }
+
+    private static Customer[] initializeCustomer() {
+        Customer[] custArr = new Customer[100];
+        custArr[0] = new Customer("Gordon Ramsay", LocalDate.of(1996, 9, 6), "Gordon69", "gordonramsay69@hotmail.com");
+        custArr[1] = new Customer("Mohammad Ali", LocalDate.of(1987, 12, 14), "Alibaba", "mohdali@hotmail.com");
+        custArr[2] = new Customer("Ranjeev Singh", LocalDate.of(2000, 10, 18), "RJ2000", "ranjeevsingh@hotmail.com");
+        custArr[3] = new Customer("Leong Kah Jun", LocalDate.of(2005, 5, 05), "LEONGKJ", "kahjunleong@hotmail.com");
+        custArr[4] = new Customer("Jonathan Wong Chou Jin", LocalDate.of(2001, 5, 30), "jonwong1975",
+                "jonathanwong@hotmail.com");
+
+        return custArr;
+    }
+
+    public static Customer register(Scanner scanner) {
+        String registerName;
+        LocalDate registerDateOfBirth;
+        String registerPassword;
+        String registerEmail;
+
+        System.out.print("Please enter you name : ");
+        registerName = scanner.nextLine();
+
+        registerDateOfBirth = getDateInput(scanner, "Please enter your Date Of Birth (YYYY-MM-DD): ");
+
+        while (registerDateOfBirth.isAfter(LocalDate.now())) {
+            System.out.println("Invalid Date! Please Re-enter.");
+            registerDateOfBirth = getDateInput(scanner, "Please enter your Date Of Birth (YYYY-MM-DD): ");
+        }
+        System.out.print("Please enter you password : ");
+        registerPassword = scanner.nextLine();
+
+        System.out.print("Please enter you Email : ");
+        registerEmail = scanner.nextLine();
+        while (validateEmail(registerEmail) == false) {
+            System.out.println("Invalid Email! Please Try Again");
             System.out.print("Please enter you Email : ");
             registerEmail = scanner.nextLine();
-            while (validateEmail(registerEmail) == false) {
-                System.out.println("Invalid Email! Please Try Again");
-                System.out.print("Please enter you Email : ");
-                registerEmail = scanner.nextLine();
-            }
-    
-            Customer customer = new Customer(registerName, registerDateOfBirth, registerPassword, registerEmail);
-            return customer;
         }
-    
-        public static boolean validateEmail(String email) {
-            boolean validateAt = false;
-            boolean validateDot = false;
-            for (int i = 0; i < email.length(); i++) {
-                if (email.charAt(i) == '@')
-                    validateAt = true;
-                if (email.charAt(i) == '.')
-                    validateDot = true;
-            }
-    
-            return (validateAt && validateDot);
+
+        Customer customer = new Customer(registerName, registerDateOfBirth, registerPassword, registerEmail);
+        return customer;
+    }
+
+    public static boolean validateEmail(String email) {
+        boolean validateAt = false;
+        boolean validateDot = false;
+        for (int i = 0; i < email.length(); i++) {
+            if (email.charAt(i) == '@')
+                validateAt = true;
+            if (email.charAt(i) == '.')
+                validateDot = true;
         }
-    
-        public static void drawLine() {
-            for (int i = 0; i < 106; i++) {
-                System.out.print("-");
-            }
-            System.out.println();
+
+        return (validateAt && validateDot);
+    }
+
+    public static void drawLine() {
+        for (int i = 0; i < 106; i++) {
+            System.out.print("-");
         }
+        System.out.println();
+    }
 
     // ===================================== Other Functions (Reservation - Thong So Xue) =====================================
 
